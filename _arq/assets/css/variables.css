@@ -1,0 +1,16 @@
+/* Importação da fonte Ubuntu */
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
+
+:root {
+  /* Paleta de Cores Base */
+  --prolink-dark: #47424C;
+  --prolink-accent: #00FFCC;
+  
+  /* Cores de Suporte  */
+  --prolink-bg-darker: #343541;
+  --prolink-blue: #2b8cff;
+  --prolink-light: #ffffff;
+
+  /* Tipografia */
+  --font-primary: 'Ubuntu', sans-serif;
+}

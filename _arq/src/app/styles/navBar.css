@@ -1,0 +1,52 @@
+/* Container da barra com a cor de fundo exata da prototipagem */
+.prolink-navbar-container {
+  background-color: #343541; 
+  padding: 12px 16px;
+  display: inline-flex;
+  gap: 14px;
+  border-radius: 20px;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Base do botão quadrado com bordas arredondadas (squircle) */
+.nav-icon-btn {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Estado Ativo: Fundo azul sólido, ícone escuro */
+.nav-icon-active {
+  background-color: #2b8cff;
+  color: #343541; 
+  border: none;
+}
+
+/* Estado Inativo: Fundo transparente, borda fina azul, ícone azul */
+.nav-icon-outline {
+  background-color: transparent;
+  border: 1px solid #2b8cff;
+  color: #2b8cff;
+}
+
+/* Efeito Hover para os ícones inativos */
+.nav-icon-outline:hover {
+  background-color: rgba(43, 140, 255, 0.15);
+  color: #5aaaff;
+  border-color: #5aaaff;
+  transform: translateY(-2px);
+}
+
+/* Remove o outline padrão do Bootstrap ao clicar */
+.nav-icon-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(43, 140, 255, 0.4);
+}

@@ -1,0 +1,28 @@
+/* Importa as variáveis para garantir que carreguem juntas */
+@import url('variables.css');
+
+/* Reset Global */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-primary);
+  background-color: var(--prolink-dark);
+  color: var(--prolink-light);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+}
+
+/* Ajustes globais para links e botões */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  font-family: var(--font-primary);
+}
