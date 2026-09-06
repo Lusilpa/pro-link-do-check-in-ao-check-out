@@ -1,0 +1,61 @@
+<style>
+  .prolink-navbar {
+    background-color: transparent; /* Fundo transparente */
+    padding: 0.75rem 1.5rem;
+    gap: 15px;
+  }
+  
+  .nav-icon-btn {
+    color: var(--prolink-light, #ffffff);
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 8px;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .nav-icon-active {
+    color: var(--prolink-light, #ffffff) !important;
+    background-color: var(--prolink-blue, #2b8cff);
+  }
+
+  .nav-icon-outline:hover {
+    color: var(--prolink-blue, #2b8cff);
+    background-color: rgba(43, 140, 255, 0.1);
+  }
+</style>
+
+<div class="prolink-navbar d-flex align-items-center">
+  <!-- Botão Início (Feed) -->
+  <a href="#feed" class="nav-icon-btn nav-icon-active" title="Início">
+    <i class="bi bi-house-door-fill"></i>
+  </a>
+  
+  <!-- Botão Demandas (Match) -->
+  <a href="#match" class="nav-icon-btn nav-icon-outline" title="Demandas">
+    <i class="bi bi-briefcase-fill"></i>
+  </a>
+  
+  <!-- Botão Global (Busca de Talentos) -->
+  <a href="#global" class="nav-icon-btn nav-icon-outline" title="Rede Global">
+    <i class="bi bi-globe"></i>
+  </a>
+  
+  <!-- Botão Cartas Virtuais -->
+  <a href="#cartas" class="nav-icon-btn nav-icon-outline" title="Caixa de Entrada">
+    <i class="bi bi-envelope-fill"></i>
+  </a>
+  
+  <!-- Botão Portfólio / Projetos -->
+  <a href="#portfolio" class="nav-icon-btn nav-icon-outline" title="Portfólio">
+    <i class="bi bi-grid-fill"></i>
+  </a>
+  
+  <!-- Botão Perfil (Admin) -->
+  <a href="#admin" class="nav-icon-btn nav-icon-outline" title="Meu Perfil">
+    <i class="bi bi-person-fill"></i>
+  </a>
+</div>
