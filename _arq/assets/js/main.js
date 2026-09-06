@@ -5,6 +5,7 @@ $(document).ready(function() {
         '#landing': 'src/pages/landing.html',
         '#auth': 'src/pages/auth.html',
         '#senha': 'src/pages/recuperacao-senha.html',
+        '#termos-e-lgpd': 'src/pages/termos-e-lgpd.html',
         '#cadastro': 'src/pages/cadastre-se.html',
         '#feed': 'src/pages/feed.html',
         '#match': 'src/pages/search-demandas.html',
@@ -40,7 +41,7 @@ $(document).ready(function() {
         const pageUrl = routes[hash] || routes['#landing'];
 
         // Oculta a Navbar e ajusta para tela cheia nas páginas de auth, senha e cadastro
-        if (hash === '#auth' || hash === '#senha' || hash === '#cadastro') {
+        if (hash === '#auth' || hash === '#senha' || hash === '#cadastro' || hash === '#termos-e-lgpd') {
             $navbarContainer.removeClass('d-flex').addClass('d-none');
             $appContent.removeClass('container mt-4 mb-5 pd-5').addClass('p-0 m-0');
         } else {

@@ -173,8 +173,10 @@
         <div class="input-group auth-input-group">
           <span class="input-group-text"><i class="bi bi-tags"></i></span>
           <select id="profileType" name="profile_type" class="form-select" required onchange="adjustFormFields()">
-            <option value="profissional" selected>Profissional (Vinculado Confea/Crea)</option>
-            <option value="universitario">Universitário / Pesquisador</option>
+            <option value="" disabled selected>Selecione o tipo de conta</option>
+            <option value="Público Geral" selected>Público Geral</option>
+            <option value="profissional" selected>Profissional (Sistema Confea/Crea)</option>
+            <option value="universitario">Universitário / Pesquisador (Sistema Confea/Crea)</option>
             <option value="empresa">Empresa / Instituição</option>
             <option value="terceiros">Terceiro (Contratante Geral)</option>
           </select>
@@ -199,7 +201,7 @@
 
       <!-- Campo Registro CREA (Apenas para Profissionais) -->
       <div id="creaGroup" class="mb-3">
-        <label for="creaRecord" class="form-label text-white fw-medium ms-1 mb-2" style="font-size: 0.9rem;">Registro CREA-AM / RNP</label>
+        <label for="creaRecord" class="form-label text-white fw-medium ms-1 mb-2" style="font-size: 0.9rem;">Registro CREA-AM</label>
         <div class="input-group auth-input-group">
           <span class="input-group-text"><i class="bi bi-patch-check"></i></span>
           <input type="text" id="creaRecord" name="crea_record" class="form-control placeholder-white" placeholder="Digite o número do seu registro">
@@ -241,7 +243,7 @@
           <label for="institutionEnsino" class="form-label text-white fw-medium ms-1 mb-2" style="font-size: 0.9rem;">Instituição de Ensino</label>
           <div class="input-group auth-input-group">
             <span class="input-group-text"><i class="bi bi-building"></i></span>
-            <input type="text" id="institutionEnsino" name="institution_ensino" class="form-control placeholder-white" placeholder="Ex: UFAM, IFAM, UEA...">
+            <input type="text" id="institutionEnsino" name="institution_ensino" class="form-control placeholder-white" placeholder="Ex: FUCAPI, UFAM, UEA...">
           </div>
         </div>
 
@@ -294,7 +296,7 @@
         <div class="form-check">
           <input class="form-check-input bg-transparent border-secondary" type="checkbox" id="lgpdCheck" required>
           <label class="form-check-label text-muted-custom mt-1" for="lgpdCheck">
-            Li e aceito os <a href="#" class="auth-link">Termos de Uso</a> e a <a href="#" class="auth-link">Política de Privacidade</a> (LGPD).
+            Li e aceito os <a href="#termos-e-lgpd" class="auth-link">Termos de Uso</a> e a <a href="#termos-e-lgpd" class="auth-link">Política de Privacidade</a> (LGPD).
           </label>
         </div>
       </div>
