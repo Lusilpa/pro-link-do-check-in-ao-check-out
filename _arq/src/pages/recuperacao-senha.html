@@ -1,147 +1,142 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pro-Link - Recuperação de Senha</title>
-  <!-- Bootstrap CSS e Icons -->
-  <link href="https://jsdelivr.net" rel="stylesheet">
-  <link href="https://jsdelivr.net" rel="stylesheet">
-  
-  <style>
-    /* Identidade visual idêntica do Login */
+<style>
+  /* Identidade visual idêntica do Login e Cadastro */
+  .auth-page-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #2a2b36;
+  }
+
+  .auth-image-panel {
+    background-image: url('assets/img/fundo-login-manaus.jpg');
+    background-size: cover;
+    background-position: center;
+    min-height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .auth-image-panel::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(20, 21, 28, 0.5);
+  }
+
+  .mobile-logo {
+    position: relative;
+    z-index: 2;
+    max-width: 180px;
+  }
+
+  /* Ajuste crucial para o Flexbox manter o conteúdo centrado e o rodapé embaixo */
+  .auth-form-panel {
+    padding: 2.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1; 
+  }
+
+  /* Container interno que empurra o rodapé */
+  .form-content-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .desktop-logo {
+    max-width: 220px;
+    margin: 0 auto 2rem auto;
+  }
+
+  @media (min-width: 992px) {
     .auth-page-wrapper {
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-      border-radius: 0;
-      overflow: hidden;
-      background-color: #2a2b36;
+      flex-direction: row;
     }
-
     .auth-image-panel {
-      background-image: url('assets/img/fundo-login-manaus.jpg');
-      background-size: cover;
-      background-position: center;
-      min-height: 220px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
+      flex: 1.2; 
+      min-height: 100vh;
     }
-
     .auth-image-panel::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(20, 21, 28, 0.5);
+      background: transparent;
     }
-
-    .mobile-logo {
-      position: relative;
-      z-index: 2;
-      max-width: 180px;
-    }
-
     .auth-form-panel {
-      padding: 2.5rem 1.5rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
       flex: 1;
+      padding: 3.5rem;
+      background-image: linear-gradient(rgba(42, 43, 54, 0.92), rgba(42, 43, 54, 0.95)), url('assets/img/fundo-login-manaus.jpg');
+      background-size: cover;
+      background-position: left;
     }
+  }
 
-    .desktop-logo {
-      max-width: 220px;
-      margin: 0 auto 2rem auto;
-    }
+  .auth-input-group {
+    border: 1px solid #555866;
+    border-radius: 50px;
+    background-color: transparent;
+    transition: all 0.3s ease;
+  }
 
-    @media (min-width: 992px) {
-      .auth-page-wrapper {
-        flex-direction: row;
-      }
-      .auth-image-panel {
-        flex: 1.2; 
-        min-height: auto;
-      }
-      .auth-image-panel::before {
-        background: transparent;
-      }
-      .auth-form-panel {
-        flex: 1;
-        padding: 3.5rem;
-        background-image: linear-gradient(rgba(42, 43, 54, 0.92), rgba(42, 43, 54, 0.95)), url('assets/img/fundo-login-manaus.jpg');
-        background-size: cover;
-        background-position: left;
-      }
-    }
+  .auth-input-group:focus-within {
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+  }
 
-    .auth-input-group {
-      border: 1px solid #555866;
-      border-radius: 50px;
-      background-color: transparent;
-      transition: all 0.3s ease;
-    }
+  .auth-input-group .input-group-text {
+    background-color: transparent;
+    border: none;
+    color: #ffffff !important;
+    padding-left: 1.5rem;
+  }
 
-    .auth-input-group:focus-within {
-      border-color: #007bff;
-      box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
-    }
+  .auth-input-group .form-control {
+    background-color: transparent;
+    border: none;
+    color: #ffffff;
+    padding: 0.8rem 1.5rem 0.8rem 0.5rem;
+  }
 
-    .auth-input-group .input-group-text {
-      background-color: transparent;
-      border: none;
-      color: #ffffff !important;
-      padding-left: 1.5rem;
-    }
+  .auth-input-group .form-control:focus {
+    box-shadow: none;
+  }
 
-    .auth-input-group .form-control {
-      background-color: transparent;
-      border: none;
-      color: #ffffff;
-      padding: 0.8rem 1.5rem 0.8rem 0.5rem;
-    }
+  .placeholder-white::placeholder {
+    color: rgba(255, 255, 255, 0.45) !important;
+    opacity: 1;
+  }
 
-    .auth-input-group .form-control:focus {
-      box-shadow: none;
-    }
+  .btn-prolink-pill {
+    background-color: #007bff; 
+    color: #ffffff;
+    font-weight: 600;
+    padding: 12px;
+    border-radius: 50px;
+    border: none;
+    transition: background-color 0.2s;
+  }
 
-    .placeholder-white::placeholder {
-      color: rgba(255, 255, 255, 0.45) !important;
-      opacity: 1;
-    }
+  .btn-prolink-pill:hover {
+    background-color: #0056b3;
+    color: #ffffff;
+  }
 
-    .btn-prolink-pill {
-      background-color: #007bff; 
-      color: #ffffff;
-      font-weight: 600;
-      padding: 12px;
-      border-radius: 50px;
-      border: none;
-      transition: background-color 0.2s;
-    }
+  .text-muted-custom {
+    color: #a0a4b8;
+    font-size: 0.85rem;
+  }
 
-    .btn-prolink-pill:hover {
-      background-color: #0056b3;
-      color: #ffffff;
-    }
-
-    .text-muted-custom {
-      color: #a0a4b8;
-      font-size: 0.85rem;
-    }
-
-    .auth-link {
-      color: #007bff;
-      text-decoration: none;
-      font-size: 0.85rem;
-    }
-    .auth-link:hover {
-      text-decoration: underline;
-    }
-  </style>
-</head>
-<body>
+  .auth-link {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 0.85rem;
+  }
+  
+  .auth-link:hover {
+    text-decoration: underline;
+  }
+</style>
 
 <div class="auth-page-wrapper">
   
@@ -150,37 +145,35 @@
   </div>
 
   <div class="auth-form-panel">
-    <img src="assets/img/logo-pro-link.png" alt="Pro-Link Logo" class="desktop-logo d-none d-lg-block" onerror="this.style.display='none';">
+    
+    <!-- Novo wrapper que garante o alinhamento vertical perfeito -->
+    <div class="form-content-wrapper">
+      <img src="assets/img/logo-pro-link.png" alt="Pro-Link Logo" class="desktop-logo d-none d-lg-block" onerror="this.style.display='none';">
 
-    <div class="mb-4 text-center text-lg-start">
-      <h4 class="text-white fw-semibold mb-2">Esqueceu sua senha?</h4>
-      <p class="text-muted-custom mb-0">Digite seu e-mail cadastrado e enviaremos um link para você criar uma nova senha.</p>
-    </div>
+      <div class="mb-4 text-center text-lg-start">
+        <h4 class="text-white fw-semibold mb-2">Esqueceu sua senha?</h4>
+        <p class="text-muted-custom mb-0">Digite seu e-mail cadastrado e enviaremos um link para você criar uma nova senha.</p>
+      </div>
 
-    <form id="recoverForm" action="#" method="POST">
-      
-      <!-- Campo E-mail de Recuperação -->
-      <div class="mb-4">
-        <label for="recoverEmail" class="form-label text-white fw-medium ms-1 mb-2" style="font-size: 0.9rem;">E-mail cadastrado</label>
-        <div class="input-group auth-input-group">
-          <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-          <input type="email" id="recoverEmail" name="recoverEmail" class="form-control placeholder-white" placeholder="Digite seu e-mail" required>
+      <form id="recoverForm" action="#" method="POST">
+        
+        <div class="mb-4">
+          <label for="recoverEmail" class="form-label text-white fw-medium ms-1 mb-2" style="font-size: 0.9rem;">E-mail cadastrado</label>
+          <div class="input-group auth-input-group">
+            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+            <input type="email" id="recoverEmail" name="recoverEmail" class="form-control placeholder-white" placeholder="Digite seu e-mail" required>
+          </div>
         </div>
-      </div>
 
-      <!-- Botão Enviar Link -->
-      <button type="submit" class="btn btn-prolink-pill w-100 mt-2">
-        Enviar link de recuperação
-      </button>
+        <button type="submit" class="btn btn-prolink-pill w-100 mt-2">
+          Enviar link de recuperação
+        </button>
 
-      <!-- Voltar para o Login -->
-      <div class="text-center mt-4">
-        <a href="#auth" class="auth-link fw-semibold"><i class="bi bi-arrow-left me-2"></i>Voltar para o login</a>
-      </div>
-      
-    </form>
+        <div class="text-center mt-4">
+          <a href="#auth" class="auth-link fw-semibold"><i class="bi bi-arrow-left me-2"></i>Voltar para o login</a>
+        </div>
+        
+      </form>
+    </div>
   </div>
 </div>
-
-</body>
-</html>

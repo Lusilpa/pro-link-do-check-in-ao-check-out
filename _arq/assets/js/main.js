@@ -50,10 +50,10 @@ $(document).ready(function() {
         // Oculta a Navbar e ajusta para tela cheia nas páginas de auth, senha e cadastro
         if (hash === '#auth' || hash === '#senha' || hash === '#cadastro' || hash === '#termos-e-lgpd') {
             $navbarContainer.removeClass('d-flex').addClass('d-none');
-            $appContent.removeClass('container mt-4 mb-5 pd-5').addClass('p-0 m-0');
+            $appContent.removeClass('container mt-4 mb-5 pb-5').addClass('p-0 m-0');
         } else {
             $navbarContainer.removeClass('d-none').addClass('d-flex');
-            $appContent.removeClass('p-0 m-0').addClass('container mt-4 mb-5 pd-5');
+            $appContent.removeClass('p-0 m-0').addClass('container mt-4 mb-5 pb-5');
         }
 
         // Carrega o HTML da página específica no content principal
