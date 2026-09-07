@@ -12,6 +12,6 @@ pattern="^(\p{So}|\p{Cn})?[\ ]*(feat|fix|docs|test|build|perf|style|refactor|cho
 # Alternativa robusta focada no Conventional Commits
 if ! echo "$commit_message" | grep -qE '^((\p{So}|\p{Cs})[ ]*)?(feat|fix|docs|test|build|perf|style|refactor|chore|ci|raw|cleanup|remove)(\(.+\))?: .+'; then
     echo "\033[31mErro: Sua mensagem de commit não segue o padrão Conventional Commits.\033[0m"
-    echo "\033[33mExemplo correto: ✨ feat: descrição da alteração\033[0m"
+    echo "\033[33mExemplo correto: feat: descrição da alteração\033[0m"
     exit 1
 fi

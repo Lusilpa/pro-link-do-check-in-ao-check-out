@@ -1,0 +1,27 @@
+<!-- Importa o CSS do Calendário -->
+<link rel="stylesheet" href="src/entities/feed/styles/calendar.css">
+
+<div class="pl-calendar-widget">
+  <div class="pl-calendar-header">
+    <i class="bi bi-calendar"></i> <span id="pl-month-name">Mês</span>
+  </div>
+  
+  <div class="pl-calendar-divider"></div>
+  
+  <div class="pl-calendar-grid pl-calendar-weekdays">
+    <span class="pl-weekend">D</span>
+    <span>S</span>
+    <span>T</span>
+    <span>Q</span>
+    <span>Q</span>
+    <span>S</span>
+    <span class="pl-weekend">S</span>
+  </div>
+  
+  <div class="pl-calendar-grid" id="pl-calendar-days">
+    <!-- Os dias serão injetados via JavaScript aqui -->
+  </div>
+</div>
+
+<!-- Importa o JS do Calendário -->
+<script src="src/entities/feed/scripts/calendar.js"></script>

@@ -1,0 +1,71 @@
+.pl-calendar-widget {
+  background-color: #353643;
+  border: 1px solid #1c75dd;
+  border-radius: 12px;
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 320px;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+.pl-calendar-header {
+  color: #3a8bfd;
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.pl-calendar-divider {
+  height: 1px;
+  background-color: #1c75dd;
+  margin: 1rem 0;
+  opacity: 0.6;
+}
+
+.pl-calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  gap: 8px 4px;
+}
+
+.pl-calendar-weekdays span {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #3a8bfd;
+}
+
+.pl-calendar-weekdays .pl-weekend {
+  color: #00e5a0;
+}
+
+.pl-calendar-day {
+  color: #3a8bfd;
+  font-weight: 600;
+  font-size: 1.1rem;
+  height: 36px;
+  width: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin: 0 auto;
+}
+
+.pl-calendar-day.pl-weekend {
+  color: #00e5a0;
+}
+
+.pl-calendar-day.pl-empty {
+  visibility: hidden;
+}
+
+.pl-calendar-day.pl-today {
+  background-color: #3a8bfd;
+  color: #ffffff;
+  box-shadow: 0 4px 10px rgba(58, 139, 253, 0.4);
+}

@@ -1,0 +1,44 @@
+<!-- Importa o CSS do Card -->
+<link rel="stylesheet" href="src/entities/user-card/styles/card-feed.css">
+
+<div class="feed-container">
+    
+    <!-- Topo: Input para nova postagem (mantém estático por enquanto) -->
+    <div class="post-card d-flex align-items-center gap-3 mb-4">
+        <!-- ... seu código da barra de nova demanda ... -->
+    </div>
+
+    <!-- É aqui que a mágica acontece: O jQuery vai jogar os cards dentro dessa div -->
+    <div id="feed-posts-container"></div>
+
+</div>
+
+<!-- Importa o Script do Card e chama a função -->
+<script src="src/entities/user-card/scripts/card-feed.js"></script>
+<script>
+    $(document).ready(function() {
+        // Simula a busca no banco assim que a tela de feed carrega
+        // loadFeedFromMariaDB(); 
+        
+        // MOCK DE TESTE: Enquanto sua API não está pronta, testar injetando dados falsos como se viessem do MariaDB:
+        const mockMariaDB = [
+            {
+                id: 1,
+                author_name: "LUAN PALMA",
+                author_role: "Software Engineer",
+                time_ago: "5 min",
+                title: "Pro-Link: Do check-in ao Check-out",
+                content: "Finalizamos a estruturação do Agente de Recomendação baseado em NLP para cruzamento semântico de demandas com as áreas do Confea/Crea, garantindo total isonomia e conformidade com o edital sem criar rankings institucionais. O sistema de Cartas Virtuais com carimbo eletrônico também está integrado via SMTP.",
+                likes_count: 23,
+                comments_count: 12,
+                views_count: 312
+            }
+        ];
+        
+        // Limpa o container e renderiza o mock
+        $('#feed-posts-container').empty();
+        mockMariaDB.forEach(post => {
+            $('#feed-posts-container').append(renderFeedCard(post));
+        });
+    });
+</script>

@@ -1,32 +1,39 @@
 $(document).ready(function() {
-    // 1. Mapeamento das rotas
+    // Mapeamento das rotas
     const routes = {
-        '': 'src/pages/landing.html',
+        // Rotas sem Navbar (Páginas de Login/Auth)
+        '': 'src/pages/auth.html',
         '#landing': 'src/pages/landing.html',
         '#auth': 'src/pages/auth.html',
         '#senha': 'src/pages/recuperacao-senha.html',
         '#termos-e-lgpd': 'src/pages/termos-e-lgpd.html',
         '#cadastro': 'src/pages/cadastre-se.html',
+
+        // Rotas com Navbar
         '#feed': 'src/pages/feed.html',
-        '#match': 'src/pages/search-demandas.html',
-        '#global': 'src/pages/search-talentos.html',
+        '#search-demandas': 'src/pages/search-demandas.html',
+        '#search-talentos': 'src/pages/search-talentos.html',
         '#cartas': 'src/pages/carta-virtual.html',
+
+        // Rotas adicionais (Admin, Painel Empresarial, Studio de Criação)
+        '#perfil': 'src/pages/perfil.html',
+        '#criacao': 'src/pages/criacao.html',
         '#admin': 'src/pages/admin.html',
-        '#portfolio': 'src/pages/portfolio.html'
+        '#painel-empresa': 'src/pages/painel-empresa.html',
     };
 
-    // 2. Elementos principais do DOM
+    // Elementos principais do DOM
     const $appContent = $('#app-content');
     const $navbarContainer = $('#navbar-container');
 
-    // 3. Inicializa a aplicação injetando a Navbar
+    // Inicializa a aplicação injetando a Navbar
     $navbarContainer.load('src/app/layouts/navBar.html', function() {
         console.log("Pro-Link: Navbar carregada com sucesso.");
         // Chama a função de roteamento logo após a Navbar existir na tela
         initRouter(); 
     });
 
-    // 4. Lógica de Roteamento
+    // Lógica de Roteamento
     function initRouter() {
         let currentHash = window.location.hash || '#landing';
         loadPage(currentHash);
@@ -36,7 +43,7 @@ $(document).ready(function() {
         });
     }
 
-    // 5. Motor de renderização das páginas e animação da Navbar
+    // Motor de renderização das páginas e animação da Navbar
     function loadPage(hash) {
         const pageUrl = routes[hash] || routes['#landing'];
 

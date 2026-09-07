@@ -40,22 +40,54 @@
   </a>
   
   <!-- Botão Global (Busca de Talentos) -->
-  <a href="#global" class="nav-icon-btn nav-icon-outline" title="Rede Global">
+  <a href="#search-talentos" class="nav-icon-btn nav-icon-outline" title="Rede Global">
     <i class="bi bi-globe"></i>
   </a>
   
-  <!-- Botão Cartas Virtuais -->
-  <a href="#cartas" class="nav-icon-btn nav-icon-outline" title="Caixa de Entrada">
+  <!-- Caixa de correio-->
+  <a href="#cartas" class="nav-icon-btn nav-icon-outline" title="Caixa de Correio">
     <i class="bi bi-envelope-fill"></i>
   </a>
   
-  <!-- Botão Portfólio / Projetos -->
-  <a href="#portfolio" class="nav-icon-btn nav-icon-outline" title="Portfólio">
+  <!-- Studio de Criação | Administrativo | Painel Empresarial -->
+   <!-- 
+  <a href="#admin" class="nav-icon-btn nav-icon-outline" title="Administrativo">
+    <i class="bi bi-gear-fill"></i>
+  </a>
+
+  <a href="#painel-empresa" class="nav-icon-btn nav-icon-outline" title="Painel Empresarial">
+    <i class="bi bi-building-fill"></i>
+  </a>
+   
+   -->
+  <a href="#criacao" class="nav-icon-btn nav-icon-outline" title="Studio de Criação">
     <i class="bi bi-grid-fill"></i>
   </a>
   
-  <!-- Botão Perfil (Admin) -->
-  <a href="#admin" class="nav-icon-btn nav-icon-outline" title="Meu Perfil">
+  <!-- Botão Perfil -->
+  <a href="#perfil" class="nav-icon-btn nav-icon-outline" title="Perfil">
     <i class="bi bi-person-fill"></i>
   </a>
 </div>
+
+    const routes-navbar = {
+        '#feed': 'src/pages/feed.html',
+        '#search-demandas': 'src/pages/search-demandas.html',
+        '#search-talentos': 'src/pages/search-talentos.html',
+        '#cartas': 'src/pages/carta-virtual.html',
+        '#perfil': 'src/pages/perfil.html',
+
+        <!-- Três possiveis Rotas  -->
+        '#criacao': 'src/pages/criacao.html',
+        '#admin': 'src/pages/admin.html',
+        '#painel-empresa': 'src/pages/painel-empresa.html',
+    };
+
+    const routes-login = {
+        '': 'src/pages/auth.html',
+        '#landing': 'src/pages/landing.html',
+        '#auth': 'src/pages/auth.html',
+        '#senha': 'src/pages/recuperacao-senha.html',
+        '#termos-e-lgpd': 'src/pages/termos-e-lgpd.html',
+        '#cadastro': 'src/pages/cadastre-se.html'
+    }
