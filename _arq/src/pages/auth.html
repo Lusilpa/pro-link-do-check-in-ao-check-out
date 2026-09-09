@@ -6,7 +6,7 @@
     min-height: 100vh;
     border-radius: 0;
     overflow: hidden;
-    background-color: #2a2b36;
+    background-color: var(--prolink-bg-darker);
   }
 
   /* Painel da Imagem (Topo no mobile, Esquerda no desktop) */
@@ -26,7 +26,7 @@
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(20, 21, 28, 0.5);
+    background: color-mix(in srgb, var(--prolink-bg-darker) 50%, transparent);
   }
 
   .mobile-logo {
@@ -67,7 +67,7 @@
     .auth-form-panel {
       flex: 1;
       padding: 3.5rem;
-      background-image: linear-gradient(rgba(42, 43, 54, 0.92), rgba(42, 43, 54, 0.95)), url('assets/img/fundo-login-manaus.jpg');
+      background-image: linear-gradient(color-mix(in srgb, var(--prolink-bg-darker) 92%, transparent), color-mix(in srgb, var(--prolink-bg-darker) 95%, transparent)), url('assets/img/fundo-login-manaus.jpg');
       background-size: cover;
       background-position: left;
     }
@@ -75,28 +75,28 @@
 
   /* Campos de texto arredondados (Pill Shape) */
   .auth-input-group {
-    border: 1px solid #555866;
+    border: 1px solid var(--prolink-dark);
     border-radius: 50px;
     background-color: transparent;
     transition: all 0.3s ease;
   }
 
   .auth-input-group:focus-within {
-    border-color: #007bff;
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+    border-color: var(--prolink-blue);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--prolink-blue) 15%, transparent);
   }
 
   .auth-input-group .input-group-text {
     background-color: transparent;
     border: none;
-    color: #ffffff !important;
+    color: var(--prolink-light) !important;
     padding-left: 1.5rem;
   }
 
   .auth-input-group .form-control {
     background-color: transparent;
     border: none;
-    color: #ffffff;
+    color: var(--prolink-light);
     padding: 0.8rem 1.5rem 0.8rem 0.5rem;
   }
 
@@ -106,20 +106,19 @@
 
   /* Seletor correto do placeholder para a cor branca */
   .placeholder-white::placeholder {
-    color: rgba(255, 255, 255, 0.45) !important;
-    opacity: 1;
+    color: color-mix(in srgb, var(--prolink-light) 45%, transparent) !important;
   }
   .placeholder-white::-webkit-input-placeholder {
-    color: rgba(255, 255, 255, 0.45) !important;
+    color: color-mix(in srgb, var(--prolink-light) 45%, transparent) !important;
   }
   .placeholder-white::-ms-input-placeholder {
-    color: rgba(255, 255, 255, 0.45) !important;
+    color: color-mix(in srgb, var(--prolink-light) 45%, transparent) !important;
   }
 
   /* Botão principal arredondado e vibrante */
   .btn-prolink-pill {
-    background-color: #007bff; 
-    color: #ffffff;
+    background-color: var(--prolink-blue);
+    color: var(--prolink-light);
     font-weight: 600;
     padding: 12px;
     border-radius: 50px;
@@ -128,8 +127,8 @@
   }
 
   .btn-prolink-pill:hover {
-    background-color: #0056b3;
-    color: #ffffff;
+    background-color: color-mix(in srgb, var(--prolink-blue) 70%, black);
+    color: var(--prolink-light);
   }
 
   /* Divisor "OU" */
@@ -137,7 +136,7 @@
     display: flex;
     align-items: center;
     text-align: center;
-    color: #a0a4b8;
+    color: var(--prolink-dark);
     font-size: 0.85rem;
     margin: 1.5rem 0;
   }
@@ -146,7 +145,7 @@
   .auth-divider::after {
     content: '';
     flex: 1;
-    border-bottom: 1px solid #555866;
+    border-bottom: 1px solid var(--prolink-dark);
   }
 
   .auth-divider:not(:empty)::before {
@@ -172,29 +171,29 @@
   }
 
   .btn-gmail {
-    border: 1px solid #ea4335;
+    border: 1px solid #ea4335; /* Cor da marca Google — mantida */
     color: #ea4335;
   }
 
   .btn-gmail:hover {
     background-color: #ea4335;
-    color: #ffffff;
+    color: var(--prolink-light);
   }
 
   /* Estilização customizada para o LinkedIn */
   .btn-linkedin {
-    border: 1px solid #0077b5;
+    border: 1px solid #0077b5; /* Cor da marca LinkedIn — mantida */
     color: #0077b5;
   }
 
   .btn-linkedin:hover {
     background-color: #0077b5;
-    color: #ffffff;
+    color: var(--prolink-light);
   }
 
   /* Textos Auxiliares */
   .auth-link {
-    color: #007bff;
+    color: var(--prolink-blue);
     text-decoration: none;
     font-size: 0.85rem;
   }
@@ -202,7 +201,7 @@
     text-decoration: underline;
   }
   .text-muted-custom {
-    color: #a0a4b8;
+    color: var(--prolink-dark);
     font-size: 0.85rem;
   }
 </style>
