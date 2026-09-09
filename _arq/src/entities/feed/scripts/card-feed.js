@@ -46,7 +46,7 @@ function loadFeedFromMariaDB() {
 
     // Chamada AJAX para a sua API que consulta o MariaDB
     $.ajax({
-        url: 'http://localhost:8000/api/posts', // Exemplo de rota da sua API (FastAPI, Spring, etc.)
+        url: 'http://localhost:8000/api/posts',
         method: 'GET',
         dataType: 'json',
         success: function(response) {
@@ -58,7 +58,7 @@ function loadFeedFromMariaDB() {
                 return;
             }
 
-            // Itera sobre cada linha retornada do MariaDB e joga na tela
+            // Itera sobre cada linha retornada do MariaDB 
             response.forEach(function(post) {
                 $feedContainer.append(renderFeedCard(post));
             });

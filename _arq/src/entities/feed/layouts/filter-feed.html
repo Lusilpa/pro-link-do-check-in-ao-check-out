@@ -1,0 +1,41 @@
+<link rel="stylesheet" href="src/entities/feed/styles/filter-feed.css">
+
+<div class="pl-filter-widget">
+  
+  <label class="pl-filter-label">Nível / Formação</label>
+  <div class="pl-filter-select-wrapper">
+    <i class="bi bi-mortarboard"></i>
+    <!-- IDs trocados por classes -->
+    <select class="pl-filter-select filterGrau">
+      <option value="" selected>Todos</option>
+      <option value="tecnico">Técnico</option>
+      <option value="graduando">Universitário (Estudante)</option>
+      <option value="graduado">Graduado / Bacharel</option>
+      <option value="especialista">Especialista (Pós)</option>
+      <option value="mestrado">Mestrado</option>
+      <option value="doutorado">Doutorado</option>
+    </select>
+  </div>
+
+  <label class="pl-filter-label">Área de Atuação</label>
+  <div class="pl-filter-select-wrapper">
+    <i class="bi bi-compass"></i>
+    <select class="pl-filter-select filterArea">
+      <option value="" selected>Todas as áreas</option>
+    </select>
+  </div>
+
+  <label class="pl-filter-label">Ordem de Exibição</label>
+  <div class="pl-filter-select-wrapper">
+    <i class="bi bi-clock-history"></i>
+    <select class="pl-filter-select filterCronologia">
+      <option value="desc" selected>Mais recentes primeiro</option>
+      <option value="asc">Mais antigos primeiro</option>
+    </select>
+  </div>
+
+  <button class="pl-btn-apply btnApplyFilter">Aplicar Filtros</button>
+  <button class="pl-btn-clear btnClearFilter">Limpar tudo</button>
+</div>
+
+<script src="src/entities/feed/scripts/filter-feed.js"></script>
