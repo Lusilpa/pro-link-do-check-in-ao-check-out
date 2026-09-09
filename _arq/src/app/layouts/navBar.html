@@ -1,32 +1,4 @@
-<style>
-  .prolink-navbar {
-    background-color: transparent; /* Fundo transparente */
-    padding: 0.75rem 1.5rem;
-    gap: 15px;
-  }
-  
-  .nav-icon-btn {
-    color: var(--prolink-light, #ffffff);
-    font-size: 1.4rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 45px;
-    height: 45px;
-    border-radius: 8px;
-    transition: all 0.2s ease-in-out;
-  }
-
-  .nav-icon-active {
-    color: var(--prolink-light, #ffffff) !important;
-    background-color: var(--prolink-blue, #2b8cff);
-  }
-
-  .nav-icon-outline:hover {
-    color: var(--prolink-blue, #2b8cff);
-    background-color: rgba(43, 140, 255, 0.1);
-  }
-</style>
+<link rel="stylesheet" href="src/app/styles/navBar.css">
 
 <div class="prolink-navbar d-flex align-items-center">
   <!-- Botão Início (Feed) -->
@@ -44,22 +16,12 @@
     <i class="bi bi-globe"></i>
   </a>
   
-  <!-- Caixa de correio-->
+  <!-- Caixa de correio -->
   <a href="#cartas" class="nav-icon-btn nav-icon-outline" title="Caixa de Correio">
     <i class="bi bi-envelope-fill"></i>
   </a>
   
-  <!-- Studio de Criação | Administrativo | Painel Empresarial -->
-
-   <!-- 
-  <a href="#admin" class="nav-icon-btn nav-icon-outline" title="Administrativo">
-    <i class="bi bi-gear-fill"></i>
-  </a>
-
-  <a href="#painel-empresa" class="nav-icon-btn nav-icon-outline" title="Painel Empresarial">
-    <i class="bi bi-building-fill"></i>
-  </a>
-   -->
+  <!-- Studio de Criação -->
   <a href="#criacao" class="nav-icon-btn nav-icon-outline" title="Studio de Criação">
     <i class="bi bi-grid-fill"></i>
   </a>
