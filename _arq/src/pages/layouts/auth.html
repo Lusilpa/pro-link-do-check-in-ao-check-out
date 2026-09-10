@@ -1,0 +1,80 @@
+<link rel="stylesheet" href="src/pages/styles/auth.css">
+
+<div class="auth-page-wrapper">
+  
+  <!-- Lado Esquerdo (Desktop) / Topo (Mobile) -->
+  <div class="auth-image-panel">
+    <!-- Logo visível apenas no Mobile/Tablet -->
+    <img src="assets/img/logo-pro-link.png" alt="Pro-Link Logo" class="mobile-logo d-lg-none" onerror="this.style.display='none';">
+  </div>
+
+  <!-- Lado Direito (Desktop) / Base (Mobile) -->
+  <div class="auth-form-panel">
+    
+    <!-- Logo visível apenas no Desktop -->
+    <img src="assets/img/logo-pro-link.png" alt="Pro-Link Logo" class="desktop-logo d-none d-lg-block" onerror="this.style.display='none';">
+
+    <form id="loginForm">
+      
+      <!-- Campo Usuário / E-mail -->
+      <div class="mb-4">
+        <label for="username" class="form-label text-white fw-medium ms-1 mb-2" style="font-size: 0.9rem;">Usuário ou e-mail</label>
+        <div class="input-group auth-input-group">
+          <span class="input-group-text"><i class="bi bi-person"></i></span>
+          <input type="text" id="username" name="username" class="form-control placeholder-white" placeholder="Digite o seu email ou usuário" required>
+        </div>
+      </div>
+
+      <!-- Campo Senha -->
+      <div class="mb-4">
+        <label for="password" class="form-label text-white fw-medium ms-1 mb-2" style="font-size: 0.9rem;">Senha de acesso</label>
+        <div class="input-group auth-input-group">
+          <span class="input-group-text"><i class="bi bi-key"></i></span>
+          <input type="password" id="password" name="password" class="form-control placeholder-white" placeholder="Digite a senha" required>
+        </div>
+      </div>
+
+      <!-- Lembrar de mim e Esqueci a senha -->
+      <div class="d-flex justify-content-between align-items-center mb-4 ms-1 me-1">
+        <div class="form-check">
+          <input class="form-check-input bg-transparent border-secondary" type="checkbox" id="rememberMe">
+          <label class="form-check-label text-muted-custom mt-1" for="rememberMe">
+            Lembrar de mim
+          </label>
+        </div>
+        <a href="#senha" class="auth-link fw-semibold">Esqueceu sua senha?</a>
+      </div>
+
+      <!-- Botão Entrar -->
+      <button type="submit" class="btn btn-prolink-pill w-100 mt-2">
+        Entrar no Sistema
+      </button>
+
+      <!-- Divisor Organizador -->
+      <div class="auth-divider">ou entre com</div>
+
+      <!-- Botões de Login Social -->
+      <div class="row g-3 mb-4">
+        <div class="col-6">
+          <button type="button" class="btn btn-social-pill btn-gmail w-100">
+            <i class="bi bi-google"></i> Gmail
+          </button>
+        </div>
+        <div class="col-6">
+          <button type="button" class="btn btn-social-pill btn-linkedin w-100">
+            <i class="bi bi-linkedin"></i> LinkedIn
+          </button>
+        </div>
+      </div>
+
+      <!-- Link para Cadastro -->
+      <div class="text-center mt-3">
+        <span class="text-muted-custom">Não tem uma conta?</span>
+        <a href="#cadastro" class="auth-link fw-semibold ms-1">Cadastre-se</a>
+      </div>
+      
+    </form>
+  </div>
+</div>
+
+<script src="src/pages/scripts/auth.js"></script>

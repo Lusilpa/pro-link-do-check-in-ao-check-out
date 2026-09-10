@@ -1,0 +1,42 @@
+<link rel="stylesheet" href="src/pages/styles/recuperacao-senha.css">
+
+<div class="auth-page-wrapper">
+  
+  <div class="auth-image-panel">
+    <img src="assets/img/logo-pro-link.png" alt="Pro-Link Logo" class="mobile-logo d-lg-none" onerror="this.style.display='none';">
+  </div>
+
+  <div class="auth-form-panel">
+    
+    <div class="form-content-wrapper">
+      <img src="assets/img/logo-pro-link.png" alt="Pro-Link Logo" class="desktop-logo d-none d-lg-block" onerror="this.style.display='none';">
+
+      <div class="mb-4 text-center text-lg-start">
+        <h4 class="text-white fw-semibold mb-2">Esqueceu sua senha?</h4>
+        <p class="text-muted-custom mb-0">Digite seu e-mail cadastrado e enviaremos um link para você criar uma nova senha.</p>
+      </div>
+
+      <form id="recoverForm">
+        
+        <div class="mb-4">
+          <label for="recoverEmail" class="form-label text-white fw-medium ms-1 mb-2" style="font-size: 0.9rem;">E-mail cadastrado</label>
+          <div class="input-group auth-input-group">
+            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+            <input type="email" id="recoverEmail" name="recoverEmail" class="form-control placeholder-white" placeholder="Digite seu e-mail" required>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-prolink-pill w-100 mt-2">
+          Enviar link de recuperação
+        </button>
+
+        <div class="text-center mt-4">
+          <a href="#auth" class="auth-link fw-semibold"><i class="bi bi-arrow-left me-2"></i>Voltar para o login</a>
+        </div>
+        
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="src/pages/scripts/recuperacao-senha.js"></script>

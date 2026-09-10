@@ -2,24 +2,25 @@ $(document).ready(function() {
     // Mapeamento das rotas
     const routes = {
         // Rotas sem Navbar (Páginas de Login/Auth)
-        '': 'src/pages/auth.html',
-        '#landing': 'src/pages/landing.html',
-        '#auth': 'src/pages/auth.html',
-        '#senha': 'src/pages/recuperacao-senha.html',
-        '#termos-e-lgpd': 'src/pages/termos-e-lgpd.html',
-        '#cadastro': 'src/pages/cadastre-se.html',
+        '': 'src/pages/layouts/auth.html',
+        '#landing': 'src/pages/layouts/landing.html',
+        '#auth': 'src/pages/layouts/auth.html',
+        '#senha': 'src/pages/layouts/recuperacao-senha.html',
+        '#termos-e-lgpd': 'src/pages/layouts/termos-e-lgpd.html',
+        '#cadastro': 'src/pages/layouts/cadastre-se.html',
 
         // Rotas com Navbar
-        '#feed': 'src/pages/feed.html',
-        '#search-demandas': 'src/pages/search-demandas.html',
-        '#search-talentos': 'src/pages/search-talentos.html',
-        '#cartas': 'src/pages/carta-virtual.html',
+        '#feed': 'src/pages/layouts/feed.html',
+        '#search-demandas': 'src/pages/layouts/search-demandas.html',
+        '#search-talentos': 'src/pages/layouts/search-talentos.html', 
+        '#cartas': 'src/pages/layouts/carta-virtual.html',
 
         // Rotas adicionais (Admin, Painel Empresarial, Studio de Criação)
-        '#perfil': 'src/pages/perfil.html',
-        '#criacao': 'src/pages/criacao.html',
-        '#admin': 'src/pages/admin.html',
-        '#painel-empresa': 'src/pages/painel-empresa.html',
+        '#perfil': 'src/pages/layouts/perfil.html', 
+        '#criacao': 'src/pages/layouts/criacao.html',
+        '#admin': 'src/pages/layouts/admin.html',
+        '#painel-empresa': 'src/pages/layouts/painel-empresa.html',
+        '#config': 'src/pages/layouts/config.html'
     };
 
     // Elementos principais do DOM
@@ -59,7 +60,7 @@ $(document).ready(function() {
         // Carrega o HTML da página específica no content principal
         $appContent.hide().load(pageUrl, function(response, status, xhr) {
             if (status === "error") {
-                $appContent.html(`<div class="alert alert-danger">Erro 404: Arquivo não encontrado.</div>`);
+                $appContent.html(`<div class="alert alert-danger">Erro 404: Arquivo não encontrado (${pageUrl}).</div>`);
             }
             $appContent.fadeIn(300);
         });

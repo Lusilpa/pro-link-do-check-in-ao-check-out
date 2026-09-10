@@ -1,0 +1,89 @@
+/* 1. O Fundo Infinito: Ignora os limites do index.html e cobre a tela toda */
+.feed-fullscreen-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--prolink-bg-darker);
+  z-index: -999; /* Fica atrás de absolutamente tudo */
+}
+
+/* 2. Reset e Configuração Base da Tela */
+.feed-page-wrapper {
+  background-color: transparent;
+  min-height: 100vh;
+  color: var(--prolink-light);
+  font-family: var(--font-primary, 'Ubuntu', sans-serif);
+  position: relative;
+}
+
+/* Container Principal - Empurrado pela barra lateral no Desktop */
+.feed-main-container {
+  padding-top: 2rem;
+  padding-bottom: 100px; /* Espaço para a navbar inferior */
+  padding-right: 2rem;
+  margin-left: 95px; /* Compensa a largura da pl-lateral (75px + margem) */
+  display: grid;
+  grid-template-columns: 1fr 320px; /* Coluna 1 flexível, Coluna 2 fixa (320px) */
+  gap: 2rem;
+  max-width: 1400px;
+}
+
+/* Coluna da Esquerda (Busca e Cards) */
+.feed-column-left {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Input de Busca do Figma */
+.pl-search-bar {
+  background-color: transparent;
+  border: 1px solid var(--prolink-blue);
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--prolink-blue);
+  font-size: 1.1rem;
+}
+
+.pl-search-bar i {
+  font-size: 1.4rem;
+}
+
+.pl-search-bar input {
+  background-color: transparent;
+  border: none;
+  color: var(--prolink-light);
+  width: 100%;
+  outline: none;
+}
+
+.pl-search-bar input::placeholder {
+  color: var(--prolink-blue);
+  opacity: 0.8;
+}
+
+/* Coluna da Direita (Calendário e Filtros) */
+.feed-column-right {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Mobile e Tablets menores */
+@media (max-width: 991px) {
+  .feed-main-container {
+    grid-template-columns: 1fr; /* Colapsa para uma coluna única */
+    margin-left: 0;
+    padding: 85px 1rem 100px 1rem; /* Padding top para não bater na lateral mobile */
+  }
+
+  /* Faz a coluna direita (Calendário e Filtro) desaparecer no mobile/tablet */
+  .feed-column-right {
+    display: none;
+  }
+}

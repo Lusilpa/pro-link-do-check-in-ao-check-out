@@ -1,0 +1,318 @@
+<link rel="stylesheet" href="src/pages/styles/cadastre-se.css">
+
+<div class="auth-page-wrapper">
+  
+  <div class="auth-image-panel">
+    <img src="assets/img/logo-pro-link.png" alt="Pro-Link Logo" class="mobile-logo d-lg-none" onerror="this.style.display='none';">
+  </div>
+
+  <div class="auth-form-panel">
+    <img src="assets/img/logo-pro-link.png" alt="Pro-Link Logo" class="desktop-logo d-none d-lg-block" onerror="this.style.display='none';">
+
+    <form id="registerForm" enctype="multipart/form-data">
+      
+      <div class="mb-3">
+        <label for="profileType" class="form-label text-white fw-medium ms-1 mb-2" style="font-size: 0.9rem;">Tipo de conta</label>
+        <div class="input-group auth-input-group">
+          <span class="input-group-text"><i class="bi bi-tags"></i></span>
+          <select id="profileType" name="profile_type" class="form-select" required>
+            <option value="" disabled selected>Selecione o tipo de conta</option>
+            <option value="Público Geral">Público Geral</option>
+            <option value="profissional">Profissional (Sistema Confea/Crea)</option>
+            <option value="universitario">Universitário / Pesquisador (Sistema Confea/Crea)</option>
+            <option value="empresa">Empresa / Instituição</option>
+            <option value="terceiros">Terceiro (Contratante Geral)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label id="labelName" for="fullName" class="form-label text-white fw-medium ms-1 mb-2" style="font-size: 0.9rem;">Nome completo</label>
+        <div class="input-group auth-input-group">
+          <span class="input-group-text"><i class="bi bi-person-vcard"></i></span>
+          <input type="text" id="fullName" name="name" class="form-control placeholder-white" placeholder="Digite seu nome completo" required>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="phone" class="form-label text-white fw-medium ms-1 mb-2" style="font-size: 0.9rem;">Telefone / Celular</label>
+        <div class="input-group auth-input-group">
+          <span class="input-group-text"><i class="bi bi-telephone"></i></span>
+          <input type="tel" id="phone" name="phone" class="form-control placeholder-white" placeholder="(00) 00000-0000" required>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label id="labelDocument" for="documentNumber" class="form-label text-white fw-medium ms-1 mb-2" style="font-size: 0.9rem;">CPF</label>
+        <div class="input-group auth-input-group">
+          <span id="iconDocument" class="input-group-text"><i class="bi bi-file-earmark-person"></i></span>
+          <input type="text" id="documentNumber" name="document_number" class="form-control placeholder-white" placeholder="000.000.000-00" required>
+        </div>
+      </div>
+
+      <!-- CAMPOS ESPECÍFICOS: Empresa / Instituição -->
+      <div id="empresaFields" style="display: none;">
+        <div class="mb-3">
+          <label for="nomeFantasia" class="form-label text-white fw-medium ms-1 mb-2" style="font-size: 0.9rem;">Nome Fantasia</label>
+          <div class="input-group auth-input-group">
+            <span class="input-group-text"><i class="bi bi-shop"></i></span>
+            <input type="text" id="nomeFantasia" name="nome_fantasia" class="form-control placeholder-white" placeholder="Nome pelo qual a empresa é conhecida (opcional)">
+          </div>
+        </div>
+      </div>
+
+      <!-- CAMPOS ESPECÍFICOS: Profissional -->
+      <div id="creaGroup" style="display: none;">
+        <div class="mb-3">
+          <label for="creaRecord" class="form-label text-white fw-medium ms-1 mb-2" style="font-size: 0.9rem;">Registro CREA-AM</label>
+          <div class="input-group auth-input-group">
+            <span class="input-group-text"><i class="bi bi-patch-check"></i></span>
+            <input type="text" id="creaRecord" name="crea_record" class="form-control placeholder-white" placeholder="Digite o número do seu registro">
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="categoriaProfissional" class="form-label text-white fw-medium ms-1 mb-2" style="font-size: 0.9rem;">Categoria Profissional</label>
+          <div class="input-group auth-input-group">
+            <span class="input-group-text"><i class="bi bi-briefcase"></i></span>
+            <input type="text" id="categoriaProfissional" name="categoria_profissional" class="form-control placeholder-white" placeholder="Ex: Engenheiro Civil, Agrônomo, Geólogo...">
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="grauAcademico" class="form-label text-white fw-medium ms-1 mb-2" style="font-size: 0.9rem;">Grau Acadêmico</label>
+          <div class="input-group auth-input-group">
+            <span class="input-group-text"><i class="bi bi-award"></i></span>
+            <select id="grauAcademico" name="grau_academico" class="form-select">
+              <option value="" disabled selected>Selecione o grau acadêmico</option>
+              <option value="TECNOLOGO">Tecnólogo</option>
+              <option value="GRADUACAO">Graduação</option>
+              <option value="POS_GRADUACAO">Pós-Graduação</option>
+              <option value="MESTRADO">Mestrado</option>
+              <option value="DOUTORADO">Doutorado</option>
+              <option value="POS_DOUTORADO">Pós-Doutorado</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="anosExperiencia" class="form-label text-white fw-medium ms-1 mb-2" style="font-size: 0.9rem;">Anos de Experiência</label>
+          <div class="input-group auth-input-group">
+            <span class="input-group-text"><i class="bi bi-calendar2-check"></i></span>
+            <input type="number" id="anosExperiencia" name="anos_experiencia" class="form-control placeholder-white" placeholder="Ex: 5" min="0">
+          </div>
+        </div>
+      </div>
+
+      <!-- CAMPOS ESPECÍFICOS: Universitário / Pesquisador -->
+      <div id="studentFields" style="display: none;">
+        <div class="mb-3">
+          <label for="studentLevel" class="form-label text-white fw-medium ms-1 mb-2" style="font-size: 0.9rem;">Nível Acadêmico</label>
+          <div class="input-group auth-input-group">
+            <span class="input-group-text"><i class="bi bi-mortarboard-fill"></i></span>
+            <select id="studentLevel" name="student_level" class="form-select">
+              <option value="" disabled selected>Selecione o nível acadêmico</option>
+              <option value="tecnico">Técnico</option>
+              <option value="bacharel">Bacharelado</option>
+              <option value="licenciatura">Licenciatura</option>
+              <option value="mestrado">Mestrado</option>
+              <option value="doutorado">Doutorado</option>
+              <option value="mba">MBA</option>
+              <option value="pos">Pós-Graduação / Especialização</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="studentModality" class="form-label text-white fw-medium ms-1 mb-2" style="font-size: 0.9rem;">Modalidade / Curso (Sistema CREA/Confea)</label>
+          <div class="input-group auth-input-group">
+            <span class="input-group-text"><i class="bi bi-mortarboard"></i></span>
+            <input type="text" id="studentModality" name="student_modality" class="form-control placeholder-white" placeholder="Ex: Eng. Civil, Eng. Elétrica, Agronomia...">
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="institutionEnsino" class="form-label text-white fw-medium ms-1 mb-2" style="font-size: 0.9rem;">Instituição de Ensino</label>
+          <div class="input-group auth-input-group">
+            <span class="input-group-text"><i class="bi bi-building"></i></span>
+            <input type="text" id="institutionEnsino" name="institution_ensino" class="form-control placeholder-white" placeholder="Ex: UFAM, UEA...">
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="studentRA" class="form-label text-white fw-medium ms-1 mb-2" style="font-size: 0.9rem;">R.A. (Registro Acadêmico)</label>
+          <div class="input-group auth-input-group">
+            <span class="input-group-text"><i class="bi bi-card-text"></i></span>
+            <input type="text" id="studentRA" name="student_ra" class="form-control placeholder-white" placeholder="Digite o número do seu R.A.">
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="semestreAtual" class="form-label text-white fw-medium ms-1 mb-2" style="font-size: 0.9rem;">Semestre Atual</label>
+          <div class="input-group auth-input-group">
+            <span class="input-group-text"><i class="bi bi-123"></i></span>
+            <input type="number" id="semestreAtual" name="semestre_atual" class="form-control placeholder-white" placeholder="Ex: 4" min="1" max="30">
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="previsaoFormatura" class="form-label text-white fw-medium ms-1 mb-2" style="font-size: 0.9rem;">Previsão de Formatura</label>
+          <div class="input-group auth-input-group">
+            <span class="input-group-text"><i class="bi bi-calendar-event"></i></span>
+            <input type="date" id="previsaoFormatura" name="previsao_formatura" class="form-control placeholder-white" style="color-scheme: dark;">
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="enrollmentDoc" class="form-label text-white fw-medium ms-1 mb-2" style="font-size: 0.9rem;">Anexar Documento de Matrícula</label>
+          <div class="input-group auth-input-group">
+            <span class="input-group-text"><i class="bi bi-file-earmark-arrow-up"></i></span>
+            <input type="file" id="enrollmentDoc" name="enrollment_doc" class="form-control text-white" accept=".pdf,.jpg,.png">
+          </div>
+          <div class="form-text text-muted-custom ms-1 mt-1">Envie comprovante recente (PDF ou Imagem).</div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label text-white fw-medium ms-1 mb-2" style="font-size: 0.9rem;">E-mail</label>
+        <div class="input-group auth-input-group">
+          <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+          <input type="email" id="email" name="email" class="form-control placeholder-white" placeholder="Digite seu melhor e-mail" required>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label text-white fw-medium ms-1 mb-2" style="font-size: 0.9rem;">Senha</label>
+        <div class="input-group auth-input-group">
+          <span class="input-group-text"><i class="bi bi-key"></i></span>
+          <input type="password" id="password" name="password" class="form-control placeholder-white" placeholder="Crie uma senha forte" required>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label for="confirmPassword" class="form-label text-white fw-medium ms-1 mb-2" style="font-size: 0.9rem;">Confirmar senha</label>
+        <div class="input-group auth-input-group">
+          <span class="input-group-text"><i class="bi bi-shield-check"></i></span>
+          <input type="password" id="confirmPassword" name="confirm_password" class="form-control placeholder-white" placeholder="Repita a senha criada" required>
+        </div>
+      </div>
+
+      <div class="mb-4 ms-1">
+        <div class="form-check">
+          <input class="form-check-input bg-transparent border-secondary" type="checkbox" id="lgpdCheck" required>
+          <label class="form-check-label text-muted-custom mt-1" for="lgpdCheck">
+            Li e aceito os <a href="#termos-e-lgpd" class="auth-link">Termos de Uso</a> e a <a href="#termos-e-lgpd" class="auth-link">Política de Privacidade</a> (LGPD).
+          </label>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-prolink-pill w-100">
+        Criar minha conta
+      </button>
+
+      <div class="text-center mt-4">
+        <span class="text-muted-custom">Já possui cadastro?</span>
+        <a href="#auth" class="auth-link fw-semibold ms-1">Fazer login</a>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  // Este script roda inline após o jQuery .load() injetar a page no DOM.
+  // As funções de API (registerUser) já estão disponíveis globalmente via index.html.
+  (function () {
+    const profileTypeSelect = document.getElementById("profileType");
+    const registerForm = document.getElementById("registerForm");
+
+    function adjustFormFields() {
+      const profileType = profileTypeSelect ? profileTypeSelect.value : "";
+      const labelName = document.getElementById("labelName");
+      const fullNameInput = document.getElementById("fullName");
+      const labelDocument = document.getElementById("labelDocument");
+      const docInput = document.getElementById("documentNumber");
+      const iconDocument = document.getElementById("iconDocument");
+      const creaGroup = document.getElementById("creaGroup");
+      const creaInput = document.getElementById("creaRecord");
+      const categoriaProfissional = document.getElementById("categoriaProfissional");
+      const grauAcademico = document.getElementById("grauAcademico");
+      const studentFields = document.getElementById("studentFields");
+      const studentModality = document.getElementById("studentModality");
+      const institutionEnsino = document.getElementById("institutionEnsino");
+      const studentRA = document.getElementById("studentRA");
+      const empresaFields = document.getElementById("empresaFields");
+
+      // Reseta padrões
+      if (labelName) labelName.innerText = "Nome completo";
+      if (fullNameInput) fullNameInput.placeholder = "Digite seu nome completo";
+      if (labelDocument) labelDocument.innerText = "CPF";
+      if (docInput) docInput.placeholder = "000.000.000-00";
+      if (iconDocument) iconDocument.innerHTML = '<i class="bi bi-file-earmark-person"></i>';
+
+      // Oculta todos os blocos condicionais
+      if (creaGroup) creaGroup.style.display = "none";
+      if (creaInput) creaInput.removeAttribute("required");
+      if (categoriaProfissional) categoriaProfissional.removeAttribute("required");
+      if (grauAcademico) grauAcademico.removeAttribute("required");
+      if (studentFields) studentFields.style.display = "none";
+      if (studentModality) studentModality.removeAttribute("required");
+      if (institutionEnsino) institutionEnsino.removeAttribute("required");
+      if (studentRA) studentRA.removeAttribute("required");
+      if (empresaFields) empresaFields.style.display = "none";
+
+      if (profileType === "empresa") {
+        if (labelName) labelName.innerText = "Razão Social";
+        if (fullNameInput) fullNameInput.placeholder = "Digite a razão social da empresa / Nome institucional";
+        if (labelDocument) labelDocument.innerText = "CNPJ";
+        if (docInput) docInput.placeholder = "00.000.000/0000-00";
+        if (iconDocument) iconDocument.innerHTML = '<i class="bi bi-building"></i>';
+        if (empresaFields) empresaFields.style.display = "block";
+      } else if (profileType === "profissional") {
+        if (creaGroup) creaGroup.style.display = "block";
+        if (creaInput) creaInput.setAttribute("required", "required");
+        if (categoriaProfissional) categoriaProfissional.setAttribute("required", "required");
+        if (grauAcademico) grauAcademico.setAttribute("required", "required");
+      } else if (profileType === "universitario") {
+        if (studentFields) studentFields.style.display = "block";
+        if (studentModality) studentModality.setAttribute("required", "required");
+        if (institutionEnsino) institutionEnsino.setAttribute("required", "required");
+        if (studentRA) studentRA.setAttribute("required", "required");
+      }
+    }
+
+    if (profileTypeSelect) {
+      profileTypeSelect.addEventListener("change", adjustFormFields);
+      adjustFormFields();
+    }
+
+    if (registerForm) {
+      registerForm.addEventListener("submit", async function (event) {
+        event.preventDefault();
+        const password = document.getElementById("password").value;
+        const confirmPassword = document.getElementById("confirmPassword").value;
+
+        if (password !== confirmPassword) {
+          alert("As senhas não coincidem. Por favor, verifique.");
+          return;
+        }
+
+        const submitBtn = registerForm.querySelector('button[type="submit"]');
+        const originalBtnText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Cadastrando...';
+        submitBtn.disabled = true;
+
+        const formData = new FormData(registerForm);
+        const result = await registerUser(formData);
+
+        if (result.success) {
+          alert("Conta criada com sucesso! Redirecionando para o login...");
+          window.location.hash = "#auth";
+        } else {
+          alert("Erro ao cadastrar: " + result.message);
+          submitBtn.innerHTML = originalBtnText;
+          submitBtn.disabled = false;
+        }
+      });
+    }
+  })();
+</script>

@@ -1,0 +1,206 @@
+/* Container principal: empilhado no mobile, lado a lado no desktop */
+.auth-page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  border-radius: 0;
+  overflow: hidden;
+  background-color: var(--prolink-bg-darker);
+  font-family: var(--font-primary, 'Ubuntu', sans-serif);
+}
+
+/* Painel da Imagem (Topo no mobile, Esquerda no desktop) - Caminho corrigido com ../../ */
+.auth-image-panel {
+  background-image: url('../../assets/img/fundo-login-manaus.jpg');
+  background-size: cover;
+  background-position: center;
+  min-height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* Overlay escuro na imagem apenas para destacar o logo no mobile */
+.auth-image-panel::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: color-mix(in srgb, var(--prolink-bg-darker) 50%, transparent);
+}
+
+.mobile-logo {
+  position: relative;
+  z-index: 2;
+  max-width: 180px;
+}
+
+/* Painel do Formulário (Base no mobile, Direita no desktop) */
+.auth-form-panel {
+  padding: 2.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+}
+
+.desktop-logo {
+  max-width: 220px;
+  margin: 0 auto 2.5rem auto;
+}
+
+/* Ajustes para telas grandes (Desktop 1440+ do Figma) */
+@media (min-width: 992px) {
+  .auth-page-wrapper {
+    flex-direction: row;
+  }
+  
+  .auth-image-panel {
+    flex: 1.2; 
+    min-height: auto;
+  }
+  
+  .auth-image-panel::before {
+    background: transparent;
+  }
+
+  /* Painel do formulário no desktop com gradiente e fundo corrigidos com ../../ */
+  .auth-form-panel {
+    flex: 1;
+    padding: 3.5rem;
+    background-image: linear-gradient(color-mix(in srgb, var(--prolink-bg-darker) 92%, transparent), color-mix(in srgb, var(--prolink-bg-darker) 95%, transparent)), url('../../assets/img/fundo-login-manaus.jpg');
+    background-size: cover;
+    background-position: left;
+  }
+}
+
+/* Campos de texto arredondados (Pill Shape) */
+.auth-input-group {
+  border: 1px solid var(--prolink-dark);
+  border-radius: 50px;
+  background-color: transparent;
+  transition: all 0.3s ease;
+}
+
+.auth-input-group:focus-within {
+  border-color: var(--prolink-blue);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--prolink-blue) 15%, transparent);
+}
+
+.auth-input-group .input-group-text {
+  background-color: transparent;
+  border: none;
+  color: var(--prolink-light) !important;
+  padding-left: 1.5rem;
+}
+
+.auth-input-group .form-control {
+  background-color: transparent;
+  border: none;
+  color: var(--prolink-light);
+  padding: 0.8rem 1.5rem 0.8rem 0.5rem;
+}
+
+.auth-input-group .form-control:focus {
+  box-shadow: none;
+}
+
+/* Seletor correto do placeholder para a cor branca */
+.placeholder-white::placeholder {
+  color: color-mix(in srgb, var(--prolink-light) 45%, transparent) !important;
+}
+.placeholder-white::-webkit-input-placeholder {
+  color: color-mix(in srgb, var(--prolink-light) 45%, transparent) !important;
+}
+.placeholder-white::-ms-input-placeholder {
+  color: color-mix(in srgb, var(--prolink-light) 45%, transparent) !important;
+}
+
+/* Botão principal arredondado e vibrante */
+.btn-prolink-pill {
+  background-color: var(--prolink-blue);
+  color: var(--prolink-light);
+  font-weight: 600;
+  padding: 12px;
+  border-radius: 50px;
+  border: none;
+  transition: background-color 0.2s;
+}
+
+.btn-prolink-pill:hover {
+  background-color: color-mix(in srgb, var(--prolink-blue) 70%, black);
+  color: var(--prolink-light);
+}
+
+/* Divisor "OU" */
+.auth-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: var(--prolink-dark);
+  font-size: 0.85rem;
+  margin: 1.5rem 0;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid var(--prolink-dark);
+}
+
+.auth-divider:not(:empty)::before {
+  margin-right: .75em;
+}
+
+.auth-divider:not(:empty)::after {
+  margin-left: .75em;
+}
+
+/* Botões Sociais */
+.btn-social-pill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 11px;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  background-color: transparent;
+}
+
+.btn-gmail {
+  border: 1px solid #ea4335;
+  color: #ea4335;
+}
+
+.btn-gmail:hover {
+  background-color: #ea4335;
+  color: var(--prolink-light);
+}
+
+.btn-linkedin {
+  border: 1px solid #0077b5;
+  color: #0077b5;
+}
+
+.btn-linkedin:hover {
+  background-color: #0077b5;
+  color: var(--prolink-light);
+}
+
+/* Textos Auxiliares */
+.auth-link {
+  color: var(--prolink-blue);
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+.auth-link:hover {
+  text-decoration: underline;
+}
+.text-muted-custom {
+  color: var(--prolink-dark);
+  font-size: 0.85rem;
+}

@@ -1,0 +1,77 @@
+<link rel="stylesheet" href="src/pages/styles/feed.css">
+
+<!-- A Mágica: Fundo fixo preenchendo a tela toda -->
+<div class="feed-fullscreen-bg"></div>
+
+<!-- ========================================== -->
+<!-- MODAL / OFFCANVAS PARA MOBILE (Filtros e Calendário) -->
+<!-- ========================================== -->
+<div class="offcanvas offcanvas-start" tabindex="-1" id="mobileFiltersOffcanvas" aria-labelledby="mobileFiltersLabel" style="background-color: var(--prolink-bg-darker); border-right: 1px solid var(--prolink-blue); width: 360px; max-width: 90vw;">
+  
+  <div class="offcanvas-header" style="border-bottom: 1px solid var(--prolink-dark);">
+    <h5 class="offcanvas-title" id="mobileFiltersLabel" style="color: var(--prolink-blue); font-weight: 700;">
+      <i class="bi bi-calendar2-week"></i> Explorar
+    </h5>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  
+  <div class="offcanvas-body" style="display: flex; flex-direction: column; gap: 1.5rem; overflow-x: hidden; padding: 1.5rem 1rem;">
+    
+    <!-- Injeção do Calendário no Mobile -->
+    <div id="mobile-calendar-inject-area"></div>
+
+    <!-- Injeção dos Filtros no Mobile -->
+    <div id="mobile-filters-inject-area"></div>
+
+  </div>
+</div>
+<!-- ========================================== -->
+
+<div class="feed-page-wrapper">
+  
+  <!-- Injeção do Menu Lateral (Esquerda no PC, Topo no Mobile) -->
+  <div id="lateral-inject-area"></div>
+
+  <!-- Layout em Grid (Duas Colunas) -->
+  <div class="feed-main-container">
+    
+    <!-- COLUNA DA ESQUERDA: Busca e Publicações -->
+    <div class="feed-column-left">
+      
+      <!-- Barra de Pesquisa -->
+      <div class="pl-search-bar">
+        <i class="bi bi-search"></i>
+        <input type="text" placeholder="Pesquisa publicações">
+      </div>
+
+      <!-- Container onde os cards serão injetados -->
+      <div id="feed-posts-container">
+        <!-- Loading state enquanto busca do banco -->
+        <div class="text-center text-muted py-4">
+            Carregando publicações...
+        </div>
+      </div>
+
+    </div>
+
+    <!-- COLUNA DA DIREITA: Calendário e Filtros -->
+    <div class="feed-column-right">
+      
+      <!-- Componente Calendário -->
+      <div id="calendar-inject-area"></div>
+
+      <!-- Botão/Cabeçalho do Acordeão de Filtros -->
+      <div id="btn-toggle-filters" style="cursor: pointer; display: flex; justify-content: space-between; align-items: center; background-color: transparent; border: 1px solid var(--prolink-blue); border-radius: 12px; padding: 1.2rem 1.5rem; transition: all 0.2s;">
+        <span style="color: var(--prolink-blue); font-size: 1.4rem; font-weight: 800; letter-spacing: 1px;">FILTROS</span>
+        <i id="filter-arrow-icon" class="bi bi-chevron-down" style="color: var(--prolink-blue); font-size: 1.8rem; transition: transform 0.3s ease;"></i>
+      </div>
+
+      <!-- Injeção do componente de filtros detalhado (Inicia oculto) -->
+      <div id="filters-inject-area" style="display: none;"></div>
+
+    </div>
+
+  </div>
+</div>
+
+<script src="src/pages/scripts/feed.js"></script>
