@@ -1,0 +1,114 @@
+.pl-audit-panel {
+  background-color: rgba(255, 255, 255, 0.01);
+  border: 1px solid var(--prolink-blue, #2b8cff);
+  border-radius: 12px;
+  padding: 1.5rem;
+  font-family: var(--font-primary, 'Ubuntu', sans-serif);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.pl-audit-header {
+  margin-bottom: 1.2rem;
+  border-bottom: 1px solid rgba(43, 140, 255, 0.2);
+  padding-bottom: 1rem;
+}
+
+.pl-audit-title {
+  color: var(--prolink-blue, #2b8cff);
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pl-audit-list-wrapper {
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.pl-audit-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+/* Custom Scrollbar para manter o design limpo */
+.pl-audit-list::-webkit-scrollbar { width: 4px; }
+.pl-audit-list::-webkit-scrollbar-thumb { background-color: rgba(43, 140, 255, 0.2); border-radius: 10px; }
+
+/* Estrutura do Card de Log */
+.pl-audit-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 0.8rem 1.2rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: logFadeIn 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.pl-audit-card:hover {
+  background: rgba(43, 140, 255, 0.05);
+  border-color: rgba(43, 140, 255, 0.3);
+  transform: translateX(4px);
+}
+
+@keyframes logFadeIn {
+  to { opacity: 1; transform: translateY(0) translateX(0); }
+}
+
+/* Informações internas do card */
+.pl-audit-datetime {
+  display: flex;
+  flex-direction: column;
+  min-width: 90px;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  padding-right: 1rem;
+}
+
+.pl-audit-date { color: rgba(255, 255, 255, 0.9); font-size: 0.85rem; font-weight: 600; }
+.pl-audit-time { color: rgba(255, 255, 255, 0.5); font-size: 0.75rem; }
+
+.pl-audit-action {
+  flex-grow: 1;
+  padding: 0 1.5rem;
+  color: var(--prolink-light, #f8f9fa);
+  font-size: 0.9rem;
+}
+
+.pl-audit-profile {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 140px;
+  justify-content: flex-end;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 0.4rem 0.8rem;
+  border-radius: 16px;
+}
+
+.pl-audit-profile i { color: var(--prolink-blue, #2b8cff); font-size: 0.9rem;}
+.pl-audit-profile-name { color: rgba(255, 255, 255, 0.7); font-size: 0.8rem; font-weight: 600; }
+
+/* Responsividade Mobile */
+@media (max-width: 768px) {
+  .pl-audit-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
+  }
+  .pl-audit-datetime { border-right: none; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 0.5rem; width: 100%; flex-direction: row; justify-content: space-between;}
+  .pl-audit-action { padding: 0; }
+  .pl-audit-profile { width: 100%; justify-content: flex-start; background: transparent; padding: 0;}
+}

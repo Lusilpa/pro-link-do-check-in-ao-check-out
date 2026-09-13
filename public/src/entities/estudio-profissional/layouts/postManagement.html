@@ -1,0 +1,52 @@
+<link rel="stylesheet" href="src/entities/estudio-profissional/styles/postManagement.css">
+
+<div class="pl-post-mgmt-panel">
+  <div class="pl-post-mgmt-header">
+    <h3 class="pl-post-mgmt-title">
+      <i class="bi bi-newspaper"></i> Gerenciamento de Posts
+    </h3>
+    <p class="pl-post-mgmt-desc">
+      Crie novas publicações, edite conteúdos existentes ou remova posts da plataforma.
+    </p>
+  </div>
+
+  <div class="pl-post-mgmt-actions">
+    <!-- Card Criar -->
+    <button class="pl-post-card" id="actionCreatePost" aria-label="Criar novo post">
+      <div class="pl-post-icon icon-create">
+        <i class="bi bi-plus-square-fill" aria-hidden="true"></i>
+      </div>
+      <div class="pl-post-info">
+        <h4>Criar Post</h4>
+        <span>Publique novidades, anúncios e conteúdos para a plataforma.</span>
+      </div>
+      <i class="bi bi-chevron-right pl-post-arrow"></i>
+    </button>
+
+    <!-- Card Editar -->
+    <button class="pl-post-card" id="actionEditPost" aria-label="Editar post existente">
+      <div class="pl-post-icon icon-edit">
+        <i class="bi bi-pencil-square" aria-hidden="true"></i>
+      </div>
+      <div class="pl-post-info">
+        <h4>Editar Post</h4>
+        <span>Atualize o texto, imagens e tags de publicações existentes.</span>
+      </div>
+      <i class="bi bi-chevron-right pl-post-arrow"></i>
+    </button>
+
+    <!-- Card Deletar -->
+    <button class="pl-post-card" id="actionDeletePost" aria-label="Deletar post">
+      <div class="pl-post-icon icon-delete">
+        <i class="bi bi-trash3-fill" aria-hidden="true"></i>
+      </div>
+      <div class="pl-post-info">
+        <h4>Deletar Post</h4>
+        <span>Remova permanentemente publicações da plataforma.</span>
+      </div>
+      <i class="bi bi-chevron-right pl-post-arrow"></i>
+    </button>
+  </div>
+</div>
+
+<script src="src/entities/estudio-profissional/scripts/postManagement.js"></script>
