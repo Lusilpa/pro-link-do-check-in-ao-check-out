@@ -1,0 +1,50 @@
+<link rel="stylesheet" href="src/pages/styles/search-talentos.css">
+<link rel="stylesheet" href="src/entities/talentos/styles/card-talentos.css">
+
+<div class="search-fullscreen-bg"></div>
+
+<!-- OFFCANVAS MOBILE: Filtros -->
+<div class="offcanvas offcanvas-bottom" tabindex="-1" id="mobileFiltersOffcanvas" style="background-color: var(--prolink-bg-darker); border-top: 1px solid var(--prolink-blue); height: 85vh;">
+  <div class="offcanvas-header" style="border-bottom: 1px solid rgba(43, 140, 255, 0.2);">
+    <h5 class="offcanvas-title fw-bold" style="color: var(--prolink-blue);">
+      <i class="bi bi-funnel"></i> Filtrar Talentos
+    </h5>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+  </div>
+  <div class="offcanvas-body p-3" id="mobile-filters-inject-area"></div>
+</div>
+
+<!-- OFFCANVAS MOBILE: Detalhes do Talento -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="mobileDetailOffcanvas" style="background-color: var(--prolink-bg-darker); border-left: 1px solid var(--prolink-blue); width: 100vw;">
+  <div class="offcanvas-body p-0" id="mobile-detail-inject-area"></div>
+</div>
+
+<div class="search-page-wrapper">
+  <div class="search-main-container">
+
+    <!-- COLUNA ESQUERDA: Busca e Cards -->
+    <div class="search-column-left">
+      <button class="mobile-filter-trigger-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileFiltersOffcanvas">
+        <i class="bi bi-funnel-fill"></i> Filtrar Talentos
+      </button>
+
+      <div class="pl-search-bar">
+        <i class="bi bi-search"></i>
+        <input type="text" id="talentSearchInput" placeholder="Pesquisar por nome, habilidade ou cargo...">
+      </div>
+
+      <p class="pl-results-count" id="resultsCount"></p>
+
+      <div id="talents-cards-container"></div>
+    </div>
+
+    <!-- COLUNA DIREITA: Filtro Desktop / Painel Lateral de Detalhes -->
+    <div class="search-column-right">
+      <div class="search-sticky-filter" id="filterWidgetContainer"></div>
+      <div id="detail-panel-container" style="display: none;"></div>
+    </div>
+
+  </div>
+</div>
+
+<script src="src/pages/scripts/search-talentos.js"></script>

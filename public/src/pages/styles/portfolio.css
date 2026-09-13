@@ -1,0 +1,321 @@
+/* ====================================================
+   Página: Portfólio Público (Estilo Flat/Outline)
+   ==================================================== */
+
+.pl-portfolio-fullscreen-bg {
+  position: fixed;
+  inset: 0;
+  background-color: var(--prolink-bg-darker);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.pl-portfolio-page-wrapper {
+  position: relative;
+  z-index: 1;
+  padding: 2rem 1rem 100px 1rem;
+}
+
+.pl-portfolio-main-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: start;
+}
+
+@media (min-width: 1024px) {
+  .pl-portfolio-main-container {
+    grid-template-columns: 320px 1fr;
+  }
+}
+
+/* ---- SIDEBAR ---- */
+.pl-portfolio-sidebar {
+  position: relative; /* Volta a rolar normalmente na versão mobile */
+  z-index: 5;
+}
+
+.pl-portfolio-card {
+  background-color: var(--prolink-bg-darker); /* Fundo sólido para bloquear sobreposição */
+  border: 1px solid var(--prolink-blue);
+  border-radius: 12px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+}
+
+/* ---- CONTEÚDO PRINCIPAL ---- */
+.pl-portfolio-section {
+  background-color: var(--prolink-bg-darker); /* Fundo sólido para os blocos de conteúdo */
+  border: 1px solid var(--prolink-blue);
+  border-radius: 12px;
+  padding: 1.8rem;
+  margin-bottom: 1.5rem;
+}
+
+/* ====================================================
+   MEDIA QUERY: Aplica o Grid e o Sticky apenas no Desktop
+   ==================================================== */
+@media (min-width: 1024px) {
+  .pl-portfolio-main-container {
+    grid-template-columns: 320px 1fr;
+  }
+  
+  .pl-portfolio-sidebar {
+    position: sticky; /* Fica fixa acompanhando a rolagem apenas em telas grandes */
+    top: 1.5rem;
+  }
+}
+
+.pl-portfolio-avatar-container {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 1.2rem auto;
+  border-radius: 50%;
+  border: 1px solid var(--prolink-blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  color: var(--prolink-blue);
+  background-color: transparent;
+}
+
+.pl-portfolio-name {
+  color: var(--prolink-light);
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+.pl-portfolio-title {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.95rem;
+  font-weight: 400;
+  margin-bottom: 1.2rem;
+}
+
+.pl-portfolio-badges {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.pl-badge-crea {
+  background: transparent;
+  color: #00d278;
+  border: 1px solid #00d278;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 50px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pl-portfolio-info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  text-align: left;
+  margin-bottom: 1.5rem;
+  border-top: 1px solid rgba(43, 140, 255, 0.2);
+  padding-top: 1.5rem;
+}
+
+.pl-portfolio-info-item {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.pl-portfolio-info-item i {
+  color: var(--prolink-blue);
+}
+
+.pl-btn-contact {
+  width: 100%;
+  background-color: transparent;
+  color: var(--prolink-blue);
+  border: 1px solid var(--prolink-blue);
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background-color 0.2s;
+  margin-bottom: 1.5rem;
+}
+
+.pl-btn-contact:hover {
+  background-color: rgba(43, 140, 255, 0.1);
+}
+
+.pl-portfolio-social {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.pl-portfolio-social a {
+  color: var(--prolink-blue);
+  font-size: 1.2rem;
+  transition: color 0.2s;
+}
+
+.pl-portfolio-social a:hover {
+  color: var(--prolink-light);
+}
+
+/* ---- CONTEÚDO PRINCIPAL ---- */
+.pl-portfolio-section {
+  background-color: transparent;
+  border: 1px solid var(--prolink-blue);
+  border-radius: 12px;
+  padding: 1.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.pl-section-title {
+  color: var(--prolink-light);
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pl-section-title i {
+  color: var(--prolink-blue);
+}
+
+.pl-section-text {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Competências */
+.pl-skills-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.pl-skill-badge {
+  background: transparent;
+  color: var(--prolink-light);
+  border: 1px solid rgba(43, 140, 255, 0.4);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+/* Acervo Técnico (Grid) */
+.pl-acervo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.pl-acervo-card {
+  border: 1px solid #00d278;
+  background: transparent;
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+}
+
+.pl-acervo-card h4 {
+  color: #00d278;
+  font-size: 1.8rem;
+  margin: 0 0 0.2rem 0;
+}
+
+.pl-acervo-card span {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.85rem;
+}
+
+/* Experiências e Projetos */
+.pl-timeline-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.pl-experience-card {
+  border: 1px solid var(--prolink-blue);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.pl-exp-header {
+  margin-bottom: 1rem;
+}
+
+.pl-exp-title {
+  color: var(--prolink-light);
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0 0 0.3rem 0;
+}
+
+.pl-exp-company {
+  color: var(--prolink-blue);
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.pl-exp-date {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.85rem;
+  margin-top: 0.2rem;
+}
+
+.pl-project-list {
+  margin-top: 1.2rem;
+  padding-top: 1.2rem;
+  border-top: 1px dashed rgba(43, 140, 255, 0.3);
+}
+
+.pl-project-item {
+  margin-bottom: 1rem;
+}
+
+.pl-project-item:last-child {
+  margin-bottom: 0;
+}
+
+.pl-project-title {
+  color: var(--prolink-light);
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 0.4rem 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pl-project-title i {
+  color: #00d278; /* Destaque verde para entregas/projetos */
+}
+
+.pl-project-desc {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 0;
+}

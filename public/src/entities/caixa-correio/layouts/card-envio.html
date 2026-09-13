@@ -1,0 +1,97 @@
+<!-- Adicione ou verifique no <head> do index.html -->
+<link rel="stylesheet" href="src/entities/caixa-correio/styles/card-correio.css">
+<link rel="stylesheet" href="src/entities/caixa-correio/styles/card-envio.css">
+<link rel="stylesheet" href="src/entities/caixa-correio/styles/detail-correio.css">
+
+<div class="pl-envio-panel" id="envioPanelRoot">
+  <div class="pl-envio-header d-lg-none">
+    <h5 class="m-0" style="color: var(--prolink-blue); font-weight: 700;">Nova Mensagem</h5>
+    <button class="pl-btn-close-envio" id="closeEnvioPanel" aria-label="Fechar nova mensagem"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+  </div>
+
+  <div class="pl-envio-field-group">
+    <label class="pl-envio-label" for="chipInput">Destinatários</label>
+    <div class="pl-envio-chips-wrapper" id="chipWrapper">
+      <input type="email" class="pl-envio-chip-input" id="chipInput" name="chipInput" autocomplete="off" spellcheck="false" placeholder="Adicionar e-mail e apertar vírgula…">
+    </div>
+    <small class="pl-envio-hint">O primeiro e-mail é o destinatário principal. Os demais recebem cópia (CC).</small>
+  </div>
+
+  <div class="pl-envio-field-group">
+    <label class="pl-envio-label" for="envioSubject">Título</label>
+    <input type="text" class="pl-envio-input" id="envioSubject" name="envioSubject" autocomplete="off" placeholder="Assunto da mensagem…">
+  </div>
+
+  <div class="pl-envio-editor-container">
+    <div class="pl-envio-editor-area">
+      <!-- MUDANÇA CRÍTICA: div contenteditable no lugar da textarea para suportar negrito/itálico -->
+      <div class="pl-envio-textarea" id="envioBody" contenteditable="true" aria-label="Corpo da mensagem" placeholder="Escreva sua mensagem aqui…"></div>
+    </div>
+    <div class="pl-envio-toolbar">
+      <button class="pl-toolbar-btn" data-cmd="bold" title="Negrito" aria-label="Negrito"><i class="bi bi-type-bold" aria-hidden="true"></i></button>
+      <button class="pl-toolbar-btn" data-cmd="italic" title="Itálico" aria-label="Itálico"><i class="bi bi-type-italic" aria-hidden="true"></i></button>
+      <div class="pl-toolbar-divider"></div>
+      <button class="pl-toolbar-btn" data-cmd="insertUnorderedList" title="Lista" aria-label="Lista"><i class="bi bi-list-ul" aria-hidden="true"></i></button>
+      <button class="pl-toolbar-btn" data-cmd="createLink" title="Link" aria-label="Inserir Link"><i class="bi bi-link-45deg" aria-hidden="true"></i></button>
+    </div>
+  </div>
+
+  <!-- WRAPPER RELATIVO PARA O MENU POPUP DE ANEXO -->
+  <div class="pl-envio-attachments-wrapper">
+    <div class="pl-envio-attachments-zone" id="envioAttachmentsZone">
+      <div class="pl-attachments-placeholder">
+        <i class="bi bi-paperclip"></i>
+        <span>Clique para adicionar <strong>Anexos</strong> ou vincular <strong>Demandas</strong></span>
+      </div>
+    </div>
+
+    <!-- O MENU POPOVER QUE ABRE AO CLICAR NO ANEXO -->
+    <div class="pl-attach-popover" id="attachPopover" style="display: none;">
+      <!-- Tela 1: Escolha -->
+      <div id="popoverViewChoice">
+        <div class="pl-popover-header">
+          <span style="color: var(--prolink-blue); font-weight: 700;"><i class="bi bi-paperclip" aria-hidden="true"></i> Adicionar Anexo</span>
+          <button class="pl-btn-close-popover" id="closePopover" aria-label="Fechar popover"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+        </div>
+        <button class="pl-btn-attach-choice" id="btnAttachComputer">
+          <i class="bi bi-display"></i>
+          <div class="pl-attach-choice-text">
+            <span>Do Computador</span>
+            <small>PDFs, Imagens, Documentos</small>
+          </div>
+        </button>
+        <button class="pl-btn-attach-choice" id="btnAttachDemand">
+          <i class="bi bi-briefcase"></i>
+          <div class="pl-attach-choice-text">
+            <span>Vincular Demanda</span>
+            <small>Pesquisar na plataforma</small>
+          </div>
+        </button>
+      </div>
+
+      <!-- Tela 2: Pesquisa de Demandas -->
+      <div id="popoverViewDemand" style="display: none;">
+        <div class="pl-popover-header">
+          <button class="pl-btn-back-popover" id="backPopover" aria-label="Voltar"><i class="bi bi-arrow-left" aria-hidden="true"></i></button>
+          <span style="color: var(--prolink-blue); font-weight: 700;">Vincular Demanda</span>
+        </div>
+        <input type="text" class="pl-envio-input" id="inputSearchDemand" placeholder="Digite o código da demanda...">
+        <div id="demandSearchResults" class="pl-demand-results-container"></div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Lista onde os anexos escolhidos vão aparecer -->
+  <div class="pl-attachments-list" id="envioAttachmentsList" aria-live="polite"></div>
+
+  <div class="pl-envio-actions">
+    <button class="pl-btn-send" id="btnSendEnvio">
+      <i class="bi bi-send-fill"></i> ENVIAR
+    </button>
+  </div>
+</div>
+
+<!-- Input nativo oculto para abrir a janela do Windows/Mac -->
+<input type="file" id="hiddenFileInput" multiple style="display: none;">
+
+<script src="src/entities/caixa-correio/scripts/card-envio.js"></script>

@@ -1,0 +1,60 @@
+<link rel="stylesheet" href="src/entities/talentos/styles/detail-talentos.css">
+
+<div class="pl-talent-detail-panel" id="talentDetailRoot">
+
+  <!-- Cabeçalho (Avatar, Nome, Título e Botão Fechar) -->
+  <div class="pl-td-header">
+    <div class="pl-td-user-info">
+      <div class="pl-td-avatar">
+        <i class="bi bi-person-bounding-box"></i>
+      </div>
+      <div class="pl-td-meta">
+        <h2 class="pl-td-name" id="tdName">Carregando...</h2>
+        <h4 class="pl-td-title" id="tdTitle">...</h4>
+        <div class="pl-td-badges" id="tdBadges">
+          <!-- Selos injetados via JS -->
+        </div>
+      </div>
+    </div>
+    <button class="pl-td-close-btn" id="closeTalentDetailPanel" title="Fechar painel">
+      <i class="bi bi-x-lg"></i>
+    </button>
+  </div>
+
+  <!-- Ação Principal (Contato) -->
+  <div class="pl-td-action-row">
+    <button class="btn-td-contact" id="btnTdContact">
+      <i class="bi bi-chat-dots-fill"></i> Entrar em Contato
+    </button>
+  </div>
+
+  <div class="pl-td-scroll-content">
+    
+    <!-- Seção: Resumo -->
+    <section class="pl-td-section">
+      <h3 class="pl-td-section-title"><i class="bi bi-file-person"></i> Resumo Profissional</h3>
+      <p class="pl-td-section-text" id="tdSummary">Carregando resumo...</p>
+    </section>
+
+    <!-- Seção: Competências -->
+    <section class="pl-td-section">
+      <h3 class="pl-td-section-title"><i class="bi bi-stars"></i> Competências Técnicas</h3>
+      <div class="pl-td-skills-container" id="tdSkills"></div>
+    </section>
+
+    <!-- Seção: Acervo Técnico (Oculta para estudantes sem acervo) -->
+    <section class="pl-td-section" id="tdAcervoSection">
+      <h3 class="pl-td-section-title"><i class="bi bi-shield-check"></i> Acervo Técnico Validado</h3>
+      <div class="pl-td-acervo-grid" id="tdAcervo"></div>
+    </section>
+
+    <!-- Seção: Experiência e Projetos -->
+    <section class="pl-td-section pl-td-section-noborder">
+      <h3 class="pl-td-section-title"><i class="bi bi-briefcase"></i> Experiência e Projetos</h3>
+      <div class="pl-td-timeline-container" id="tdExperience"></div>
+    </section>
+
+  </div>
+</div>
+
+<script src="src/entities/talentos/scripts/detail-talentos.js"></script>

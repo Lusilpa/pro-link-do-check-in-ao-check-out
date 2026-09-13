@@ -1,0 +1,47 @@
+<link rel="stylesheet" href="src/entities/demands/styles/demand-detail.css">
+
+<div class="pl-demand-detail-panel" id="demandDetailRoot">
+
+  <!-- Cabeçalho: Avatar + Nome + Botão Fechar -->
+  <div class="pl-detail-header">
+    <div class="pl-detail-company-info">
+      <div class="pl-detail-avatar">
+        <i class="bi bi-building"></i>
+      </div>
+      <div class="pl-detail-meta">
+        <h6 class="pl-detail-company-name" id="detailCompanyName">Carregando...</h6>
+        <span class="pl-detail-time" id="detailTime"></span>
+      </div>
+    </div>
+    <button class="pl-detail-close-btn" id="closeDetailPanel" title="Fechar painel">
+      <i class="bi bi-x-lg"></i>
+    </button>
+  </div>
+  
+  <!-- Linha de Ação: Botão centralizado -->
+  <div class="pl-detail-action-row">
+    <button class="btn-prolink-proposal" id="btnSendProposal">
+      <i class="bi bi-file-earmark-text"></i> Enviar Carta Proposta
+    </button>
+  </div>
+
+  <!-- Badges: status, tipo e área técnica -->
+  <div class="pl-detail-badges" id="detailBadges"></div>
+
+  <!-- Título e subtítulo -->
+  <div class="pl-detail-titles">
+    <h3 class="pl-detail-title" id="detailTitle"></h3>
+    <span class="pl-detail-subtitle" id="detailSubtitle"></span>
+  </div>
+
+  <!-- Metadados: cidade, modalidade e prazo -->
+  <div class="pl-detail-meta-row" id="detailMeta"></div>
+
+  <!-- Descrição completa da demanda -->
+  <div class="pl-detail-body">
+    <p id="detailDescription">Carregando descrição...</p>
+  </div>
+
+</div>
+
+<script src="src/entities/demands/scripts/demand-detail.js"></script>

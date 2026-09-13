@@ -1,0 +1,160 @@
+.mail-fullscreen-bg {
+  position: fixed; inset: 0;
+  background-color: var(--prolink-bg-darker);
+  pointer-events: none; z-index: 0;
+}
+
+.mail-page-wrapper {
+  position: relative; z-index: 1;
+}
+
+.mail-main-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem; align-items: start;
+  width: 100%; max-width: 1200px;
+  margin: 0 auto; padding: 2rem 1rem 120px 1rem;
+}
+
+@media (min-width: 1025px) {
+  .mail-main-container {
+    grid-template-columns: 400px 1fr;
+    padding: 2rem 0 120px 0;
+  }
+}
+
+.mail-sticky-panel {
+  position: sticky; top: 1.5rem;
+  height: calc(100vh - 130px);
+  overflow-y: auto;
+}
+
+.mail-sticky-panel::-webkit-scrollbar { width: 6px; }
+.mail-sticky-panel::-webkit-scrollbar-thumb {
+  background-color: rgba(43, 140, 255, 0.2);
+  border-radius: 10px;
+}
+
+.pl-offcanvas-dark {
+  background-color: var(--prolink-bg-darker) !important;
+  border-color: var(--prolink-blue) !important;
+}
+
+.pl-offcanvas-dark.offcanvas-bottom {
+  height: 92vh !important;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.pl-offcanvas-dark.offcanvas-end {
+  width: 100vw !important;
+}
+
+@media (min-width: 768px) {
+  .pl-offcanvas-dark.offcanvas-end {
+    width: 450px !important;
+  }
+}
+
+#mobile-compose-inject-area, #mobile-read-inject-area {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* SEARCH BAR COM GLOW */
+.pl-mail-search-bar {
+  display: flex; align-items: center; gap: 0.75rem;
+  background-color: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(43, 140, 255, 0.4);
+  border-radius: 12px;
+  padding: 1rem 1.2rem;
+  margin-bottom: 1.5rem;
+  transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
+}
+
+.pl-mail-search-bar:focus-within {
+  border-color: var(--prolink-blue);
+  box-shadow: 0 0 15px rgba(43, 140, 255, 0.15);
+  background-color: rgba(43, 140, 255, 0.05);
+}
+
+.pl-mail-search-bar i { color: var(--prolink-blue); font-size: 1.2rem; }
+.pl-mail-search-bar input {
+  background: transparent; border: none;
+  color: var(--prolink-light);
+  font-family: var(--font-primary, 'Ubuntu', sans-serif);
+  font-size: 1rem; width: 100%;
+  outline: none;
+}
+
+/* BOTÃO MOBILE PREMIUM */
+.pl-btn-new-mail {
+  display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+  background: linear-gradient(135deg, rgba(43, 140, 255, 0.1) 0%, rgba(43, 140, 255, 0.05) 100%);
+  border: 1px solid var(--prolink-blue);
+  color: var(--prolink-blue);
+  font-family: var(--font-primary, 'Ubuntu', sans-serif);
+  font-size: 1rem; font-weight: 700;
+  padding: 14px 24px; border-radius: 8px;
+  cursor: pointer; margin-bottom: 1.2rem; width: 100%;
+  transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+  box-shadow: 0 4px 15px rgba(43, 140, 255, 0.1);
+}
+
+.pl-btn-new-mail:hover {
+  background: rgba(43, 140, 255, 0.15);
+  box-shadow: 0 6px 20px rgba(43, 140, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.pl-btn-new-mail:focus-visible {
+  outline: 2px solid var(--prolink-blue);
+  outline-offset: 2px;
+}
+
+@media (min-width: 1025px) { .pl-btn-new-mail { display: none; } }
+
+.pl-toast-container {
+  position: fixed; top: 16px; right: 16px; z-index: 1060;
+  display: flex; flex-direction: column; gap: 12px; pointer-events: none;
+  max-width: calc(100vw - 32px);
+}
+.pl-toast {
+  background: #1e2025;
+  border-left: 4px solid var(--prolink-blue);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  color: var(--prolink-light);
+  padding: 14px 20px; border-radius: 8px;
+  display: flex; align-items: center; gap: 12px;
+  font-family: var(--font-primary, 'Ubuntu', sans-serif);
+  font-size: 0.95rem; font-weight: 500;
+  animation: toastSlideIn 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  min-width: 240px;
+  max-width: 100%;
+  box-sizing: border-box;
+  word-break: break-word;
+}
+.pl-toast-icon { font-size: 1.2rem; color: var(--prolink-blue); flex-shrink: 0; }
+.pl-toast.toast-error { border-left-color: #ff4d4d; }
+.pl-toast.toast-error .pl-toast-icon { color: #ff4d4d; }
+.pl-toast.toast-fadeout { opacity: 0; transform: translateX(50px); transition: opacity 0.3s, transform 0.3s; }
+
+@keyframes toastSlideIn {
+  from { opacity: 0; transform: translateX(100px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@media (max-width: 480px) {
+  .pl-toast-container {
+    top: 12px;
+    right: 12px;
+    left: 12px;
+    max-width: none;
+  }
+  .pl-toast {
+    min-width: 0;
+    width: 100%;
+  }
+}
