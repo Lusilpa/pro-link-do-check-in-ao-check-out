@@ -1,0 +1,65 @@
+<link rel="stylesheet" href="src/entities/talentos/styles/filter-talentos.css">
+
+<div class="pl-filter-widget">
+
+  <label class="pl-filter-label">Área de Atuação</label>
+  <div class="pl-filter-select-wrapper">
+    <i class="bi bi-compass"></i>
+    <select class="pl-filter-select filterArea">
+      <option value="">Todas as áreas</option>
+    </select>
+  </div>
+
+  <label class="pl-filter-label">Nível de Experiência</label>
+  <div class="pl-filter-select-wrapper">
+    <i class="bi bi-bar-chart-fill"></i>
+    <select class="pl-filter-select filterNivel">
+      <option value="">Todos os níveis</option>
+      <option value="estagiario">Estagiário</option>
+      <option value="junior">Júnior</option>
+      <option value="pleno">Pleno</option>
+      <option value="senior">Sênior</option>
+      <option value="especialista">Especialista</option>
+    </select>
+  </div>
+
+  <label class="pl-filter-label">Grau Acadêmico</label>
+  <div class="pl-filter-select-wrapper">
+    <i class="bi bi-mortarboard"></i>
+    <select class="pl-filter-select filterGrau">
+      <option value="">Todos os graus</option>
+      <option value="tecnologo">Tecnólogo</option>
+      <option value="graduacao">Graduação</option>
+      <option value="pos_graduacao">Pós-Graduação</option>
+      <option value="mestrado">Mestrado</option>
+      <option value="doutorado">Doutorado</option>
+    </select>
+  </div>
+
+  <label class="pl-filter-label">Registro CREA</label>
+  <div class="pl-filter-select-wrapper">
+    <i class="bi bi-patch-check"></i>
+    <select class="pl-filter-select filterCrea">
+      <option value="">Qualquer status</option>
+      <option value="ativo">Com Registro Ativo</option>
+      <option value="em_andamento">Em Andamento</option>
+    </select>
+  </div>
+
+  <label class="pl-filter-label">Modalidade</label>
+  <div class="pl-filter-select-wrapper">
+    <i class="bi bi-laptop"></i>
+    <select class="pl-filter-select filterModalidade">
+      <option value="">Todas</option>
+      <option value="presencial">Presencial</option>
+      <option value="remoto">Remoto</option>
+      <option value="hibrido">Híbrido</option>
+    </select>
+  </div>
+
+  <button class="pl-btn-apply btnApplyFilter">Aplicar Filtros</button>
+  <button class="pl-btn-clear btnClearFilter">Limpar tudo</button>
+
+</div>
+
+<script src="src/entities/talentos/scripts/filter-talentos.js"></script>

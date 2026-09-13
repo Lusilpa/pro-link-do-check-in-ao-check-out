@@ -1,0 +1,172 @@
+/* ====================================================
+   Painel Lateral de Detalhes da Demanda (Estilo Flat)
+   ==================================================== */
+
+.pl-demand-detail-panel {
+  background-color: transparent;
+  border: 1px solid rgba(43, 140, 255, 0.2);
+  border-radius: 12px;
+  padding: 1.5rem;
+  color: var(--prolink-light);
+  font-family: var(--font-primary, 'Ubuntu', sans-serif);
+  width: 100%;
+  animation: fadeInPanel 0.2s ease-in-out;
+}
+
+@keyframes fadeInPanel {
+  from { opacity: 0; transform: translateX(10px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* ---- HEADER ---- */
+.pl-detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.2rem;
+  width: 100%;
+}
+
+.pl-detail-company-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.pl-detail-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%; /* Círculo igual ao design */
+  border: 1px solid rgba(43, 140, 255, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--prolink-blue);
+  font-size: 1.5rem;
+  background-color: transparent;
+  flex-shrink: 0;
+}
+
+.pl-detail-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.pl-detail-company-name {
+  margin: 0;
+  color: var(--prolink-light);
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.pl-detail-time {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.85rem;
+}
+
+/* Botão de Fechar [X] */
+.pl-detail-close-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.6);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.pl-detail-close-btn:hover {
+  color: var(--prolink-light);
+  border-color: var(--prolink-light);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* ---- LINHA DE AÇÃO SUPERIOR ---- */
+.pl-detail-action-row {
+  display: flex;
+  width: 100%; /* Garante que a linha ocupe todo o espaço */
+  margin-bottom: 1.5rem;
+}
+
+.btn-prolink-proposal {
+  width: 100%; /* Faz o botão esticar até as margens do painel */
+  background-color: transparent;
+  border: 1px solid var(--prolink-blue);
+  color: var(--prolink-blue);
+  font-weight: 700;
+  font-family: var(--font-primary, 'Ubuntu', sans-serif);
+  padding: 12px 24px; /* Padding vertical levemente maior para ficar mais imponente */
+  border-radius: 8px;
+  display: flex; /* Mudamos de inline-flex para flex */
+  align-items: center;
+  justify-content: center; /* Mantém o ícone e o texto centralizados dentro do botão esticado */
+  gap: 8px;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+
+.btn-prolink-proposal:hover {
+  background-color: rgba(43, 140, 255, 0.1);
+}
+
+/* ---- CORPO DO DETALHE ---- */
+.pl-detail-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.pl-detail-titles {
+  margin-bottom: 1.5rem;
+}
+
+.pl-detail-title {
+  color: var(--prolink-light);
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 1.4;
+  margin-bottom: 0.5rem;
+}
+
+.pl-detail-subtitle {
+  color: var(--prolink-light);
+  opacity: 0.8;
+  font-size: 0.95rem;
+}
+
+.pl-detail-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding: 1.2rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 1.5rem;
+}
+
+.pl-detail-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+}
+
+.pl-detail-meta-item i {
+  color: var(--prolink-blue);
+  font-size: 1.1rem;
+}
+
+.pl-detail-body {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 1rem;
+  line-height: 1.6;
+}

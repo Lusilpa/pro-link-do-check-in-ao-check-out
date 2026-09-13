@@ -1,0 +1,70 @@
+.pl-detail-mail-panel {
+  background-color: rgba(255,255,255,0.01);
+  border: 1px solid var(--prolink-blue); border-radius: 12px;
+  padding: 1.5rem; font-family: var(--font-primary, 'Ubuntu', sans-serif);
+  display: flex; flex-direction: column; height: 100%; color: var(--prolink-light);
+}
+
+@media (max-width: 768px) {
+  .pl-detail-mail-panel {
+    border: none;
+    border-radius: 0;
+    padding: 1rem;
+    background-color: transparent;
+  }
+}
+
+.pl-dm-header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid rgba(43, 140, 255, 0.2); padding-bottom: 1.2rem; margin-bottom: 1.2rem; }
+.pl-dm-sender-info { display: flex; align-items: center; gap: 1rem; }
+
+/* AVATAR INICIAL ESTILIZADO */
+.pl-dm-avatar-initial {
+  width: 48px; height: 48px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--prolink-blue), #1a5ca6);
+  display: flex; align-items: center; justify-content: center;
+  color: white; font-size: 1.4rem; font-weight: 700;
+  box-shadow: 0 4px 10px rgba(43,140,255,0.3); text-transform: uppercase;
+}
+
+.pl-dm-meta { display: flex; flex-direction: column; }
+.pl-dm-name { margin: 0; font-size: 1.1rem; font-weight: 700; color: var(--prolink-light); }
+.pl-dm-email { font-size: 0.85rem; color: rgba(255, 255, 255, 0.6); }
+
+.pl-dm-actions-top { display: flex; align-items: center; gap: 1rem; }
+.pl-dm-date { font-size: 0.85rem; color: rgba(255, 255, 255, 0.5); }
+.pl-btn-close-dm { background: transparent; border: 1px solid rgba(255, 255, 255, 0.2); color: rgba(255, 255, 255, 0.6); border-radius: 8px; width: 32px; height: 32px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+.pl-btn-close-dm:hover { color: var(--prolink-blue); border-color: var(--prolink-blue); }
+
+.pl-dm-subject-area { margin-bottom: 1.5rem; display: flex; gap: 12px; align-items: center; }
+.pl-dm-subject-accent { width: 4px; height: 24px; background-color: var(--prolink-blue); border-radius: 4px; }
+.pl-dm-subject { margin: 0; font-size: 1.3rem; font-weight: 700; color: var(--prolink-light); }
+
+.pl-dm-body-area { flex-grow: 1; margin-bottom: 1.5rem; overflow-y: auto; padding-right: 0.5rem; }
+.pl-dm-body-area::-webkit-scrollbar { width: 4px; }
+.pl-dm-body-area::-webkit-scrollbar-thumb { background-color: rgba(43, 140, 255, 0.2); border-radius: 10px; }
+.pl-dm-body-text { font-size: 0.95rem; line-height: 1.6; color: rgba(255, 255, 255, 0.85); white-space: pre-wrap; }
+
+.pl-dm-attachments-area { border-top: 1px dashed rgba(43, 140, 255, 0.3); padding-top: 1rem; margin-bottom: 1.5rem; }
+.pl-dm-att-title { color: var(--prolink-blue); font-size: 0.9rem; font-weight: 700; margin-bottom: 0.8rem; }
+.pl-dm-att-list { display: flex; flex-direction: column; gap: 0.5rem; }
+.pl-dm-att-item { display: inline-flex; align-items: center; gap: 0.8rem; background-color: rgba(43, 140, 255, 0.05); border: 1px solid rgba(43, 140, 255, 0.2); padding: 0.6rem 1rem; border-radius: 8px; font-size: 0.85rem; cursor: pointer; transition: background-color 0.2s; max-width: max-content;}
+.pl-dm-att-item:hover { background-color: rgba(43, 140, 255, 0.15); }
+.pl-dm-att-item i { color: var(--prolink-blue); font-size: 1.2rem; }
+
+.pl-dm-footer { display: flex; justify-content: flex-start; gap: 12px; border-top: 1px solid rgba(43,140,255,0.1); padding-top: 1rem; }
+
+/* BOTOES FOOTER */
+.pl-btn-reply {
+  background-color: var(--prolink-blue); border: 1px solid var(--prolink-blue);
+  color: #fff; font-weight: 700; padding: 10px 24px; border-radius: 8px;
+  cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.3s;
+  box-shadow: 0 4px 12px rgba(43,140,255,0.2);
+}
+.pl-btn-reply:hover { background-color: #1a6dcc; transform: translateY(-1px); box-shadow: 0 6px 16px rgba(43,140,255,0.3); }
+
+.pl-btn-delete {
+  background: transparent; border: 1px solid rgba(255, 77, 77, 0.3);
+  color: #ff4d4d; font-weight: 600; padding: 10px 20px; border-radius: 8px;
+  cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.2s;
+}
+.pl-btn-delete:hover { background: rgba(255, 77, 77, 0.1); border-color: #ff4d4d; }

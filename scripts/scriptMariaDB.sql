@@ -126,7 +126,7 @@ CREATE TABLE administradores (
 ) ENGINE=InnoDB;
 
 -- ============================================================
--- UNIVERSIDADES/FACULDADES
+-- UNIVERSIDADES/FACULDADES - demandas
 -- ============================================================
 
 CREATE TABLE universidades (
@@ -703,7 +703,6 @@ CREATE TABLE cats (
     INDEX idx_cats_validade (validade)
 ) ENGINE=InnoDB;
 
-
 -- ============================================================
 -- DEMANDAS
 -- ============================================================
@@ -716,6 +715,32 @@ CREATE TABLE demandas (
     titulo VARCHAR(150) NOT NULL,
 
     descricao TEXT NOT NULL,
+
+    /* Novos atributos - Luan Palma - Para filtros */
+
+    area_demanda TEXT NOT NULL, /* Se possivel utilizar a API do Crea implementação de PLN para definir */
+
+    tipo_demanda ENUM(
+        'ESTAGIO',
+        'PROJETO',
+        'MENTORIA',
+        'PESQUISA',
+        'VOLUNTARIADO'
+    ) NOT NULL DEFAULT 'PROJETO',
+
+    cidade_demanda TEXT NOT NULL,
+
+    uf_demanda ENUM(
+        'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 
+        'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 
+        'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'
+    ) NOT NULL DEFAULT 'AM',
+
+    modalidade ENUM(
+        'HIBRIDO',
+        'PRESENCIAL',
+        'REMOTO'
+    ) NOT NULL DEFAULT 'PRESENCIAL',
 
     status ENUM(
         'ABERTA',
@@ -753,44 +778,6 @@ CREATE TABLE demandas (
     ),
     INDEX idx_demandas_data_publicacao (data_publicacao)
 ) ENGINE=InnoDB;
-
-
--- ============================================================
--- REQUISITOS DAS DEMANDAS
--- ============================================================
-
-CREATE TABLE demanda_competencias (
-    id_demanda INT UNSIGNED NOT NULL,
-
-    id_competencia INT UNSIGNED NOT NULL,
-
-    obrigatoria BOOLEAN NOT NULL DEFAULT TRUE,
-
-    nivel_minimo ENUM(
-        'BASICO',
-        'INTERMEDIARIO',
-        'AVANCADO',
-        'ESPECIALISTA'
-    ) NOT NULL DEFAULT 'BASICO',
-
-    PRIMARY KEY (
-        id_demanda,
-        id_competencia
-    ),
-
-    CONSTRAINT fk_demanda_comp_demanda
-        FOREIGN KEY (id_demanda)
-        REFERENCES demandas(id)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE,
-
-    CONSTRAINT fk_demanda_comp_competencia
-        FOREIGN KEY (id_competencia)
-        REFERENCES competencias(id)
-        ON DELETE RESTRICT
-        ON UPDATE CASCADE
-) ENGINE=InnoDB;
-
 
 -- ============================================================
 -- DEMONSTRAÇÕES DE INTERESSE

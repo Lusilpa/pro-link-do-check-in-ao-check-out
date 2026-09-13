@@ -1,0 +1,93 @@
+/* ====================================================
+   Filtro de Talentos — Estilo Outline (Padrão Feed)
+   ==================================================== */
+
+.pl-filter-widget {
+  background-color: transparent;
+  border: 1px solid var(--prolink-blue);
+  border-radius: 12px;
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 320px;
+  font-family: var(--font-primary, 'Ubuntu', sans-serif);
+}
+
+.pl-filter-label {
+  color: var(--prolink-blue);
+  font-size: 0.85rem;
+  margin-bottom: 0.4rem;
+  display: block;
+  font-weight: 600;
+}
+
+.pl-filter-select-wrapper {
+  border: 1px solid var(--prolink-blue);
+  border-radius: 50px;
+  background-color: transparent;
+  margin-bottom: 1.2rem;
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.pl-filter-select-wrapper i {
+  color: var(--prolink-blue);
+  margin-right: 8px;
+}
+
+.pl-filter-select {
+  background-color: transparent;
+  border: none;
+  color: var(--prolink-light);
+  padding: 0.6rem 0;
+  width: 100%;
+  outline: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%232b8cff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.2rem center;
+  background-size: 16px 12px;
+  padding-right: 1.5rem;
+  font-family: var(--font-primary, 'Ubuntu', sans-serif);
+}
+
+.pl-filter-select option {
+  background-color: var(--prolink-bg-darker);
+  color: var(--prolink-light);
+}
+
+/* Botões */
+.pl-btn-apply {
+  background-color: transparent;
+  color: var(--prolink-blue);
+  border: 1px solid var(--prolink-blue);
+  font-weight: 700;
+  padding: 10px;
+  border-radius: 50px;
+  width: 100%;
+  margin-top: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-family: var(--font-primary, 'Ubuntu', sans-serif);
+}
+
+.pl-btn-apply:hover {
+  background-color: rgba(43, 140, 255, 0.1);
+}
+
+.pl-btn-clear {
+  background-color: transparent;
+  color: var(--prolink-light);
+  opacity: 0.7;
+  border: none;
+  width: 100%;
+  font-size: 0.85rem;
+  padding: 10px 5px;
+  cursor: pointer;
+  font-family: var(--font-primary, 'Ubuntu', sans-serif);
+}
+
+.pl-btn-clear:hover {
+  opacity: 1;
+  text-decoration: underline;
+}

@@ -1,0 +1,42 @@
+<link rel="stylesheet" href="src/pages/styles/caixa-correio.css">
+
+<!-- Container Global de Toasts -->
+<div id="pl-toast-container" class="pl-toast-container"></div>
+
+<div class="mail-fullscreen-bg"></div>
+
+<!-- OFFCANVAS MOBILE -->
+<div class="offcanvas offcanvas-bottom pl-offcanvas-dark" tabindex="-1" id="mobileComposeOffcanvas">
+  <div class="offcanvas-body p-0" id="mobile-compose-inject-area"></div>
+</div>
+
+<div class="offcanvas offcanvas-end pl-offcanvas-dark" tabindex="-1" id="mobileReadOffcanvas">
+  <div class="offcanvas-body p-0" id="mobile-read-inject-area"></div>
+</div>
+
+<div class="mail-page-wrapper">
+  <div class="mail-main-container">
+    
+    <!-- COLUNA ESQUERDA -->
+    <div class="mail-column-left">
+      <button class="pl-btn-new-mail" type="button" id="btnNewMailMobile">
+        <i class="bi bi-pencil-square"></i> ENVIAR CARTA
+      </button>
+
+      <div class="pl-mail-search-bar" id="mailSearchContainer">
+        <i class="bi bi-search"></i>
+        <input type="text" id="mailSearchInput" placeholder="Pesquisar por remetente ou assunto...">
+      </div>
+
+      <div id="mail-list-inject-area"></div>
+    </div>
+
+    <!-- COLUNA DIREITA -->
+    <div class="mail-column-right d-none d-lg-block">
+      <div class="mail-sticky-panel" id="desktop-dynamic-inject-area"></div>
+    </div>
+
+  </div>
+</div>
+
+<script src="src/pages/scripts/caixa-correio.js"></script>

@@ -1,0 +1,44 @@
+<link rel="stylesheet" href="src/entities/caixa-correio/styles/detail-correio.css">
+
+<div class="pl-detail-mail-panel" id="detailMailRoot">
+  <div class="pl-dm-header">
+    <div class="pl-dm-sender-info">
+      <!-- Trocado o ícone pelo avatar com inicial -->
+      <div class="pl-dm-avatar-initial" id="dmAvatarInitial">R</div>
+      <div class="pl-dm-meta">
+        <h5 class="pl-dm-name" id="dmSenderName">Carregando...</h5>
+        <span class="pl-dm-email" id="dmSenderEmail">...</span>
+      </div>
+    </div>
+    <div class="pl-dm-actions-top">
+      <span class="pl-dm-date" id="dmDate"></span>
+      <button class="pl-btn-close-dm" id="closeDetailMailPanel" title="Fechar Mensagem">
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="pl-dm-subject-area">
+    <div class="pl-dm-subject-accent"></div>
+    <h3 class="pl-dm-subject" id="dmSubject"></h3>
+  </div>
+
+  <div class="pl-dm-body-area">
+    <div class="pl-dm-body-text" id="dmBodyText"></div>
+  </div>
+
+  <div class="pl-dm-attachments-area" id="dmAttachmentsZone" style="display: none;">
+    <h6 class="pl-dm-att-title"><i class="bi bi-paperclip"></i> Anexos</h6>
+    <div class="pl-dm-att-list" id="dmAttachmentsList"></div>
+  </div>
+
+  <div class="pl-dm-footer">
+    <button class="pl-btn-reply" id="btnReplyMail">
+      <i class="bi bi-reply-fill"></i> Responder
+    </button>
+    <button class="pl-btn-delete" id="btnDeleteMail" title="Deletar Mensagem">
+      <i class="bi bi-trash3"></i> Excluir
+    </button>
+  </div>
+</div>
+<script src="src/entities/caixa-correio/scripts/detail-correio.js"></script>

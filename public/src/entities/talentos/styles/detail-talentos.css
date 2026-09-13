@@ -1,0 +1,256 @@
+/* ====================================================
+   Painel Lateral de Detalhes do Talento (Estilo Outline)
+   ==================================================== */
+
+.pl-talent-detail-panel {
+  background-color: transparent;
+  border: 1px solid var(--prolink-blue);
+  border-radius: 12px;
+  padding: 2rem;
+  color: var(--prolink-light);
+  font-family: var(--font-primary, 'Ubuntu', sans-serif);
+  width: 100%;
+  animation: fadeInPanel 0.2s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 40px); /* Evita estourar a tela no desktop */
+}
+
+@keyframes fadeInPanel {
+  from { opacity: 0; transform: translateX(10px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* ---- HEADER ---- */
+.pl-td-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+  flex-shrink: 0;
+}
+
+.pl-td-user-info {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.pl-td-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 1px solid var(--prolink-blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--prolink-blue);
+  font-size: 2rem;
+  background-color: transparent;
+  flex-shrink: 0;
+}
+
+.pl-td-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.pl-td-name {
+  margin: 0;
+  color: var(--prolink-light);
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.pl-td-title {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.95rem;
+  margin: 0 0 0.4rem 0;
+}
+
+.pl-td-badges {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.pl-td-close-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.6);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.pl-td-close-btn:hover {
+  color: var(--prolink-blue);
+  border-color: var(--prolink-blue);
+  background-color: rgba(43, 140, 255, 0.1);
+}
+
+/* ---- AÇÃO PRINCIPAL ---- */
+.pl-td-action-row {
+  display: flex;
+  width: 100%;
+  margin-bottom: 1.5rem;
+  flex-shrink: 0;
+}
+
+.btn-td-contact {
+  width: 100%;
+  background-color: transparent;
+  border: 1px solid var(--prolink-blue);
+  color: var(--prolink-blue);
+  font-weight: 700;
+  font-family: var(--font-primary, 'Ubuntu', sans-serif);
+  padding: 12px 24px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+
+.btn-td-contact:hover {
+  background-color: rgba(43, 140, 255, 0.1);
+}
+
+/* ---- SCROLL INTERNO PARA CONTEÚDO LONGO ---- */
+.pl-td-scroll-content {
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+.pl-td-scroll-content::-webkit-scrollbar {
+  width: 6px;
+}
+.pl-td-scroll-content::-webkit-scrollbar-thumb {
+  background-color: rgba(43, 140, 255, 0.3);
+  border-radius: 4px;
+}
+
+/* ---- SEÇÕES (Resumo, Competências, Acervo) ---- */
+.pl-td-section {
+  background-color: transparent;
+  border: 1px solid var(--prolink-blue);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.pl-td-section-noborder {
+  border: none;
+  padding: 0;
+}
+
+.pl-td-section-title {
+  color: var(--prolink-light);
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pl-td-section-title i {
+  color: var(--prolink-blue);
+}
+
+.pl-td-section-text {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Competências */
+.pl-td-skills-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.pl-skill-badge {
+  background: transparent;
+  color: var(--prolink-light);
+  border: 1px solid rgba(43, 140, 255, 0.4);
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+/* Acervo Técnico Grid */
+.pl-td-acervo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+}
+
+.pl-td-acervo-card {
+  border: 1px solid #00d278;
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+}
+
+.pl-td-acervo-card h4 {
+  color: #00d278;
+  font-size: 1.6rem;
+  margin: 0 0 0.2rem 0;
+}
+
+.pl-td-acervo-card span {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.8rem;
+}
+
+/* Experiências e Projetos */
+.pl-td-timeline-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.pl-td-experience-card {
+  border: 1px solid var(--prolink-blue);
+  border-radius: 12px;
+  padding: 1.2rem;
+}
+
+.pl-td-exp-header { margin-bottom: 1rem; }
+.pl-td-exp-title { color: var(--prolink-light); font-size: 1.05rem; font-weight: 700; margin: 0 0 0.3rem 0; }
+.pl-td-exp-company { color: var(--prolink-blue); font-size: 0.9rem; font-weight: 600; }
+.pl-td-exp-date { color: rgba(255, 255, 255, 0.5); font-size: 0.85rem; margin-top: 0.2rem; }
+
+.pl-td-project-list {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px dashed rgba(43, 140, 255, 0.3);
+}
+
+.pl-td-project-item { margin-bottom: 1rem; }
+.pl-td-project-item:last-child { margin-bottom: 0; }
+
+.pl-td-project-title {
+  color: var(--prolink-light);
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0 0 0.3rem 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.pl-td-project-title i { color: #00d278; }
+.pl-td-project-desc { color: rgba(255, 255, 255, 0.7); font-size: 0.85rem; line-height: 1.5; margin: 0; }

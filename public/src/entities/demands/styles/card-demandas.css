@@ -1,0 +1,211 @@
+/* ====================================================
+   Card de Demandas — Estilo Outline (Padrão Feed)
+   ==================================================== */
+
+.pl-demand-card {
+  background-color: transparent; /* Fundo limpo integrando com a tela */
+  border: 1px solid var(--prolink-blue); /* Contorno fino azul padrão */
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  font-family: var(--font-primary, 'Ubuntu', sans-serif);
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+
+.pl-demand-card:hover {
+  background-color: rgba(43, 140, 255, 0.03); /* Leve feedback visual no fundo, sem pular */
+}
+
+/* ---- HEADER ---- */
+.pl-demand-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.2rem;
+}
+
+.pl-demand-user-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Avatar circular igual ao feed */
+.pl-demand-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%; /* Círculo perfeito */
+  border: 1px solid var(--prolink-blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--prolink-blue);
+  font-size: 1.4rem;
+  background-color: transparent;
+}
+
+.pl-demand-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.pl-demand-company {
+  margin: 0;
+  color: var(--prolink-light);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.pl-demand-time {
+  color: var(--prolink-light);
+  font-size: 0.85rem;
+  opacity: 0.8;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.pl-demand-menu-btn {
+  background: none;
+  border: none;
+  color: var(--prolink-blue);
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 4px;
+}
+
+/* ---- BADGES ---- */
+.pl-demand-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 1.2rem;
+}
+
+.pl-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 50px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  background-color: transparent; /* Tira o fundo preenchido */
+}
+
+/* Ajuste dos badges para o estilo outline */
+.pl-badge-status-em_andamento { color: #ffb900; border: 1px solid #ffb900; }
+.pl-badge-status-aberta       { color: #00d278; border: 1px solid #00d278; }
+.pl-badge-status-concluida    { color: #9090a8; border: 1px solid #9090a8; }
+.pl-badge-tipo                { color: var(--prolink-blue); border: 1px solid var(--prolink-blue); }
+.pl-badge-area                { color: #00d278; border: 1px solid #00d278; }
+
+/* ---- BODY ---- */
+.pl-demand-body {
+  margin-bottom: 1.2rem;
+}
+
+.pl-demand-title {
+  color: var(--prolink-light);
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.4;
+  margin-bottom: 0.8rem;
+}
+
+.pl-demand-description {
+  color: var(--prolink-light);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ---- META INFO ROW ---- */
+.pl-demand-info-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  padding-top: 1.2rem;
+  padding-bottom: 1.5rem;
+  border-top: 1px solid rgba(43, 140, 255, 0.2);
+}
+
+.pl-demand-info-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--prolink-light);
+  opacity: 0.9;
+  font-size: 0.9rem;
+}
+
+.pl-demand-info-item i {
+  color: var(--prolink-blue);
+  font-size: 1rem;
+}
+
+/* ---- FOOTER ---- */
+.pl-demand-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pl-demand-footer-stats {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--prolink-light);
+}
+
+.pl-demand-footer-stats i {
+  color: var(--prolink-blue);
+}
+
+.pl-demand-footer-actions {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.pl-btn-save {
+  background: transparent;
+  color: var(--prolink-blue);
+  border: 1px solid var(--prolink-blue);
+  border-radius: 8px;
+  width: 40px;
+  height: 40px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pl-btn-interesse {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: transparent; /* Estilo outline para manter o visual limpo */
+  color: var(--prolink-blue);
+  border: 1px solid var(--prolink-blue);
+  border-radius: 8px;
+  padding: 0 1.2rem;
+  height: 40px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pl-btn-interesse:hover, .pl-btn-save:hover {
+  background-color: rgba(43, 140, 255, 0.1);
+}

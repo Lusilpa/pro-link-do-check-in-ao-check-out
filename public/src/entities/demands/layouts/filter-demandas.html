@@ -1,0 +1,67 @@
+<link rel="stylesheet" href="src/entities/demands/styles/filter-demandas.css">
+
+<div class="pl-filter-widget">
+
+  <label class="pl-filter-label">Área da Demanda</label>
+  <div class="pl-filter-select-wrapper">
+    <i class="bi bi-compass"></i>
+    <select class="pl-filter-select filterArea">
+      <option value="">Todas as áreas</option>
+    </select>
+  </div>
+
+  <label class="pl-filter-label">Tipo de Demanda</label>
+  <div class="pl-filter-select-wrapper">
+    <i class="bi bi-tags"></i>
+    <select class="pl-filter-select filterTipo">
+      <option value="">Todos os tipos</option>
+      <option value="projeto">Projeto Estrutural</option>
+      <option value="consultoria">Consultoria Técnica</option>
+      <option value="art">Emissão de ART / CAT</option>
+      <option value="pericia">Perícia e Vistoria</option>
+      <option value="estagio">Estágio</option>
+      <option value="mentoria">Mentoria</option>
+      <option value="pesquisa">Pesquisa</option>
+      <option value="voluntariado">Voluntariado</option>
+    </select>
+  </div>
+
+  <label class="pl-filter-label">Modalidade</label>
+  <div class="pl-filter-select-wrapper">
+    <i class="bi bi-laptop"></i>
+    <select class="pl-filter-select filterModalidade">
+      <option value="">Todas</option>
+      <option value="presencial">Presencial</option>
+      <option value="remoto">Remoto</option>
+      <option value="hibrido">Híbrido</option>
+    </select>
+  </div>
+
+  <label class="pl-filter-label">Prazo</label>
+  <div class="pl-filter-select-wrapper">
+    <i class="bi bi-calendar-event"></i>
+    <select class="pl-filter-select filterPrazo">
+      <option value="">Todos os prazos</option>
+      <option value="curto">Até 7 dias</option>
+      <option value="medio">Até 30 dias</option>
+      <option value="longo">Acima de 30 dias</option>
+    </select>
+  </div>
+
+  <label class="pl-filter-label">Status</label>
+  <div class="pl-filter-select-wrapper">
+    <i class="bi bi-flag"></i>
+    <select class="pl-filter-select filterStatus">
+      <option value="">Todos</option>
+      <option value="aberta">Aberta</option>
+      <option value="em_andamento">Em Andamento</option>
+      <option value="concluida">Concluída</option>
+    </select>
+  </div>
+
+  <button class="pl-btn-apply btnApplyFilter">Aplicar Filtros</button>
+  <button class="pl-btn-clear btnClearFilter">Limpar tudo</button>
+
+</div>
+
+<script src="src/entities/demands/scripts/filter-demandas.js"></script>
