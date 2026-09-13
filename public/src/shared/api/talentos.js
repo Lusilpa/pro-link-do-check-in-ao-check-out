@@ -38,7 +38,7 @@ const TALENTOS_MOCK = [
 // Executa o fetch com query string dinâmica de filtros, permitindo pesquisa por área, modalidade, nome, etc. Retorna o mock em caso de falha.
 async function fetchTalentos(filters = {}) {
     const params = new URLSearchParams(filters).toString();
-    const endpoint = `/talentos${params ? `?${params}` : ''}`;
+    const endpoint = `/profissionais${params ? `?${params}` : ''}`;
 
     try {
         return await apiRequest(endpoint);
@@ -53,7 +53,7 @@ async function fetchTalentos(filters = {}) {
 // Retorna o cadastro completo de um profissional específico, incluindo resumo e habilidades. Recorre ao mock se não encontrar na API.
 async function fetchTalentoById(id) {
     try {
-        return await apiRequest(`/talentos/${id}`);
+        return await apiRequest(`/profissionais/${id}`);
     } catch (error) {
         console.warn(`[Pro-Link API] Talento #${id} não encontrado. Usando fallback.`);
         return TALENTOS_MOCK.find(t => t.id === Number(id)) || null;
@@ -64,5 +64,5 @@ async function fetchTalentoById(id) {
 // Adição a Favoritos
 // Efetua uma chamada POST para salvar/favoritar o talento no perfil da empresa/usuário que está visualizando.
 async function saveTalento(talentoId) {
-    return apiRequest(`/talentos/${talentoId}/save`, { method: 'POST' });
+    return apiRequest(`/profissionais/${talentoId}/save`, { method: 'POST' });
 }

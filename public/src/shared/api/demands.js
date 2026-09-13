@@ -66,10 +66,10 @@ const DEMANDS_MOCK = [
 
 // Buscar Demandas
 // Lista todas as oportunidades
-// Utiliza a API base para consultar o endpoint '/demands' com filtros dinâmicos via URLSearchParams. Retorna o mock em caso de falha de conexão.
+// Utiliza a API base para consultar o endpoint '/demandas' com filtros dinâmicos via URLSearchParams. Retorna o mock em caso de falha de conexão.
 async function fetchAllDemands(filters = {}) {
     const params = new URLSearchParams(filters).toString();
-    const endpoint = `/demands${params ? `?${params}` : ''}`;
+    const endpoint = `/demandas${params ? `?${params}` : ''}`;
     try {
         return await apiRequest(endpoint);
     } catch (error) {
@@ -83,7 +83,7 @@ async function fetchAllDemands(filters = {}) {
 // Tenta buscar os dados detalhados de uma demanda específica. Se falhar, procura dentro da base de mock sintético.
 async function fetchDemandById(id) {
     try {
-        return await apiRequest(`/demands/${id}`);
+        return await apiRequest(`/demandas/${id}`);
     } catch (error) {
         console.warn(`[Pro-Link API] Demanda #${id} não encontrada. Usando fallback.`);
         return DEMANDS_MOCK.find(d => d.id === Number(id)) || null;
@@ -94,14 +94,17 @@ async function fetchDemandById(id) {
 // Registro de candidatura
 // Envia um POST sinalizando o interesse do usuário na demanda especificada.
 async function expressInterestInDemand(demandId) {
-    return apiRequest(`/demands/${demandId}/interest`, { method: 'POST' });
+    return apiRequest(`/interesses`, { 
+        method: 'POST',
+        body: JSON.stringify({ demanda_id: demandId }) 
+    });
 }
 
 // Criar Demanda
 // Abertura de nova oportunidade
 // Utilizado pelas empresas no painel para registrar uma nova vaga ou serviço no back-end.
 async function createDemand(demandData) {
-    return apiRequest('/demands', {
+    return apiRequest('/demandas', {
         method: 'POST',
         body: JSON.stringify(demandData)
     });
@@ -111,7 +114,7 @@ async function createDemand(demandData) {
 // Edição de oportunidade
 // Substitui os dados da demanda (PUT) com as informações fornecidas no objeto updates.
 async function updateDemand(id, updates) {
-    return apiRequest(`/demands/${id}`, {
+    return apiRequest(`/demandas/${id}`, {
         method: 'PUT',
         body: JSON.stringify(updates)
     });
@@ -121,5 +124,5 @@ async function updateDemand(id, updates) {
 // Remoção de oportunidade
 // Envia requisição DELETE para remover a demanda de forma permanente do banco de dados.
 async function deleteDemand(id) {
-    return apiRequest(`/demands/${id}`, { method: 'DELETE' });
+    return apiRequest(`/demandas/${id}`, { method: 'DELETE' });
 }
