@@ -1,0 +1,74 @@
+.pl-estudio-wrapper {
+  padding: 2rem;
+  font-family: var(--font-primary, 'Ubuntu', sans-serif);
+  height: 100%;
+  overflow-y: auto;
+  color: var(--prolink-light, #f8f9fa);
+}
+
+.pl-estudio-header {
+  margin-bottom: 2rem;
+}
+
+.pl-estudio-header h2 {
+  color: var(--prolink-blue, #2b8cff);
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+}
+
+.pl-estudio-header p {
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+/* =======================================
+   ESTRUTURA DO GRID (O SEGREDO DO LAYOUT)
+   ======================================= */
+.pl-estudio-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 Colunas Iguais */
+  gap: 1.5rem;
+  align-items: stretch;
+}
+
+.pl-grid-full-width {
+  grid-column: 1 / -1; /* Força a ocupar todas as colunas disponíveis na linha */
+}
+
+.pl-estudio-grid-item {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Força os componentes injetados a preencherem a altura do grid */
+.pl-estudio-grid-item > div {
+  flex-grow: 1;
+}
+
+.pl-estudio-loading {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px dashed rgba(43, 140, 255, 0.3);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  color: rgba(43, 140, 255, 0.6);
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+/* =======================================
+   RESPONSIVIDADE (MOBILE)
+   ======================================= */
+@media (max-width: 992px) {
+  .pl-estudio-wrapper {
+    padding: 1rem;
+  }
+  
+  .pl-estudio-grid {
+    grid-template-columns: 1fr; /* Muda para 1 coluna no celular */
+  }
+}

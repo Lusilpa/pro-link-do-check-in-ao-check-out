@@ -38,7 +38,7 @@ const FEED_MOCK = [
 // Utiliza a API base para buscar os posts, aceitando filtros dinâmicos de paginação ou limites. Retorna dados simulados em caso de falha.
 async function fetchFeedPosts(params = {}) {
     const query = new URLSearchParams(params).toString();
-    const endpoint = `/feed/posts${query ? `?${query}` : ''}`;
+    const endpoint = `/feed${query ? `?${query}` : ''}`;
     try {
         return await apiRequest(endpoint);
     } catch (error) {
@@ -51,7 +51,7 @@ async function fetchFeedPosts(params = {}) {
 // Criação de conteúdo
 // Envia título e conteúdo da publicação para a API base utilizando método POST.
 async function createPost(postData) {
-    return apiRequest('/feed/posts', {
+    return apiRequest('/posts', {
         method: 'POST',
         body: JSON.stringify(postData)
     });
@@ -61,14 +61,14 @@ async function createPost(postData) {
 // Interação de Like
 // Aciona a rota de curtida referenciando o ID único da publicação.
 async function likePost(postId) {
-    return apiRequest(`/feed/posts/${postId}/like`, { method: 'POST' });
+    return apiRequest(`/posts/${postId}/like`, { method: 'POST' });
 }
 
 // Comentar Post
 // Interação textual no Feed
 // Registra um novo comentário enviando a string do conteúdo atrelada ao ID da publicação.
 async function commentOnPost(postId, content) {
-    return apiRequest(`/feed/posts/${postId}/comments`, {
+    return apiRequest(`/posts/${postId}/comments`, {
         method: 'POST',
         body: JSON.stringify({ content })
     });
