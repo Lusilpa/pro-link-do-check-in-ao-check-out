@@ -1,0 +1,84 @@
+/* =============================================
+   TOP BAR — Pro-Link
+   Segue o mesmo padrão de design da navBar:
+   background: --prolink-bg-darker
+   border: var(--prolink-blue)
+   botão ativo: var(--prolink-blue)
+   hover: color-mix + cor azul
+   ============================================= */
+
+.pl-topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1030;
+
+    background-color: var(--prolink-bg-darker);
+    border-bottom: 1px solid var(--prolink-blue);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+
+    height: 60px;
+    padding: 0.75rem 1.5rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Spacer e Actions: mesma largura para que o logo fique matematicamente centrado */
+.pl-topbar-spacer,
+.pl-topbar-actions {
+    width: 45px;
+    flex-shrink: 0;
+}
+
+/* Logo */
+.pl-topbar-brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.pl-topbar-logo {
+    height: 38px;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+/* Botão de Configurações — mesmo padrão do .nav-icon-btn */
+.pl-btn-config {
+    color: var(--prolink-light);
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 8px;
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+}
+
+.pl-btn-config:hover {
+    color: var(--prolink-blue);
+    background-color: color-mix(in srgb, var(--prolink-blue) 10%, transparent);
+}
+
+/* Estado ativo: quando o usuário está na rota #config */
+.pl-btn-config.nav-icon-active {
+    color: var(--prolink-light);
+    background-color: var(--prolink-blue);
+}
+
+/* Engrenagem gira suavemente no hover */
+.pl-btn-config i {
+    transition: transform 0.4s ease;
+}
+
+.pl-btn-config:hover i {
+    transform: rotate(90deg);
+}
