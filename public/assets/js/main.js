@@ -21,6 +21,14 @@ $(document).ready(function() {
         '#admin': 'src/pages/layouts/admin.html',
         '#painel-empresa': 'src/pages/layouts/studiEempresa.html',
         '#config': 'src/pages/layouts/config.html',
+        
+        // Sub-páginas do Estúdio Profissional
+        '#post-criar': 'src/entities/estudio-profissional/layouts/postCriar.html',
+        '#post-editar': 'src/entities/estudio-profissional/layouts/postEditar.html',
+        '#post-deletar': 'src/entities/estudio-profissional/layouts/postDeletar.html',
+        '#portfolio-criar': 'src/entities/estudio-profissional/layouts/portfolioCriar.html',
+        '#portfolio-editar': 'src/entities/estudio-profissional/layouts/portfolioEditar.html',
+        '#portfolio-validar': 'src/entities/estudio-profissional/layouts/portfolioValidar.html',
 
         //Imgs
         '#Manaus':'assets/img/fundo-login-manaus.jpg',
@@ -93,6 +101,14 @@ $(document).ready(function() {
                     setTimeout(() => {
                         if (typeof window.initEstudioProfissional === 'function') {
                             window.initEstudioProfissional();
+                        }
+                    }, 50);
+                }
+                // Dispara a inicialização da tela de Configurações
+                if (hash === '#config') {
+                    setTimeout(() => {
+                        if (typeof window.initConfig === 'function') {
+                            window.initConfig();
                         }
                     }, 50);
                 }

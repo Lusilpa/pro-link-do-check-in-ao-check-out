@@ -1,0 +1,105 @@
+<link rel="stylesheet" href="src/entities/config/styles/config-sub.css">
+
+<div class="pl-cfg-panel">
+
+  <div class="pl-cfg-alert--warning pl-cfg-alert">
+    <i class="bi bi-exclamation-triangle"></i>
+    <span>A mudança de tipo de conta é sujeita a análise e pode levar até 3 dias úteis. Seu perfil e dados serão migrados automaticamente após a aprovação.</span>
+  </div>
+
+  <!-- Conta Atual -->
+  <div>
+    <h4 class="pl-cfg-section-title">
+      <i class="bi bi-person-badge"></i> Tipo de Conta Atual
+    </h4>
+    <div id="cfg-tipo-atual" style="background: rgba(43,140,255,0.06); border: 1px solid rgba(43,140,255,0.2); border-radius: 8px; padding: 1rem 1.2rem; font-size: 0.95rem; color: rgba(255,255,255,0.8);">
+      <i class="bi bi-person-fill" style="color: var(--prolink-blue);"></i>
+      <span id="cfg-tipo-atual-label" style="margin-left: 0.5rem;">Carregando...</span>
+    </div>
+  </div>
+
+  <hr class="pl-cfg-divider">
+
+  <!-- Selecionar Novo Tipo -->
+  <div>
+    <h4 class="pl-cfg-section-title">
+      <i class="bi bi-arrow-left-right"></i> Solicitar Migração Para
+    </h4>
+    <div class="pl-cfg-field-group">
+
+      <button class="pl-cfg-account-type-card" data-tipo="profissional" id="card-profissional">
+        <div class="pl-cfg-account-icon"><i class="bi bi-person-workspace"></i></div>
+        <div class="pl-cfg-account-info">
+          <h4>Profissional</h4>
+          <p>Engenheiros, arquitetos e técnicos habilitados pelo CREA/CAU. Pode candidatar-se a demandas e publicar serviços.</p>
+        </div>
+        <div class="pl-cfg-radio"></div>
+      </button>
+
+      <button class="pl-cfg-account-type-card" data-tipo="empresa" id="card-empresa">
+        <div class="pl-cfg-account-icon"><i class="bi bi-building"></i></div>
+        <div class="pl-cfg-account-info">
+          <h4>Empresa</h4>
+          <p>Construtoras, escritórios e empresas do setor. Pode publicar demandas e contratar profissionais.</p>
+        </div>
+        <div class="pl-cfg-radio"></div>
+      </button>
+
+      <button class="pl-cfg-account-type-card" data-tipo="estudante" id="card-estudante">
+        <div class="pl-cfg-account-icon"><i class="bi bi-mortarboard"></i></div>
+        <div class="pl-cfg-account-info">
+          <h4>Estudante</h4>
+          <p>Universitários de engenharia e arquitetura. Pode construir portfólio e participar como colaborador.</p>
+        </div>
+        <div class="pl-cfg-radio"></div>
+      </button>
+
+    </div>
+  </div>
+
+  <div class="pl-cfg-field">
+    <label class="pl-cfg-label" for="cfg-motivo-mudanca">Motivo da Solicitação</label>
+    <textarea class="pl-cfg-input" id="cfg-motivo-mudanca" rows="3" placeholder="Descreva brevemente o motivo da sua solicitação de mudança..." style="resize: vertical;"></textarea>
+  </div>
+
+  <button class="pl-cfg-btn-save" id="btn-solicitar-mudanca">
+    <i class="bi bi-send"></i> Enviar Solicitação
+  </button>
+
+</div>
+
+<script>
+  (function() {
+    // Seleção de tipo de conta
+    const cards = document.querySelectorAll('.pl-cfg-account-type-card');
+    let selectedTipo = null;
+
+    cards.forEach(card => {
+      card.addEventListener('click', function() {
+        cards.forEach(c => c.classList.remove('selected'));
+        this.classList.add('selected');
+        selectedTipo = this.dataset.tipo;
+      });
+    });
+
+    // TODO: popular tipo atual via API GET /usuarios/:id
+    const labelAtual = document.getElementById('cfg-tipo-atual-label');
+    if (labelAtual) labelAtual.textContent = 'Profissional (atual)';
+
+    // Envio
+    const btn = document.getElementById('btn-solicitar-mudanca');
+    if (btn) {
+      btn.addEventListener('click', function() {
+        if (!selectedTipo) {
+          alert('Selecione o tipo de conta desejado.');
+          return;
+        }
+        // TODO: integrar com API POST /usuarios/:id/solicitacao-mudanca
+        btn.innerHTML = '<i class="bi bi-check-circle"></i> Solicitação enviada!';
+        btn.style.color = '#00d278';
+        btn.style.borderColor = '#00d278';
+        btn.disabled = true;
+      });
+    }
+  })();
+</script>

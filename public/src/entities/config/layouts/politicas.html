@@ -1,0 +1,119 @@
+<link rel="stylesheet" href="src/entities/config/styles/config-sub.css">
+
+<div class="pl-cfg-panel">
+
+  <!-- Seção: Política de Privacidade -->
+  <div>
+    <h4 class="pl-cfg-section-title">
+      <i class="bi bi-file-earmark-text"></i> Política de Privacidade
+    </h4>
+    <div style="color: rgba(255,255,255,0.72); font-size: 0.9rem; line-height: 1.7;">
+      <p>O <strong style="color: var(--prolink-light);">Pro-Link</strong> coleta e trata seus dados pessoais com base na <strong style="color: var(--prolink-light);">Lei Geral de Proteção de Dados (LGPD — Lei nº 13.709/2018)</strong>.</p>
+
+      <p style="margin-top: 0.8rem;"><strong style="color: var(--prolink-light);">Dados coletados:</strong> nome, e-mail, CPF, dados profissionais (CREA/CAU), localização e histórico de atividades na plataforma.</p>
+
+      <p style="margin-top: 0.8rem;"><strong style="color: var(--prolink-light);">Finalidade:</strong> autenticação, matching de demandas, validação de portfólio e comunicação entre as partes da plataforma.</p>
+
+      <p style="margin-top: 0.8rem;"><strong style="color: var(--prolink-light);">Compartilhamento:</strong> seus dados não são vendidos a terceiros. O compartilhamento ocorre apenas com as entidades credenciadas pelo sistema Confea/Crea para fins de validação profissional.</p>
+
+      <p style="margin-top: 0.8rem;"><strong style="color: var(--prolink-light);">Armazenamento:</strong> os dados são armazenados em servidores seguros com criptografia em trânsito (TLS) e em repouso (AES-256).</p>
+    </div>
+  </div>
+
+  <hr class="pl-cfg-divider">
+
+  <!-- Seção: Seus Direitos (LGPD) -->
+  <div>
+    <h4 class="pl-cfg-section-title">
+      <i class="bi bi-shield-check"></i> Seus Direitos (LGPD — Art. 18)
+    </h4>
+    <div class="pl-cfg-field-group">
+
+      <div class="pl-cfg-alert">
+        <i class="bi bi-eye"></i>
+        <div>
+          <strong style="color: var(--prolink-light);">Acesso</strong>
+          <p style="margin: 0.2rem 0 0 0;">Você pode solicitar uma cópia de todos os dados pessoais que mantemos sobre você.</p>
+        </div>
+      </div>
+
+      <div class="pl-cfg-alert">
+        <i class="bi bi-pencil-square"></i>
+        <div>
+          <strong style="color: var(--prolink-light);">Correção</strong>
+          <p style="margin: 0.2rem 0 0 0;">Dados incompletos, inexatos ou desatualizados podem ser corrigidos na seção "Dados Pessoais".</p>
+        </div>
+      </div>
+
+      <div class="pl-cfg-alert">
+        <i class="bi bi-trash3"></i>
+        <div>
+          <strong style="color: var(--prolink-light);">Exclusão</strong>
+          <p style="margin: 0.2rem 0 0 0;">Você pode solicitar a exclusão dos seus dados. Dados usados para obrigações legais serão mantidos pelo prazo legal exigido.</p>
+        </div>
+      </div>
+
+      <div class="pl-cfg-alert">
+        <i class="bi bi-hand-index"></i>
+        <div>
+          <strong style="color: var(--prolink-light);">Portabilidade</strong>
+          <p style="margin: 0.2rem 0 0 0;">Você pode solicitar seus dados em formato estruturado (JSON/CSV) para migração.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <hr class="pl-cfg-divider">
+
+  <!-- Seção: Ações LGPD -->
+  <div>
+    <h4 class="pl-cfg-section-title">
+      <i class="bi bi-download"></i> Ações sobre seus Dados
+    </h4>
+    <div class="pl-cfg-field-group">
+
+      <button class="pl-cfg-btn-save" id="btn-exportar-dados">
+        <i class="bi bi-download"></i> Exportar Meus Dados
+      </button>
+
+      <button class="pl-cfg-btn-danger" id="btn-excluir-conta">
+        <i class="bi bi-trash3"></i> Solicitar Exclusão da Conta
+      </button>
+
+    </div>
+    <p class="pl-cfg-hint" style="margin-top: 0.8rem;">
+      Para dúvidas sobre privacidade, entre em contato com nosso DPO:
+      <strong style="color: rgba(255,255,255,0.7);">privacidade@prolink.eng.br</strong>
+    </p>
+  </div>
+
+</div>
+
+<script>
+  (function() {
+    const btnExportar = document.getElementById('btn-exportar-dados');
+    if (btnExportar) {
+      btnExportar.addEventListener('click', function() {
+        // TODO: integrar com API GET /usuarios/:id/exportar
+        btnExportar.innerHTML = '<i class="bi bi-hourglass-split"></i> Preparando exportação...';
+        setTimeout(() => {
+          btnExportar.innerHTML = '<i class="bi bi-check-circle"></i> Exportação enviada por e-mail';
+          btnExportar.style.color = '#00d278';
+          btnExportar.style.borderColor = '#00d278';
+        }, 1500);
+      });
+    }
+
+    const btnExcluir = document.getElementById('btn-excluir-conta');
+    if (btnExcluir) {
+      btnExcluir.addEventListener('click', function() {
+        const confirma = confirm('⚠ Tem certeza? Esta ação é irreversível. Todos os seus dados, portfólio e histórico serão permanentemente excluídos.');
+        if (confirma) {
+          // TODO: integrar com API DELETE /usuarios/:id
+          alert('Solicitação de exclusão enviada. Você receberá uma confirmação por e-mail em até 48h.');
+        }
+      });
+    }
+  })();
+</script>

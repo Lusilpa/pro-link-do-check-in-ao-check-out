@@ -1,0 +1,66 @@
+<link rel="stylesheet" href="src/entities/estudio-profissional/styles/estudio-sub.css">
+
+<div class="pl-estudio-sub-fullscreen-bg"></div>
+
+<div class="pl-estudio-sub-page-wrapper">
+  <div class="pl-estudio-sub-main-container">
+    
+    <button class="pl-btn-back-estudio" onclick="window.location.hash = '#criacao'">
+      <i class="bi bi-arrow-left"></i> Voltar ao Estúdio
+    </button>
+
+    <div class="pl-estudio-sub-header">
+      <h2 class="pl-estudio-sub-title">Criar Novo Post</h2>
+      <p class="pl-estudio-sub-subtitle">Compartilhe conhecimento, novidades ou serviços com sua rede.</p>
+    </div>
+
+    <div class="pl-estudio-sub-panel">
+      <div class="pl-estudio-sub-field-group">
+        
+        <div class="pl-estudio-sub-field">
+          <label class="pl-estudio-sub-label" for="post-titulo">Título da Publicação</label>
+          <input class="pl-estudio-sub-input" type="text" id="post-titulo" placeholder="Ex: Dicas para aprovação de projetos...">
+        </div>
+
+        <div class="pl-estudio-sub-field">
+          <label class="pl-estudio-sub-label" for="post-conteudo">Conteúdo</label>
+          <textarea class="pl-estudio-sub-textarea" id="post-conteudo" rows="6" placeholder="Escreva o conteúdo do seu post aqui..."></textarea>
+        </div>
+
+        <div class="pl-estudio-sub-field">
+          <label class="pl-estudio-sub-label">Imagem ou Mídia (opcional)</label>
+          <div class="pl-estudio-sub-alert" style="cursor: pointer;" onclick="document.getElementById('post-midia').click()">
+            <i class="bi bi-image"></i>
+            <div>
+              <strong style="color: var(--prolink-light); display: block;">Adicionar Arquivo</strong>
+              <span style="font-size: 0.8rem;">Clique para selecionar JPG, PNG ou PDF (max 5MB)</span>
+            </div>
+          </div>
+          <input type="file" id="post-midia" class="d-none" accept="image/*, .pdf">
+        </div>
+
+      </div>
+
+      <button class="pl-estudio-sub-btn-save" id="btn-publicar-post">
+        <i class="bi bi-send"></i> Publicar Post
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  (function() {
+    const btn = document.getElementById('btn-publicar-post');
+    if (btn) {
+      btn.addEventListener('click', () => {
+        btn.innerHTML = '<i class="bi bi-check-circle"></i> Publicado!';
+        btn.style.color = '#00d278';
+        btn.style.borderColor = '#00d278';
+        setTimeout(() => {
+          window.location.hash = '#criacao';
+        }, 1500);
+      });
+    }
+  })();
+</script>
