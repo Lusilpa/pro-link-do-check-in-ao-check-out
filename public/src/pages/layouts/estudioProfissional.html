@@ -1,25 +1,32 @@
 <link rel="stylesheet" href="src/pages/styles/estudioProfissional.css">
 
-<div class="pl-estudio-wrapper">
-  <div class="pl-estudio-header">
-    <h2>Estúdio</h2>
-    <p>Visão geral, gerenciamento de conteúdo e auditoria de segurança da sua conta.</p>
-  </div>
+<!-- Fundo fixo cobrindo a tela toda (padrão das demais páginas) -->
+<div class="pl-estudio-fullscreen-bg"></div>
 
-  <div class="pl-estudio-grid">
-    <!-- Slot 1: Gerenciamento de Posts (Esquerda) -->
-    <div class="pl-estudio-grid-item" id="slot-post-management">
-      <div class="pl-estudio-loading">Carregando Posts...</div>
+<div class="pl-estudio-page-wrapper">
+  <div class="pl-estudio-main-container">
+
+    <div class="pl-estudio-header">
+      <h2>Estúdio</h2>
+      <p>Visão geral, gerenciamento de conteúdo e auditoria de segurança da sua conta.</p>
     </div>
 
-    <!-- Slot 2: Gerenciamento de Portfólio (Direita) -->
-    <div class="pl-estudio-grid-item" id="slot-portfolio-management">
-      <div class="pl-estudio-loading">Carregando Portfólio...</div>
+    <div class="pl-estudio-grid">
+      <!-- Slot 1: Gerenciamento de Posts (Esquerda) -->
+      <div class="pl-estudio-grid-item" id="slot-post-management">
+        <div class="pl-estudio-loading">Carregando Posts...</div>
+      </div>
+
+      <!-- Slot 2: Gerenciamento de Portfólio (Direita) -->
+      <div class="pl-estudio-grid-item" id="slot-portfolio-management">
+        <div class="pl-estudio-loading">Carregando Portfólio...</div>
+      </div>
+
+      <!-- Slot 3: Logs de Auditoria (Base Completa) -->
+      <div class="pl-estudio-grid-item pl-grid-full-width" id="slot-audit-logs">
+        <div class="pl-estudio-loading">Carregando Auditoria...</div>
+      </div>
     </div>
 
-    <!-- Slot 3: Logs de Auditoria (Base Completa) -->
-    <div class="pl-estudio-grid-item pl-grid-full-width" id="slot-audit-logs">
-      <div class="pl-estudio-loading">Carregando Auditoria...</div>
-    </div>
   </div>
 </div>
