@@ -5,25 +5,27 @@ $(document).ready(function() {
         '': 'src/pages/layouts/auth.html',
         '#landing': 'src/pages/layouts/landing.html',
         '#auth': 'src/pages/layouts/auth.html',
-        '#senha': 'src/pages/layouts/recuperacao-senha.html',
-        '#termos-e-lgpd': 'src/pages/layouts/termos-e-lgpd.html',
-        '#cadastro': 'src/pages/layouts/cadastre-se.html',
+        '#senha': 'src/pages/layouts/recuperacaoSenha.html',
+        '#termos-e-lgpd': 'src/pages/layouts/termosElgpd.html',
+        '#cadastro': 'src/pages/layouts/cadastreSe.html',
 
         // Rotas com Navbar e TopBar
         '#feed': 'src/pages/layouts/feed.html',
-        '#search-demandas': 'src/pages/layouts/search-demandas.html',
-        '#search-talentos': 'src/pages/layouts/search-talentos.html', 
-        '#cartas': 'src/pages/layouts/caixa-correio.html',
+        '#search-demandas': 'src/pages/layouts/searchDemandas.html',
+        '#search-talentos': 'src/pages/layouts/searchTalentos.html', 
+        '#cartas': 'src/pages/layouts/caixaCorreio.html',
 
         // Rotas adicionais
         '#perfil': 'src/pages/layouts/portfolio.html', 
         '#criacao': 'src/pages/layouts/estudioProfissional.html',
         '#admin': 'src/pages/layouts/admin.html',
-        '#painel-empresa': 'src/pages/layouts/studio-empresa.html',
+        '#painel-empresa': 'src/pages/layouts/studiEempresa.html',
         '#config': 'src/pages/layouts/config.html',
 
         //Imgs
-        '#Manaus':'assets/img/fundo-login-manaus.jpg'
+        '#Manaus':'assets/img/fundo-login-manaus.jpg',
+        '#Logo': 'assets/img/logo-pro-link.png',
+        '#Brasao': 'assets/img/logo-pl.png'
     };
 
     // Elementos principais do DOM
