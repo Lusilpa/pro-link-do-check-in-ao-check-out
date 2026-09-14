@@ -4,7 +4,9 @@
 
 // Dados Sintéticos
 // Fallback local (Mock)
-// Utilizado temporariamente enquanto a API real não está integrada. Garante que a UI possa ser desenvolvida e testada.
+// AVISO: os campos company, subtitle, area, tipo, modalidade, cidade, prazo e interessados
+// NÃO existem como colunas na tabela `demandas` do banco de dados.
+// Esses campos funcionam apenas com dados mock enquanto o backend não expandir o schema.
 const DEMANDS_MOCK = [
     {
         id: 1, company: 'Tapajós Engenharia e Construções', time: '5 min',
@@ -93,10 +95,16 @@ async function fetchDemandById(id) {
 // Expressar Interesse
 // Registro de candidatura
 // Envia um POST sinalizando o interesse do usuário na demanda especificada.
+// ATENÇÃO: `titulo` e `mensagem` são NOT NULL na tabela `demonstracoes_interesse`.
+// Adaptar para exibir uma modal de confirmação ao usuário futuramente.
 async function expressInterestInDemand(demandId) {
     return apiRequest(`/interesses`, { 
         method: 'POST',
-        body: JSON.stringify({ demanda_id: demandId }) 
+        body: JSON.stringify({
+            demanda_id: demandId,
+            titulo: 'Demonstração de Interesse',
+            mensagem: 'Tenho interesse nesta demanda e gostaria de discutir mais detalhes.'
+        })
     });
 }
 

@@ -4,32 +4,43 @@
 
 // Dados Sintéticos
 // Fallback local (Mock)
-// Utilizado para renderizar a interface de talentos enquanto o back-end está desconectado.
+// AVISO: os campos `titulo`, `localizacao`, `is_student`, `area`, `instituicao` e `nivel_semestre`
+// NÃO existem como colunas diretas nas tabelas do banco.
+// Serão retornados pelo backend como campos calculados/derivados via JOIN.
+// `habilidades` foi reestruturado para [{nome, nivel}] conforme `profissional_competencias`.
 const TALENTOS_MOCK = [
     {
         id: 1,
         nome: 'Luan da Silva Palma',
-        titulo: 'Estudante de Engenharia de Software',
-        resumo: 'Focado no desenvolvimento de sistemas web (React, TypeScript) e back-end (Java/Spring, Python/FastAPI), com interesse em Inteligência Artificial.',
-        is_student: true,
-        area: 'Engenharia de Software',
-        instituicao: 'IFAM - CMZL',
-        nivel_semestre: '4º Período',
-        localizacao: 'Manaus, AM',
-        habilidades: ['Python', 'React', 'Java', 'NLP']
+        // titulo: derivado de `curso` (universitarios) pelo backend
+        resumo_profissional: 'Focado no desenvolvimento de sistemas web (React, TypeScript) e back-end (Java/Spring, Python/FastAPI), com interesse em Inteligência Artificial.',
+        // is_student: calculado (EXISTS em `universitarios`) pelo backend
+        categoria_profissional: 'Engenharia de Software',
+        // instituicao: virá via JOIN com `universidades.nome`
+        semestre_atual: 4,
+        // localizacao: campo não existe no banco — aguardando decisão de schema
+        competencias: [
+            { nome: 'Python', nivel: 'AVANCADO' },
+            { nome: 'React',  nivel: 'AVANCADO' },
+            { nome: 'Java',   nivel: 'INTERMEDIARIO' },
+            { nome: 'NLP',    nivel: 'BASICO' }
+        ]
     },
     {
         id: 2,
         nome: 'Hanna Reis',
-        titulo: 'Engenheira Civil Sênior',
-        resumo: 'Especialista em cálculo estrutural e laudos técnicos de grandes obras de infraestrutura no Polo Industrial de Manaus.',
-        is_student: false,
-        registro_crea: 'Ativo',
-        area: 'Engenharia Civil',
-        instituicao: 'Tapajós Engenharia',
-        nivel_semestre: 'Sênior',
-        localizacao: 'Manaus, AM',
-        habilidades: ['AutoCAD', 'Eberick', 'Fundações']
+        // titulo: derivado de `categoria_profissional` pelo backend
+        resumo_profissional: 'Especialista em cálculo estrutural e laudos técnicos de grandes obras de infraestrutura no Polo Industrial de Manaus.',
+        // is_student: false (calculado pelo backend)
+        numero_registro_confea_crea: 'Ativo',
+        categoria_profissional: 'Engenharia Civil',
+        // instituicao: organização via `experiencias.organizacao_cliente`
+        // localizacao: campo não existe no banco — aguardando decisão de schema
+        competencias: [
+            { nome: 'AutoCAD',    nivel: 'AVANCADO' },
+            { nome: 'Eberick',    nivel: 'AVANCADO' },
+            { nome: 'Fundações',  nivel: 'INTERMEDIARIO' }
+        ]
     }
 ];
 

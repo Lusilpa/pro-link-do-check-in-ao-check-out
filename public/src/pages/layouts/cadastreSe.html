@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="src/pages/styles/cadastre-se.css">
+<link rel="stylesheet" href="src/pages/styles/cadastreSe.css">
 
 <div class="auth-page-wrapper">
   
@@ -17,11 +17,11 @@
           <span class="input-group-text"><i class="bi bi-tags"></i></span>
           <select id="profileType" name="profile_type" class="form-select" required>
             <option value="" disabled selected>Selecione o tipo de conta</option>
-            <option value="Público Geral">Público Geral</option>
+            <option value="geral">Público Geral</option>
             <option value="profissional">Profissional (Sistema Confea/Crea)</option>
             <option value="universitario">Universitário / Pesquisador (Sistema Confea/Crea)</option>
             <option value="empresa">Empresa / Instituição</option>
-            <option value="terceiros">Terceiro (Contratante Geral)</option>
+            <option value="terceiro">Terceiro (Contratante Geral)</option>
           </select>
         </div>
       </div>
@@ -67,7 +67,7 @@
           <label for="creaRecord" class="form-label text-white fw-medium ms-1 mb-2" style="font-size: 0.9rem;">Registro CREA-AM</label>
           <div class="input-group auth-input-group">
             <span class="input-group-text"><i class="bi bi-patch-check"></i></span>
-            <input type="text" id="creaRecord" name="crea_record" class="form-control placeholder-white" placeholder="Digite o número do seu registro">
+            <input type="text" id="creaRecord" name="numero_registro_confea_crea" class="form-control placeholder-white" placeholder="Digite o número do seu registro">
           </div>
         </div>
 
@@ -112,13 +112,13 @@
             <span class="input-group-text"><i class="bi bi-mortarboard-fill"></i></span>
             <select id="studentLevel" name="student_level" class="form-select">
               <option value="" disabled selected>Selecione o nível acadêmico</option>
-              <option value="tecnico">Técnico</option>
-              <option value="bacharel">Bacharelado</option>
-              <option value="licenciatura">Licenciatura</option>
-              <option value="mestrado">Mestrado</option>
-              <option value="doutorado">Doutorado</option>
-              <option value="mba">MBA</option>
-              <option value="pos">Pós-Graduação / Especialização</option>
+              <option value="TECNOLOGO">Técnico / Tecnólogo</option>
+              <option value="GRADUACAO">Bacharelado</option>
+              <option value="GRADUACAO">Licenciatura</option>
+              <option value="MESTRADO">Mestrado</option>
+              <option value="DOUTORADO">Doutorado</option>
+              <option value="POS_GRADUACAO">MBA</option>
+              <option value="POS_GRADUACAO">Pós-Graduação / Especialização</option>
             </select>
           </div>
         </div>
@@ -127,7 +127,7 @@
           <label for="studentModality" class="form-label text-white fw-medium ms-1 mb-2" style="font-size: 0.9rem;">Modalidade / Curso (Sistema CREA/Confea)</label>
           <div class="input-group auth-input-group">
             <span class="input-group-text"><i class="bi bi-mortarboard"></i></span>
-            <input type="text" id="studentModality" name="student_modality" class="form-control placeholder-white" placeholder="Ex: Eng. Civil, Eng. Elétrica, Agronomia...">
+            <input type="text" id="studentModality" name="curso" class="form-control placeholder-white" placeholder="Ex: Eng. Civil, Eng. Elétrica, Agronomia...">
           </div>
         </div>
 
@@ -135,7 +135,15 @@
           <label for="institutionEnsino" class="form-label text-white fw-medium ms-1 mb-2" style="font-size: 0.9rem;">Instituição de Ensino</label>
           <div class="input-group auth-input-group">
             <span class="input-group-text"><i class="bi bi-building"></i></span>
-            <input type="text" id="institutionEnsino" name="institution_ensino" class="form-control placeholder-white" placeholder="Ex: UFAM, UEA...">
+            <select id="instituionEnsino" name="universidade_id" class "form-select">
+              <option value="" disabled selected>Selecione sua instituição de ensino</option>
+              <option value="1">Fucapi - Fundação Centro Analise, Pesquisa e Inovação Tecnológica</option>
+              <option value="2">Ufam - Universidade Federal do Amazonas</option>
+              <option value="3">UEA - Universidade do Estado do Amazonas</option>
+              <option value="4">Fametro - Faculdade Metropolitana de Manaus</option>
+              <option value="5">Uninorte</option>
+              <option value="0">Outra</option>
+            </select>
           </div>
         </div>
 
@@ -143,7 +151,7 @@
           <label for="studentRA" class="form-label text-white fw-medium ms-1 mb-2" style="font-size: 0.9rem;">R.A. (Registro Acadêmico)</label>
           <div class="input-group auth-input-group">
             <span class="input-group-text"><i class="bi bi-card-text"></i></span>
-            <input type="text" id="studentRA" name="student_ra" class="form-control placeholder-white" placeholder="Digite o número do seu R.A.">
+            <input type="text" id="studentRA" name="matricula" class="form-control placeholder-white" placeholder="Digite o número do seu R.A.">
           </div>
         </div>
 
@@ -167,7 +175,7 @@
           <label for="enrollmentDoc" class="form-label text-white fw-medium ms-1 mb-2" style="font-size: 0.9rem;">Anexar Documento de Matrícula</label>
           <div class="input-group auth-input-group">
             <span class="input-group-text"><i class="bi bi-file-earmark-arrow-up"></i></span>
-            <input type="file" id="enrollmentDoc" name="enrollment_doc" class="form-control text-white" accept=".pdf,.jpg,.png">
+            <input type="file" id="enrollmentDoc" name="comprovante_matricula" class="form-control text-white" accept=".pdf,.jpg,.png">
           </div>
           <div class="form-text text-muted-custom ms-1 mt-1">Envie comprovante recente (PDF ou Imagem).</div>
         </div>
@@ -219,4 +227,4 @@
 </div>
 
 <!-- Script isolado referenciado de forma externa -->
-<script src="src/pages/layouts/cadastre-se.js"></script>
+<script src="src/pages/scripts/cadastreSe.js"></script>

@@ -1,13 +1,16 @@
 $(document).ready(function () {
 
     const allDemands = [
-        { id: 1, company: "Tapajós Engenharia", time: "5 min", title: "Emissão de ART para Projeto Estrutural", description: "Profissional habilitado junto ao CREA-AM para projeto detalhado.", area: "Engenharia Civil", tipo: "projeto", modalidade: "presencial", cidade: "Manaus, AM", prazo: "curto", status: "aberta", interessados: 12 },
-        { id: 2, company: "Amazônia Soluções", time: "2h", title: "EIA/RIMA para Planta Solar", description: "Consultoria para implantação de parque de energia solar no Amazonas.", area: "Agronomia", tipo: "consultoria", modalidade: "hibrido", cidade: "Itacoatiara, AM", prazo: "medio", status: "aberta", interessados: 27 },
-        { id: 3, company: "Manaus Geotecnia", time: "1d", title: "Laudo de Investigação Geológica", description: "Ensaios SPT e emissão de laudo geológico para terreno urbano.", area: "Geologia e Minas", tipo: "pericia", modalidade: "presencial", cidade: "Manaus, AM", prazo: "curto", status: "em_andamento", interessados: 8 },
-        { id: 4, company: "Equatorial Topografia", time: "3d", title: "Georreferenciamento INCRA", description: "Georreferenciamento rural com processo completo para SIGEF/INCRA.", area: "Engenharia Florestal", tipo: "art", modalidade: "presencial", cidade: "Parintins, AM", prazo: "longo", status: "aberta", interessados: 5 },
-        { id: 5, company: "UFAM", time: "1d", title: "Estágio em Sistemas Embarcados", description: "Vaga para estudante de Engenharia Elétrica com foco em automação.", area: "Engenharia Elétrica", tipo: "estagio", modalidade: "presencial", cidade: "Manaus, AM", prazo: "longo", status: "aberta", interessados: 41 },
-        { id: 6, company: "CREA-AM", time: "5d", title: "Mentoria para Jovens Profissionais", description: "Mentoria para estagiários em boas práticas da Engenharia de Produção.", area: "Engenharia de Produção", tipo: "mentoria", modalidade: "remoto", cidade: "Manaus, AM", prazo: "medio", status: "aberta", interessados: 19 },
-        { id: 7, company: "Inst. de Tecnologia", time: "1sem", title: "Pesquisador - Retrofit Histórico", description: "Pesquisa aplicada sobre requalificação energética de edificações tombadas.", area: "Arquitetura", tipo: "pesquisa", modalidade: "hibrido", cidade: "Manaus, AM", prazo: "longo", status: "aberta", interessados: 14 }
+        // ⚠️ MOCK TEMPORÁRIO — campos tipo, modalidade, cidade e prazo NÃO existem na tabela `demandas` do banco.
+        // Os filtros por esses campos funcionam apenas com dados mock.
+        // Dependem da adição das colunas ao schema (responsabilidade do Backend/BD).
+        { id: 1, company: "Tapajós Engenharia", time: "5 min", title: "Emissão de ART para Projeto Estrutural", description: "Profissional habilitado junto ao CREA-AM para projeto detalhado.", area: "Engenharia Civil", tipo: "projeto", modalidade: "presencial", cidade: "Manaus, AM", prazo: "curto", status: "ABERTA", interessados: 12 },
+        { id: 2, company: "Amazônia Soluções", time: "2h", title: "EIA/RIMA para Planta Solar", description: "Consultoria para implantação de parque de energia solar no Amazonas.", area: "Agronomia", tipo: "consultoria", modalidade: "hibrido", cidade: "Itacoatiara, AM", prazo: "medio", status: "ABERTA", interessados: 27 },
+        { id: 3, company: "Manaus Geotecnia", time: "1d", title: "Laudo de Investigação Geológica", description: "Ensaios SPT e emissão de laudo geológico para terreno urbano.", area: "Geologia e Minas", tipo: "pericia", modalidade: "presencial", cidade: "Manaus, AM", prazo: "curto", status: "FECHADA", interessados: 8 },
+        { id: 4, company: "Equatorial Topografia", time: "3d", title: "Georreferenciamento INCRA", description: "Georreferenciamento rural com processo completo para SIGEF/INCRA.", area: "Engenharia Florestal", tipo: "art", modalidade: "presencial", cidade: "Parintins, AM", prazo: "longo", status: "ABERTA", interessados: 5 },
+        { id: 5, company: "UFAM", time: "1d", title: "Estágio em Sistemas Embarcados", description: "Vaga para estudante de Engenharia Elétrica com foco em automação.", area: "Engenharia Elétrica", tipo: "estagio", modalidade: "presencial", cidade: "Manaus, AM", prazo: "longo", status: "ABERTA", interessados: 41 },
+        { id: 6, company: "CREA-AM", time: "5d", title: "Mentoria para Jovens Profissionais", description: "Mentoria para estagiários em boas práticas da Engenharia de Produção.", area: "Engenharia de Produção", tipo: "mentoria", modalidade: "remoto", cidade: "Manaus, AM", prazo: "medio", status: "ABERTA", interessados: 19 },
+        { id: 7, company: "Inst. de Tecnologia", time: "1sem", title: "Pesquisador - Retrofit Histórico", description: "Pesquisa aplicada sobre requalificação energética de edificações tombadas.", area: "Arquitetura", tipo: "pesquisa", modalidade: "hibrido", cidade: "Manaus, AM", prazo: "longo", status: "ABERTA", interessados: 14 }
     ];
 
     const TIPO_MAP = {
@@ -21,10 +24,12 @@ $(document).ready(function () {
         voluntariado: { icon: 'bi-heart-fill', label: 'Voluntariado' },
     };
 
+    // STATUS_MAP — ENUMs alinhados com a coluna `status` da tabela `demandas` no banco (MariaDB)
     const STATUS_MAP = {
-        aberta: { icon: 'bi-circle-fill', label: 'Aberta' },
-        em_andamento: { icon: 'bi-hourglass-split', label: 'Em Andamento' },
-        concluida: { icon: 'bi-check-circle-fill', label: 'Concluída' },
+        ABERTA:             { icon: 'bi-circle-fill',       label: 'Aberta' },
+        FECHADA:            { icon: 'bi-check-circle-fill', label: 'Concluída' },
+        CANCELADA:          { icon: 'bi-x-circle-fill',     label: 'Cancelada' },
+        SUSPENSA_PELO_CREA: { icon: 'bi-slash-circle-fill', label: 'Suspensa (CREA)' },
     };
 
     // Inicialização

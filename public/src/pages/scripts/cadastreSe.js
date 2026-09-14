@@ -10,13 +10,13 @@
         const docInput = document.getElementById("documentNumber");
         const iconDocument = document.getElementById("iconDocument");
         const creaGroup = document.getElementById("creaGroup");
-        const creaInput = document.getElementById("creaRecord");
-        const categoriaProfissional = document.getElementById("categoriaProfissional");
-        const grauAcademico = document.getElementById("grauAcademico");
+        const creaInput = document.getElementById("creaRecord");             // name="numero_registro_confea_crea"
+        const categoriaProfissional = document.getElementById("categoriaProfissional"); // name="categoria_profissional"
+        const grauAcademico = document.getElementById("grauAcademico");      // name="grau_academico"
         const studentFields = document.getElementById("studentFields");
-        const studentModality = document.getElementById("studentModality");
-        const institutionEnsino = document.getElementById("institutionEnsino");
-        const studentRA = document.getElementById("studentRA");
+        const studentModality = document.getElementById("studentModality");  // name="curso"
+        const institutionEnsino = document.getElementById("institutionEnsino"); // name="universidade_id" (FK → universidades)
+        const studentRA = document.getElementById("studentRA");              // name="matricula"
         const empresaFields = document.getElementById("empresaFields");
 
         // Reseta padrões
