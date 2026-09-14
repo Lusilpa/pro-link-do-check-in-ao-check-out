@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
       submitBtn.disabled = true;
 
       const credentials = {
-        username: usernameInput,
+        email: usernameInput,    // DB: usuarios.email (campo único de autenticação)
         password: passwordInput,
         remember: rememberMe
       };

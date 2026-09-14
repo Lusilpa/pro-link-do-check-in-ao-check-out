@@ -45,7 +45,7 @@ $(document).ready(function() {
 
     // Lógica de Roteamento
     function initRouter() {
-        let currentHash = window.location.hash || '#landing';
+        let currentHash = window.location.hash || '#auth';
         loadPage(currentHash);
 
         $(window).on('hashchange', function() {

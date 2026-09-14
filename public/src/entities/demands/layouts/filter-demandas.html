@@ -51,11 +51,13 @@
   <label class="pl-filter-label">Status</label>
   <div class="pl-filter-select-wrapper">
     <i class="bi bi-flag"></i>
+    <!-- status: ENUMs alinhados com a coluna `status` da tabela `demandas` no banco -->
     <select class="pl-filter-select filterStatus">
       <option value="">Todos</option>
-      <option value="aberta">Aberta</option>
-      <option value="em_andamento">Em Andamento</option>
-      <option value="concluida">Concluída</option>
+      <option value="ABERTA">Aberta</option>
+      <option value="FECHADA">Concluída / Fechada</option>
+      <option value="CANCELADA">Cancelada</option>
+      <option value="SUSPENSA_PELO_CREA">Suspensa (CREA)</option>
     </select>
   </div>
 

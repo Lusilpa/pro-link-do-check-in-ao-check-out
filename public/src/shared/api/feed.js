@@ -7,29 +7,36 @@
 
 // Dados Sintéticos
 // Fallback local (Mock)
-// Utilizado temporariamente enquanto a API real não está integrada. Garante que a UI de posts possa ser visualizada.
+// AVISO: `author_name` e `author_role` NÃO existem na tabela `posts`.
+// No banco, `posts` tem apenas `id_autor` (FK para `usuarios`).
+// Esses campos serão retornados pelo backend via JOIN com `usuarios` e `profissionais`.
+// `views_count` também NÃO existe no banco — removido do mock.
 const FEED_MOCK = [
     {
         id: 1,
-        author_name: 'Hanna Reis',
-        author_role: 'Engenheira Civil Sênior',
+        autor: {
+            id: 2,
+            nome: 'Hanna Reis',
+            cargo: 'Engenheira Civil Sênior'
+        },
         time_ago: '5 min atrás',
-        title: 'Dicas para emissão de ART em projetos de infraestrutura',
-        content: 'Ao elaborar um projeto de grande porte, é essencial garantir que todos os responsáveis técnicos estejam devidamente registrados no CREA-AM...',
+        titulo: 'Dicas para emissão de ART em projetos de infraestrutura',
+        conteudo: 'Ao elaborar um projeto de grande porte, é essencial garantir que todos os responsáveis técnicos estejam devidamente registrados no CREA-AM...',
         likes_count: 42,
-        comments_count: 8,
-        views_count: 310
+        comments_count: 8
     },
     {
         id: 2,
-        author_name: 'CREA-AM',
-        author_role: 'Conselho Regional',
+        autor: {
+            id: 3,
+            nome: 'CREA-AM',
+            cargo: 'Conselho Regional'
+        },
         time_ago: '2h atrás',
-        title: 'Novo ciclo de fiscalização de obras iniciado em Manaus',
-        content: 'O CREA-AM informa que o novo ciclo de fiscalização de obras públicas e privadas no município de Manaus terá início na próxima segunda-feira...',
+        titulo: 'Novo ciclo de fiscalização de obras iniciado em Manaus',
+        conteudo: 'O CREA-AM informa que o novo ciclo de fiscalização de obras públicas e privadas no município de Manaus terá início na próxima segunda-feira...',
         likes_count: 128,
-        comments_count: 17,
-        views_count: 1040
+        comments_count: 17
     }
 ];
 
@@ -67,9 +74,10 @@ async function likePost(postId) {
 // Comentar Post
 // Interação textual no Feed
 // Registra um novo comentário enviando a string do conteúdo atrelada ao ID da publicação.
+// DB: a coluna se chama `conteudo` (não `content`) na tabela `comentarios`.
 async function commentOnPost(postId, content) {
     return apiRequest(`/posts/${postId}/comments`, {
         method: 'POST',
-        body: JSON.stringify({ content })
+        body: JSON.stringify({ conteudo: content })
     });
 }

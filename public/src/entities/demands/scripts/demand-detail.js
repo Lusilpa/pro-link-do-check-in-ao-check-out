@@ -79,10 +79,12 @@ const TIPO_MAP = {
   voluntariado: { icon: 'bi-heart-fill',              label: 'Voluntariado' },
 };
 
+// STATUS_MAP — ENUMs alinhados com a coluna `status` da tabela `demandas` no banco (MariaDB)
 const STATUS_MAP = {
-  aberta:       { icon: 'bi-circle-fill',       label: 'Aberta' },
-  em_andamento: { icon: 'bi-hourglass-split',   label: 'Em Andamento' },
-  concluida:    { icon: 'bi-check-circle-fill', label: 'Concluída' },
+  ABERTA:             { icon: 'bi-circle-fill',       label: 'Aberta' },
+  FECHADA:            { icon: 'bi-check-circle-fill', label: 'Concluída' },
+  CANCELADA:          { icon: 'bi-x-circle-fill',     label: 'Cancelada' },
+  SUSPENSA_PELO_CREA: { icon: 'bi-slash-circle-fill', label: 'Suspensa (CREA)' },
 };
 
 const MODALIDADE_MAP = {
