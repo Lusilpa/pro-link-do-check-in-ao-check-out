@@ -1,80 +1,14 @@
+// ================================================================
+// Script de Página: Portfólio
+// Local sugerido: pages/scripts/portfolio.js (substitui o atual)
+// Depende de shared/api/portfolio.js já carregado antes deste
+// script no portfolio.html (usa a função fetchPortfolio)
+// ================================================================
 (function initPortfolio() {
 
     // ==========================================
-    // DADOS MOCK
-    // ==========================================
-    const mockPortfolioData = {
-        usuario: {
-            nome: "Luan da Silva Palma",
-            email: "luan.palma@prolink.com",
-            telefone: "(92) 99999-9999",
-            perfil_acesso: "USUARIO"
-            // localizacao: campo não existe na tabela `usuarios` — aguardando decisão de schema
-        },
-        profissional: {
-            categoria_profissional: "Engenharia de Software",
-            grau_academico: "GRADUACAO",
-            numero_registro_confea_crea: "123456789-AM",
-            registro_validado: true
-        },
-        portfolio: {
-            resumo_profissional: "Desenvolvedor e estudante de Engenharia de Software. Focado no desenvolvimento de sistemas web (React, TypeScript) e back-end (Java/Spring, Python/FastAPI), com interesse especial em Inteligência Artificial e sistemas multi-agentes aplicados à automação de processos administrativos.",
-            // links_contato: campo JSON no banco (portfolio.links_contato)
-            links_contato: {
-                linkedin: "https://linkedin.com/in/luanpalma",
-                github: "https://github.com/lusilpa"
-            }
-        },
-        // competencias: tabela associativa `profissional_competencias` com campo `nivel`
-        competencias: [
-            { nome: "Java (Spring Boot)",       nivel: "AVANCADO" },
-            { nome: "Python (FastAPI)",         nivel: "AVANCADO" },
-            { nome: "C++",                      nivel: "INTERMEDIARIO" },
-            { nome: "React / TypeScript",       nivel: "AVANCADO" },
-            { nome: "Sistemas Multi-agentes",   nivel: "INTERMEDIARIO" },
-            { nome: "MariaDB",                  nivel: "INTERMEDIARIO" }
-        ],
-        // acervo_tecnico: derivado de COUNT via JOIN com tabelas `arts` e `cats`
-        acervo_tecnico: {
-            arts_aprovadas: 3,
-            cats_validas: 1
-        },
-        // experiencias: tabela `experiencias` com FK para `portfolio`
-        experiencias: [
-            {
-                id: 1,
-                titulo_posicao_servico: "Auxiliar de Recursos Humanos",
-                organizacao_cliente: "Tapajós Perfumaria",
-                data_inicio: "Jan 2026",
-                data_fim: "Presente",
-                descricao_atividades: "Atuação na modernização do departamento de Recursos Humanos, implementando integrações sistêmicas e rotinas de automação para o Departamento Pessoal.",
-                // projetos: tabela `projetos` com FK para `portfolio` (relacionado via `projeto_experiencia`)
-                projetos: [
-                    {
-                        titulo: "Projeto Lhumos",
-                        descricao: "Desenvolvimento e arquitetura de um sistema chatbot multi-agente alimentado por IA (NLP) para automatizar triaçens e demandas do RH."
-                    }
-                ]
-            },
-            {
-                id: 2,
-                titulo_posicao_servico: "Diretor Estadual",
-                organizacao_cliente: "UEE-AM (União Estadual dos Estudantes)",
-                data_inicio: "Out 2025",
-                data_fim: "Presente",
-                descricao_atividades: "Liderança na coordenação de projetos estudantis e organização de eventos voltados à juventude, cultura e tecnologia em âmbito estadual.",
-                projetos: [
-                    {
-                        titulo: "2º Encontro Nacional de Comunicadores",
-                        descricao: "Articulação de redes e coordenação tecnológica de painéis focados em ativismo digital e novas mídias."
-                    }
-                ]
-            }
-        ]
-    };
-
-    // ==========================================
     // FUNÇÕES DE RENDERIZAÇÃO
+    // (idênticas às originais — só a origem dos dados muda)
     // ==========================================
 
     function renderSidebar(data) {
@@ -88,11 +22,13 @@
                     <i class="bi bi-patch-check-fill"></i> CREA VALIDADO
                 </span>
             `);
+        } else {
+            $('#portfolioBadges').empty();
         }
 
         let socialHtml = '';
-        if(data.portfolio.links_contato.linkedin) socialHtml += `<a href="${data.portfolio.links_contato.linkedin}" target="_blank"><i class="bi bi-linkedin"></i></a>`;
-        if(data.portfolio.links_contato.github)   socialHtml += `<a href="${data.portfolio.links_contato.github}" target="_blank"><i class="bi bi-github"></i></a>`;
+        if (data.portfolio.links_contato.linkedin) socialHtml += `<a href="${data.portfolio.links_contato.linkedin}" target="_blank"><i class="bi bi-linkedin"></i></a>`;
+        if (data.portfolio.links_contato.github)   socialHtml += `<a href="${data.portfolio.links_contato.github}" target="_blank"><i class="bi bi-github"></i></a>`;
         $('#portfolioSocialLinks').html(socialHtml);
     }
 
@@ -100,7 +36,6 @@
         $('#portfolioSummary').text(data.portfolio.resumo_profissional);
 
         let skillsHtml = '';
-        // competencias: array de objetos {nome, nivel} — tabela `profissional_competencias`
         data.competencias.forEach(skill => {
             skillsHtml += `<span class="pl-skill-badge" title="Nível: ${skill.nivel}">${skill.nome}</span>`;
         });
@@ -148,8 +83,39 @@
         $('#portfolioExperience').html(expHtml);
     }
 
-    // Executa imediatamente
-    renderSidebar(mockPortfolioData);
-    renderContent(mockPortfolioData);
+    // ==========================================
+    // ESTADO DE ERRO
+    // ==========================================
+
+    function renderError(message) {
+        $('#portfolioName').text('Erro ao carregar');
+        $('#portfolioTitle').text('');
+        $('#portfolioSummary').text(message);
+    }
+
+    // ==========================================
+    // CARREGAMENTO REAL DOS DADOS
+    // ==========================================
+
+    async function loadPortfolio() {
+        // Se a URL tiver ?id=123, busca o portfólio PÚBLICO desse usuário.
+        // Se não tiver, busca o portfólio do usuário LOGADO (o "meu perfil").
+        // Ajuste este trecho se o projeto usar outro esquema de rota
+        // (ex: hash tipo #portfolio/123) — o importante é extrair o ID aqui.
+        const params = new URLSearchParams(window.location.search);
+        const userId = params.get('id');
+
+        const result = await fetchPortfolio(userId);
+
+        if (!result.success) {
+            renderError(result.message);
+            return;
+        }
+
+        renderSidebar(result.data);
+        renderContent(result.data);
+    }
+
+    loadPortfolio();
 
 })();

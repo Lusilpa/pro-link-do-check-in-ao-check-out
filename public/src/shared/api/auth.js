@@ -31,7 +31,7 @@ function isUserAuthenticated() {
 // Envia e-mail e senha para o servidor com credentials incluídas.
 async function loginUser(credentials) {
     try {
-        const response = await fetch(`${API_BASE_URL}/login`, {
+        const response = await fetch(`${API_BASE_URL}/auth/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include', // Necessário para salvar o cookie de sessão do PHP
@@ -57,7 +57,7 @@ async function loginUser(credentials) {
 // Criação de nova conta
 async function registerUser(formData) {
     try {
-        const response = await fetch(`${API_BASE_URL}/register`, {
+        const response = await fetch(`${API_BASE_URL}/auth/register`, {
             method: 'POST',
             credentials: 'include', // Importante para sessão local ou CSRF futuros
             body: formData // Não definir Content-Type: browser define boundary automaticamente
