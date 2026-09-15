@@ -1,0 +1,188 @@
+/* ====================================================
+   Página: Configurações
+   Padrão idêntico ao portfolio.css / searchTalentos.css
+   ==================================================== */
+
+/* 1. Fundo fixo (padrão global) */
+.pl-config-fullscreen-bg {
+  position: fixed;
+  inset: 0;
+  background-color: var(--prolink-bg-darker);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* 2. Wrapper posicionado acima do fundo */
+.pl-config-page-wrapper {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  color: var(--prolink-light);
+  font-family: var(--font-primary, 'Ubuntu', sans-serif);
+}
+
+/* 3. Container centralizado (padrão global) */
+.pl-config-main-container {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2rem 1rem 120px 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* 4. Cabeçalho */
+.pl-config-header {
+  margin-bottom: 0.5rem;
+}
+
+.pl-config-title {
+  color: var(--prolink-blue);
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+}
+
+.pl-config-subtitle {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+/* 5. Painel (padrão outline azul do sistema) */
+.pl-config-panel {
+  background-color: transparent;
+  border: 1px solid var(--prolink-blue);
+  border-radius: 12px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.pl-panel-title {
+  color: var(--prolink-blue);
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0 0 0.4rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pl-panel-title i {
+  color: var(--prolink-blue);
+}
+
+.pl-panel-desc {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+  margin: 0 0 1.5rem 0;
+}
+
+/* 6. Botões de ação (padrão global: outline azul) */
+.pl-config-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.pl-btn-outline {
+  background-color: transparent;
+  border: 1px solid var(--prolink-blue);
+  border-radius: 8px;
+  padding: 12px 20px;
+  color: var(--prolink-blue);
+  font-size: 0.95rem;
+  font-weight: 700;
+  font-family: var(--font-primary, 'Ubuntu', sans-serif);
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  transition: background-color 0.2s ease;
+}
+
+.pl-btn-outline:hover {
+  background-color: rgba(43, 140, 255, 0.1);
+}
+
+.pl-btn-outline i {
+  font-size: 1rem;
+}
+
+/* 7. Select wrapper (imita botão outline) */
+.pl-select-wrapper {
+  cursor: default;
+}
+
+.pl-select-label {
+  flex-grow: 1;
+}
+
+.pl-select-input {
+  background: transparent;
+  border: none;
+  color: var(--prolink-blue);
+  font-family: var(--font-primary, 'Ubuntu', sans-serif);
+  font-weight: 700;
+  outline: none;
+  cursor: pointer;
+}
+
+.pl-select-input option {
+  background: var(--prolink-dark);
+  color: var(--prolink-light);
+}
+
+/* 8. Seção de Sair */
+.pl-config-logout-section {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(43, 140, 255, 0.2);
+}
+
+/* Variante de perigo (mantém padrão do sistema) */
+.pl-btn-danger {
+  border-color: rgba(255, 77, 77, 0.5);
+  color: #ff4d4d;
+}
+
+.pl-btn-danger:hover {
+  background-color: rgba(255, 77, 77, 0.08);
+  border-color: #ff4d4d;
+}
+
+/* 9. Botão Voltar */
+.pl-btn-back {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: var(--font-primary, 'Ubuntu', sans-serif);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0;
+  margin-bottom: 1.5rem;
+  transition: color 0.2s ease;
+}
+
+.pl-btn-back:hover {
+  color: var(--prolink-blue);
+}
+
+/* 10. Responsividade */
+@media (max-width: 768px) {
+  .pl-config-main-container {
+    padding: 1.5rem 1rem 120px 1rem;
+  }
+
+  .pl-config-panel {
+    padding: 1.5rem;
+  }
+}

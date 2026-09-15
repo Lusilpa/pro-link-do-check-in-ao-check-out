@@ -1,0 +1,71 @@
+<link rel="stylesheet" href="src/entities/estudio-profissional/styles/estudio-sub.css">
+
+<div class="pl-estudio-sub-fullscreen-bg"></div>
+
+<div class="pl-estudio-sub-page-wrapper">
+  <div class="pl-estudio-sub-main-container">
+    
+    <button class="pl-btn-back-estudio" onclick="window.location.hash = '#criacao'">
+      <i class="bi bi-arrow-left"></i> Voltar ao Estúdio
+    </button>
+
+    <div class="pl-estudio-sub-header">
+      <h2 class="pl-estudio-sub-title">Editar Portfólio</h2>
+      <p class="pl-estudio-sub-subtitle">Selecione um projeto do seu portfólio para atualizar ou remover.</p>
+    </div>
+
+    <div class="pl-estudio-sub-panel">
+      
+      <div class="pl-estudio-item-list">
+        
+        <!-- Fake Data -->
+        <div class="pl-estudio-item-card" id="port-item-1">
+          <div class="pl-estudio-item-info">
+            <h5>Projeto Residencial Alpha</h5>
+            <p>Categoria: Residencial • Ano: 2025</p>
+          </div>
+          <div class="pl-estudio-item-actions">
+            <button class="pl-estudio-item-btn" title="Editar">
+              <i class="bi bi-pencil"></i>
+            </button>
+            <button class="pl-estudio-item-btn pl-estudio-item-btn--danger btn-del-port" data-target="port-item-1" title="Excluir">
+              <i class="bi bi-trash3"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="pl-estudio-item-card" id="port-item-2">
+          <div class="pl-estudio-item-info">
+            <h5>Edifício Comercial Ômega</h5>
+            <p>Categoria: Comercial • Ano: 2024</p>
+          </div>
+          <div class="pl-estudio-item-actions">
+            <button class="pl-estudio-item-btn" title="Editar">
+              <i class="bi bi-pencil"></i>
+            </button>
+            <button class="pl-estudio-item-btn pl-estudio-item-btn--danger btn-del-port" data-target="port-item-2" title="Excluir">
+              <i class="bi bi-trash3"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<script>
+  (function() {
+    document.querySelectorAll('.btn-del-port').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const targetId = this.getAttribute('data-target');
+        const card = document.getElementById(targetId);
+        if (card && confirm('Tem certeza que deseja remover este projeto do portfólio?')) {
+          card.style.display = 'none';
+        }
+      });
+    });
+  })();
+</script>

@@ -21,6 +21,14 @@ $(document).ready(function() {
         '#admin': 'src/pages/layouts/admin.html',
         '#painel-empresa': 'src/pages/layouts/studiEempresa.html',
         '#config': 'src/pages/layouts/config.html',
+        
+        // Sub-páginas do Estúdio Profissional
+        '#post-criar': 'src/entities/estudio-profissional/layouts/postCriar.html',
+        '#post-editar': 'src/entities/estudio-profissional/layouts/postEditar.html',
+        '#post-deletar': 'src/entities/estudio-profissional/layouts/postDeletar.html',
+        '#portfolio-criar': 'src/entities/estudio-profissional/layouts/portfolioCriar.html',
+        '#portfolio-editar': 'src/entities/estudio-profissional/layouts/portfolioEditar.html',
+        '#portfolio-validar': 'src/entities/estudio-profissional/layouts/portfolioValidar.html',
 
         //Imgs
         '#Manaus':'assets/img/fundo-login-manaus.jpg',
@@ -36,12 +44,25 @@ $(document).ready(function() {
     // Inicializa a aplicação injetando a Navbar e o Top Bar simultaneamente
     $.when(
         $navbarContainer.load('src/app/layouts/navBar.html'),
-        $topbarContainer.load('src/app/layouts/topBar.html') // Carrega o componente superior
+        $topbarContainer.load('src/app/layouts/topBar.html')
     ).done(function() {
         console.log("Pro-Link: Navbar e TopBar carregadas com sucesso.");
-        // Chama a função de roteamento logo após as barras existirem na tela
-        initRouter(); 
+        initRouter();
+        // Aplica o estado ativo correto após a navbar estar no DOM
+        updateNavState(window.location.hash || '#auth');
     });
+
+    // Atualiza o estado ativo da Navbar e TopBar
+    function updateNavState(hash) {
+        $('.nav-icon-btn').removeClass('nav-icon-active').addClass('nav-icon-outline');
+        $(`.nav-icon-btn[href="${hash}"]`).removeClass('nav-icon-outline').addClass('nav-icon-active');
+
+        if (hash === '#config') {
+            $('.pl-btn-config').addClass('nav-icon-active');
+        } else {
+            $('.pl-btn-config').removeClass('nav-icon-active');
+        }
+    }
 
     // Lógica de Roteamento
     function initRouter() {
@@ -83,21 +104,19 @@ $(document).ready(function() {
                         }
                     }, 50);
                 }
+                // Dispara a inicialização da tela de Configurações
+                if (hash === '#config') {
+                    setTimeout(() => {
+                        if (typeof window.initConfig === 'function') {
+                            window.initConfig();
+                        }
+                    }, 50);
+                }
             }
             $appContent.fadeIn(300);
         });
 
-        // Estado ativo da Navbar
-        if ($navbarContainer.children().length > 0) {
-            $('.nav-icon-btn').removeClass('nav-icon-active').addClass('nav-icon-outline');
-            $(`.nav-icon-btn[href="${hash}"]`).removeClass('nav-icon-outline').addClass('nav-icon-active');
-        }
-
-        // Estado ativo do botão de config na TopBar
-        if (hash === '#config') {
-            $('.pl-btn-config').addClass('nav-icon-active');
-        } else {
-            $('.pl-btn-config').removeClass('nav-icon-active');
-        }
+        // Atualiza estado ativo da Navbar e TopBar
+        updateNavState(hash);
     }
 });

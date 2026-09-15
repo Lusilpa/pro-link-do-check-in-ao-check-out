@@ -1,0 +1,295 @@
+/* ====================================================
+   Sub-páginas do Estúdio Profissional (Criar, Editar, Deletar)
+   CSS compartilhado — padrão outline azul do sistema
+   ==================================================== */
+
+/* 1. Fundo fixo (padrão global) */
+.pl-estudio-sub-fullscreen-bg {
+  position: fixed;
+  inset: 0;
+  background-color: var(--prolink-bg-darker);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* 2. Wrapper posicionado acima do fundo */
+.pl-estudio-sub-page-wrapper {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  color: var(--prolink-light);
+  font-family: var(--font-primary, 'Ubuntu', sans-serif);
+}
+
+/* 3. Container centralizado (padrão global) */
+.pl-estudio-sub-main-container {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2rem 1rem 120px 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Botão Voltar */
+.pl-btn-back-estudio {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: var(--font-primary, 'Ubuntu', sans-serif);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0;
+  margin-bottom: 0.5rem;
+  transition: color 0.2s ease;
+  align-self: flex-start;
+}
+
+.pl-btn-back-estudio:hover {
+  color: var(--prolink-blue);
+}
+
+/* 4. Cabeçalho */
+.pl-estudio-sub-header {
+  margin-bottom: 0.5rem;
+}
+
+.pl-estudio-sub-title {
+  color: var(--prolink-blue);
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+}
+
+.pl-estudio-sub-subtitle {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+/* 5. Painel (padrão outline azul do sistema) */
+.pl-estudio-sub-panel {
+  background-color: transparent;
+  border: 1px solid var(--prolink-blue);
+  border-radius: 12px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Formulários */
+.pl-estudio-sub-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.pl-estudio-sub-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.pl-estudio-sub-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.pl-estudio-sub-input,
+.pl-estudio-sub-textarea {
+  background: transparent;
+  border: 1px solid var(--prolink-blue);
+  border-radius: 8px;
+  padding: 11px 16px;
+  color: var(--prolink-light);
+  font-family: var(--font-primary, 'Ubuntu', sans-serif);
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+  width: 100%;
+}
+
+.pl-estudio-sub-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.pl-estudio-sub-input:focus,
+.pl-estudio-sub-textarea:focus {
+  border-color: var(--prolink-blue);
+  background-color: rgba(43, 140, 255, 0.05);
+}
+
+.pl-estudio-sub-input::placeholder,
+.pl-estudio-sub-textarea::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.pl-estudio-sub-hint {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.4);
+  margin: 0;
+}
+
+/* Alertas */
+.pl-estudio-sub-alert {
+  background: rgba(43, 140, 255, 0.06);
+  border: 1px solid rgba(43, 140, 255, 0.25);
+  border-radius: 8px;
+  padding: 1rem 1.2rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.5;
+}
+
+.pl-estudio-sub-alert i {
+  color: var(--prolink-blue);
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.pl-estudio-sub-alert--warning {
+  background: rgba(255, 77, 77, 0.06);
+  border-color: rgba(255, 77, 77, 0.25);
+}
+
+.pl-estudio-sub-alert--warning i {
+  color: #ff4d4d;
+}
+
+/* Botões */
+.pl-estudio-sub-btn-save {
+  background-color: transparent;
+  border: 1px solid var(--prolink-blue);
+  border-radius: 8px;
+  color: var(--prolink-blue);
+  font-family: var(--font-primary, 'Ubuntu', sans-serif);
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  align-self: flex-start;
+  min-width: 160px;
+}
+
+.pl-estudio-sub-btn-save:hover {
+  background-color: rgba(43, 140, 255, 0.1);
+}
+
+.pl-estudio-sub-btn-danger {
+  background-color: transparent;
+  border: 1px solid rgba(255, 77, 77, 0.5);
+  border-radius: 8px;
+  color: #ff4d4d;
+  font-family: var(--font-primary, 'Ubuntu', sans-serif);
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+  align-self: flex-start;
+}
+
+.pl-estudio-sub-btn-danger:hover {
+  background-color: rgba(255, 77, 77, 0.08);
+  border-color: #ff4d4d;
+}
+
+/* Lista de itens para edição/deleção */
+.pl-estudio-item-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.pl-estudio-item-card {
+  background: transparent;
+  border: 1px solid rgba(43, 140, 255, 0.3);
+  border-radius: 8px;
+  padding: 1rem 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: border-color 0.2s ease;
+}
+
+.pl-estudio-item-card:hover {
+  border-color: var(--prolink-blue);
+}
+
+.pl-estudio-item-info h5 {
+  margin: 0 0 0.3rem 0;
+  color: var(--prolink-light);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.pl-estudio-item-info p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.85rem;
+}
+
+.pl-estudio-item-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.pl-estudio-item-btn {
+  background: transparent;
+  border: 1px solid var(--prolink-blue);
+  color: var(--prolink-blue);
+  border-radius: 6px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.pl-estudio-item-btn:hover {
+  background-color: rgba(43, 140, 255, 0.1);
+}
+
+.pl-estudio-item-btn--danger {
+  border-color: rgba(255, 77, 77, 0.5);
+  color: #ff4d4d;
+}
+
+.pl-estudio-item-btn--danger:hover {
+  background-color: rgba(255, 77, 77, 0.08);
+  border-color: #ff4d4d;
+}
+
+@media (max-width: 768px) {
+  .pl-estudio-sub-main-container {
+    padding: 1.5rem 1rem 120px 1rem;
+  }
+  .pl-estudio-sub-panel {
+    padding: 1.5rem;
+  }
+}

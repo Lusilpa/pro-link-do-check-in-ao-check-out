@@ -1,0 +1,121 @@
+<link rel="stylesheet" href="src/entities/config/styles/config-sub.css">
+
+<div class="pl-cfg-panel">
+
+  <!-- Seção: Informações Básicas -->
+  <div>
+    <h4 class="pl-cfg-section-title">
+      <i class="bi bi-person-vcard"></i> Informações Básicas
+    </h4>
+    <div class="pl-cfg-field-group">
+      <div class="pl-cfg-row">
+        <div class="pl-cfg-field">
+          <label class="pl-cfg-label" for="cfg-nome">Nome</label>
+          <input class="pl-cfg-input" type="text" id="cfg-nome" placeholder="Seu nome">
+        </div>
+        <div class="pl-cfg-field">
+          <label class="pl-cfg-label" for="cfg-sobrenome">Sobrenome</label>
+          <input class="pl-cfg-input" type="text" id="cfg-sobrenome" placeholder="Seu sobrenome">
+        </div>
+      </div>
+
+      <div class="pl-cfg-field">
+        <label class="pl-cfg-label" for="cfg-email">E-mail</label>
+        <input class="pl-cfg-input" type="email" id="cfg-email" placeholder="seu@email.com">
+      </div>
+
+      <div class="pl-cfg-field">
+        <label class="pl-cfg-label" for="cfg-telefone">Telefone</label>
+        <input class="pl-cfg-input" type="tel" id="cfg-telefone" placeholder="(00) 00000-0000">
+      </div>
+
+      <div class="pl-cfg-field">
+        <label class="pl-cfg-label" for="cfg-cpf">CPF</label>
+        <input class="pl-cfg-input" type="text" id="cfg-cpf" placeholder="000.000.000-00" disabled>
+        <p class="pl-cfg-hint">O CPF não pode ser alterado após o cadastro.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="pl-cfg-divider">
+
+  <!-- Seção: Localização -->
+  <div>
+    <h4 class="pl-cfg-section-title">
+      <i class="bi bi-geo-alt"></i> Localização
+    </h4>
+    <div class="pl-cfg-field-group">
+      <div class="pl-cfg-row">
+        <div class="pl-cfg-field">
+          <label class="pl-cfg-label" for="cfg-estado">Estado</label>
+          <select class="pl-cfg-select" id="cfg-estado">
+            <option value="">Selecione...</option>
+            <option value="AM">Amazonas</option>
+            <option value="SP">São Paulo</option>
+            <option value="RJ">Rio de Janeiro</option>
+            <option value="MG">Minas Gerais</option>
+            <option value="PR">Paraná</option>
+            <option value="RS">Rio Grande do Sul</option>
+            <option value="SC">Santa Catarina</option>
+            <option value="BA">Bahia</option>
+            <option value="GO">Goiás</option>
+            <option value="PE">Pernambuco</option>
+          </select>
+        </div>
+        <div class="pl-cfg-field">
+          <label class="pl-cfg-label" for="cfg-cidade">Cidade</label>
+          <input class="pl-cfg-input" type="text" id="cfg-cidade" placeholder="Sua cidade">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="pl-cfg-divider">
+
+  <!-- Seção: Dados Profissionais -->
+  <div>
+    <h4 class="pl-cfg-section-title">
+      <i class="bi bi-briefcase"></i> Dados Profissionais
+    </h4>
+    <div class="pl-cfg-field-group">
+      <div class="pl-cfg-field">
+        <label class="pl-cfg-label" for="cfg-titulo">Título Profissional</label>
+        <input class="pl-cfg-input" type="text" id="cfg-titulo" placeholder="Ex: Engenheiro Civil, Arquiteto...">
+      </div>
+
+      <div class="pl-cfg-field">
+        <label class="pl-cfg-label" for="cfg-registro">Nº de Registro CREA/CAU (opcional)</label>
+        <input class="pl-cfg-input" type="text" id="cfg-registro" placeholder="Ex: CREA-AM 000000">
+      </div>
+
+      <div class="pl-cfg-field">
+        <label class="pl-cfg-label" for="cfg-resumo">Resumo Profissional</label>
+        <textarea class="pl-cfg-input" id="cfg-resumo" rows="4" placeholder="Descreva brevemente sua experiência e especialidades..." style="resize: vertical;"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <button class="pl-cfg-btn-save" id="btn-salvar-dados">
+    <i class="bi bi-check-lg"></i> Salvar Alterações
+  </button>
+
+</div>
+
+<script>
+  (function() {
+    const btn = document.getElementById('btn-salvar-dados');
+    if (btn) {
+      btn.addEventListener('click', function() {
+        // TODO: integrar com API PUT /usuarios/:id
+        btn.innerHTML = '<i class="bi bi-check-circle"></i> Salvo!';
+        btn.style.color = '#00d278';
+        btn.style.borderColor = '#00d278';
+        setTimeout(() => {
+          btn.innerHTML = '<i class="bi bi-check-lg"></i> Salvar Alterações';
+          btn.style.color = '';
+          btn.style.borderColor = '';
+        }, 2000);
+      });
+    }
+  })();
+</script>

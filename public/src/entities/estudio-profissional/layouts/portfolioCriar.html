@@ -1,0 +1,83 @@
+<link rel="stylesheet" href="src/entities/estudio-profissional/styles/estudio-sub.css">
+
+<div class="pl-estudio-sub-fullscreen-bg"></div>
+
+<div class="pl-estudio-sub-page-wrapper">
+  <div class="pl-estudio-sub-main-container">
+    
+    <button class="pl-btn-back-estudio" onclick="window.location.hash = '#criacao'">
+      <i class="bi bi-arrow-left"></i> Voltar ao Estúdio
+    </button>
+
+    <div class="pl-estudio-sub-header">
+      <h2 class="pl-estudio-sub-title">Criar Projeto no Portfólio</h2>
+      <p class="pl-estudio-sub-subtitle">Adicione um novo trabalho ao seu portfólio para atrair clientes.</p>
+    </div>
+
+    <div class="pl-estudio-sub-panel">
+      <div class="pl-estudio-sub-field-group">
+        
+        <div class="pl-estudio-sub-field">
+          <label class="pl-estudio-sub-label" for="port-titulo">Título do Projeto</label>
+          <input class="pl-estudio-sub-input" type="text" id="port-titulo" placeholder="Ex: Projeto Residencial Alpha">
+        </div>
+
+        <div class="pl-estudio-sub-field">
+          <label class="pl-estudio-sub-label" for="port-descricao">Descrição do Projeto</label>
+          <textarea class="pl-estudio-sub-textarea" id="port-descricao" rows="5" placeholder="Descreva os desafios, soluções e tecnologias utilizadas..."></textarea>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="pl-estudio-sub-field">
+            <label class="pl-estudio-sub-label" for="port-ano">Ano de Conclusão</label>
+            <input class="pl-estudio-sub-input" type="number" id="port-ano" placeholder="2026">
+          </div>
+          <div class="pl-estudio-sub-field">
+            <label class="pl-estudio-sub-label" for="port-categoria">Categoria</label>
+            <select class="pl-estudio-sub-input" id="port-categoria" style="appearance: auto;">
+              <option value="">Selecione...</option>
+              <option value="residencial">Residencial</option>
+              <option value="comercial">Comercial</option>
+              <option value="industrial">Industrial</option>
+              <option value="infra">Infraestrutura</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="pl-estudio-sub-field">
+          <label class="pl-estudio-sub-label">Galeria de Imagens</label>
+          <div class="pl-estudio-sub-alert" style="cursor: pointer;" onclick="document.getElementById('port-galeria').click()">
+            <i class="bi bi-images"></i>
+            <div>
+              <strong style="color: var(--prolink-light); display: block;">Adicionar Imagens</strong>
+              <span style="font-size: 0.8rem;">Clique para selecionar até 10 fotos (JPG ou PNG)</span>
+            </div>
+          </div>
+          <input type="file" id="port-galeria" class="d-none" accept="image/*" multiple>
+        </div>
+
+      </div>
+
+      <button class="pl-estudio-sub-btn-save" id="btn-salvar-portfolio">
+        <i class="bi bi-folder-plus"></i> Salvar Projeto
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  (function() {
+    const btn = document.getElementById('btn-salvar-portfolio');
+    if (btn) {
+      btn.addEventListener('click', () => {
+        btn.innerHTML = '<i class="bi bi-check-circle"></i> Projeto Salvo!';
+        btn.style.color = '#00d278';
+        btn.style.borderColor = '#00d278';
+        setTimeout(() => {
+          window.location.hash = '#criacao';
+        }, 1500);
+      });
+    }
+  })();
+</script>

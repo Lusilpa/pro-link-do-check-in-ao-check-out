@@ -1,0 +1,70 @@
+<link rel="stylesheet" href="src/entities/estudio-profissional/styles/estudio-sub.css">
+
+<div class="pl-estudio-sub-fullscreen-bg"></div>
+
+<div class="pl-estudio-sub-page-wrapper">
+  <div class="pl-estudio-sub-main-container">
+    
+    <button class="pl-btn-back-estudio" onclick="window.location.hash = '#criacao'">
+      <i class="bi bi-arrow-left"></i> Voltar ao Estúdio
+    </button>
+
+    <div class="pl-estudio-sub-header">
+      <h2 class="pl-estudio-sub-title">Deletar Posts</h2>
+      <p class="pl-estudio-sub-subtitle">Selecione uma publicação para removê-la permanentemente da plataforma.</p>
+    </div>
+
+    <div class="pl-estudio-sub-panel">
+      
+      <div class="pl-estudio-sub-alert pl-estudio-sub-alert--warning" style="margin-bottom: 1rem;">
+        <i class="bi bi-exclamation-triangle"></i>
+        <span>Atenção: A exclusão de um post é permanente e não pode ser desfeita. Todos os comentários e curtidas serão perdidos.</span>
+      </div>
+
+      <div class="pl-estudio-item-list">
+        
+        <!-- Fake Data -->
+        <div class="pl-estudio-item-card" id="post-item-1">
+          <div class="pl-estudio-item-info">
+            <h5>Reforma Estrutural: Antes e Depois</h5>
+            <p>Publicado em: 10/09/2026</p>
+          </div>
+          <div class="pl-estudio-item-actions">
+            <button class="pl-estudio-item-btn pl-estudio-item-btn--danger btn-del-post" data-target="post-item-1" title="Excluir">
+              <i class="bi bi-trash3"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="pl-estudio-item-card" id="post-item-2">
+          <div class="pl-estudio-item-info">
+            <h5>Novo Projeto de Interiores</h5>
+            <p>Publicado em: 05/09/2026</p>
+          </div>
+          <div class="pl-estudio-item-actions">
+            <button class="pl-estudio-item-btn pl-estudio-item-btn--danger btn-del-post" data-target="post-item-2" title="Excluir">
+              <i class="bi bi-trash3"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<script>
+  (function() {
+    document.querySelectorAll('.btn-del-post').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const targetId = this.getAttribute('data-target');
+        const card = document.getElementById(targetId);
+        if (card && confirm('Tem certeza que deseja excluir este post permanentemente?')) {
+          card.style.display = 'none';
+        }
+      });
+    });
+  })();
+</script>

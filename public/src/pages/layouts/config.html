@@ -1,0 +1,68 @@
+<link rel="stylesheet" href="src/pages/styles/config.css">
+
+<div class="pl-config-fullscreen-bg"></div>
+
+<div class="pl-config-page-wrapper">
+  <div class="pl-config-main-container">
+
+    <!-- Cabeçalho -->
+    <div class="pl-config-header">
+      <h2 class="pl-config-title">Configurações</h2>
+      <p class="pl-config-subtitle">Gerencie seus dados, preferências e segurança da sua conta.</p>
+    </div>
+
+    <!-- ÁREA 1: Menu Principal -->
+    <div id="config-menu-area" class="pl-config-panel">
+      <h3 class="pl-panel-title">
+        <i class="bi bi-gear-fill"></i> Menu de Preferências
+      </h3>
+      <p class="pl-panel-desc">Selecione uma das opções abaixo para editar os dados da sua conta.</p>
+
+      <div class="pl-config-actions">
+        <button class="pl-btn-outline" data-target="dadosPessoais">
+          <i class="bi bi-person"></i> Dados Pessoais
+        </button>
+
+        <button class="pl-btn-outline" data-target="mudancaSenha">
+          <i class="bi bi-key"></i> Mudança de Senha
+        </button>
+
+        <button class="pl-btn-outline" data-target="mudancaConta">
+          <i class="bi bi-arrow-left-right"></i> Solicitação de Mudança de Tipo de Conta
+        </button>
+
+        <!-- Agrupamento visual para o Tema imitando um botão vazado -->
+        <div class="pl-btn-outline pl-select-wrapper">
+          <i class="bi bi-palette"></i>
+          <span class="pl-select-label">Tema</span>
+          <select id="themeSelect" class="pl-select-input">
+            <option value="dark">Escuro</option>
+            <option value="light">Claro</option>
+            <option value="system">Sistema</option>
+          </select>
+        </div>
+
+        <button class="pl-btn-outline" data-target="politicas">
+          <i class="bi bi-shield-check"></i> Políticas e LGPD
+        </button>
+      </div>
+
+      <!-- Botão de Sair -->
+      <div class="pl-config-logout-section">
+        <button class="pl-btn-outline pl-btn-danger" id="btn-logout">
+          <i class="bi bi-box-arrow-right"></i> Sair da Conta
+        </button>
+      </div>
+    </div>
+
+    <!-- ÁREA 2: Área Dinâmica (Subcomponentes) -->
+    <div id="config-dynamic-area" class="d-none pl-config-panel">
+      <button class="pl-btn-back" id="btn-config-back">
+        <i class="bi bi-arrow-left"></i> Voltar
+      </button>
+
+      <div id="config-component-slot" class="mt-3"></div>
+    </div>
+
+  </div>
+</div>
