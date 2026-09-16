@@ -5,11 +5,9 @@
     const errorMsg = document.getElementById('demandaGerenciar-error-msg');
     const listEl = document.getElementById('demandaGerenciar-list');
 
-    /**
-     * Renderiza a lista de demandas ativas.
-     * @param {Array} demandas — Array de objetos do endpoint GET /api/demandas
-     * Cada objeto deve ter: { id, titulo, status, data_publicacao, total_candidatos }
-     */
+    // Simulação do ID da empresa logada (deve vir do seu Auth Context)
+    const empresaId = localStorage.getItem('empresaId') || '1'; 
+
     function renderDemandas(demandas) {
         loadingEl.classList.add('d-none');
 
@@ -44,21 +42,17 @@
     }
 
     function bindActions() {
-        // TODO: Navegar para edição individual da demanda
         document.querySelectorAll('.btn-editar-demanda').forEach(function (btn) {
             btn.addEventListener('click', function () {
                 const id = this.getAttribute('data-demanda-id');
-                // TODO: window.location.hash = '#demanda-editar?id=' + id;
-                console.log('TODO: Editar demanda ID', id);
+                window.location.hash = '#demanda-editar?id=' + id;
             });
         });
 
         document.querySelectorAll('.btn-ver-candidatos').forEach(function (btn) {
             btn.addEventListener('click', function () {
                 const id = this.getAttribute('data-demanda-id');
-                window.location.hash = '#candidatos-analisar';
-                // TODO: Passar o id da demanda como filtro
-                console.log('TODO: Ver candidatos da demanda ID', id);
+                window.location.hash = '#candidatos-analisar?demanda=' + id;
             });
         });
     }
@@ -75,20 +69,19 @@
         return d.toLocaleDateString('pt-BR');
     }
 
-    // TODO: Substituir pela chamada real ao backend
-    // fetch('/api/demandas?id_empresa=' + empresaId + '&status=ABERTA', {
-    //   headers: { 'Authorization': 'Bearer ' + token }
-    // })
-    // .then(res => { if (!res.ok) throw new Error(res.statusText); return res.json(); })
-    // .then(data => { renderDemandas(data); })
-    // .catch(err => { showError(err.message); });
+    async function loadDemandas() {
+        try {
+            const data = await apiRequest(`/demandas?id_empresa=${empresaId}&status=ABERTA`, {
+                method: 'GET'
+            });
 
-    // Simulação temporária (remover na integração)
-    setTimeout(function () {
-        renderDemandas([
-            { id: 1, titulo: 'Engenheiro Civil Sênior — Obra Residencial', data_publicacao: '2026-09-08', total_candidatos: 12 },
-            { id: 2, titulo: 'Mestre de Obras — Edifício Comercial', data_publicacao: '2026-09-01', total_candidatos: 5 },
-            { id: 3, titulo: 'Arquiteto de Interiores — Reforma Hotel', data_publicacao: '2026-08-25', total_candidatos: 23 }
-        ]);
-    }, 600);
+            renderDemandas(data);
+
+        } catch (error) {
+            console.error("Erro ao buscar demandas:", error);
+            showError("Não foi possível carregar as vagas ativas no momento.");
+        }
+    }
+
+    loadDemandas();
 })();

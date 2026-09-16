@@ -5,7 +5,7 @@
 
     if (!form) return;
 
-    form.addEventListener('submit', function (e) {
+    form.addEventListener('submit', async function (e) {
         e.preventDefault();
 
         if (!form.checkValidity()) {
@@ -24,37 +24,37 @@
             data_fechamento: form.data_fechamento.value || null
         };
 
+        const originalBtnHTML = btn.innerHTML;
         btn.disabled = true;
-        btn.innerHTML = '<i class="bi bi-hourglass-split"></i> Publicando...';
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Publicando...';
 
-        // fetch('/api/demandas', {
-        //   method: 'POST',
-        //   headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
-        //   body: JSON.stringify(payload)
-        // })
-        // .then(res => { if (!res.ok) throw new Error(res.statusText); return res.json(); })
-        // .then(data => { onSuccess(data); })
-        // .catch(err => { onError(err.message); });
+        try {
+            // Usa apiRequest do _http.js (que envia cookies automaticamente)
+            const data = await apiRequest('/demandas', {
+                method: 'POST',
+                body: JSON.stringify(payload)
+            });
 
-        setTimeout(() => {
-            onSuccess({ id: 999 });
-        }, 800);
-
-        function onSuccess(data) {
+            // Sucesso
             btn.innerHTML = '<i class="bi bi-check-circle"></i> Demanda Publicada!';
             btn.style.color = '#00d278';
             btn.style.borderColor = '#00d278';
+            
             feedback.classList.remove('d-none', 'pl-estudio-sub-alert--warning');
-            feedback.innerHTML = '<i class="bi bi-check-circle"></i> <span>Demanda criada com sucesso (ID: ' + (data.id || '—') + ').</span>';
-            setTimeout(() => { window.location.hash = '#painel-empresa'; }, 1500);
-        }
+            feedback.innerHTML = `<i class="bi bi-check-circle"></i> <span>Demanda criada com sucesso (ID: ${data?.id || '—'}).</span>`;
+            
+            setTimeout(() => { 
+                window.location.hash = '#painel-empresa'; 
+            }, 1500);
 
-        function onError(msg) {
+        } catch (error) {
+            console.error("Falha ao publicar demanda:", error);
             btn.disabled = false;
-            btn.innerHTML = '<i class="bi bi-megaphone"></i> Publicar Demanda';
+            btn.innerHTML = originalBtnHTML;
+            
             feedback.classList.remove('d-none');
             feedback.classList.add('pl-estudio-sub-alert--warning');
-            feedback.innerHTML = '<i class="bi bi-exclamation-triangle"></i> <span>Erro: ' + msg + '</span>';
+            feedback.innerHTML = `<i class="bi bi-exclamation-triangle"></i> <span>Erro ao publicar: ${error.message}</span>`;
         }
     });
 })();

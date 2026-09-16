@@ -1,0 +1,185 @@
+<link rel="stylesheet" href="src/pages/styles/admin.css">
+
+<!-- Fundo fixo para o painel admin -->
+<div class="pl-admin-fullscreen-bg"></div>
+
+<div class="pl-admin-wrapper">
+  <div class="pl-admin-container">
+    
+    <!-- Header -->
+    <div class="pl-admin-header">
+      <h2>Painel Administrativo</h2>
+      <p>Gerenciamento da plataforma, usuários, moderação de conteúdo e métricas do sistema.</p>
+    </div>
+
+    <!-- Grid Layout -->
+    <div class="pl-admin-grid">
+
+      <!-- ================= LINHA 1: KPIs ================= -->
+      <div class="pl-admin-row-kpi">
+        <div class="pl-admin-card pl-kpi-card">
+          <div class="pl-kpi-top">
+            <div class="pl-kpi-icon-wrapper pl-kpi-icon-1"><i class="bi bi-people-fill"></i></div>
+            <div class="pl-kpi-info">
+              <h3 id="kpi-total-users">0</h3>
+              <p>Usuários Totais</p>
+            </div>
+          </div>
+          <div class="pl-kpi-trend positive"><i class="bi bi-arrow-up-short"></i> 12% vs mês anterior</div>
+        </div>
+
+        <div class="pl-admin-card pl-kpi-card">
+          <div class="pl-kpi-top">
+            <div class="pl-kpi-icon-wrapper pl-kpi-icon-2"><i class="bi bi-briefcase-fill"></i></div>
+            <div class="pl-kpi-info">
+              <h3 id="kpi-active-demands">0</h3>
+              <p>Demandas Ativas</p>
+            </div>
+          </div>
+          <div class="pl-kpi-trend positive"><i class="bi bi-arrow-up-short"></i> 8% vs mês anterior</div>
+        </div>
+
+        <div class="pl-admin-card pl-kpi-card">
+          <div class="pl-kpi-top">
+            <div class="pl-kpi-icon-wrapper pl-kpi-icon-3"><i class="bi bi-hourglass-split"></i></div>
+            <div class="pl-kpi-info">
+              <h3 id="kpi-pending-mod">0</h3>
+              <p>Moderação Pendente</p>
+            </div>
+          </div>
+          <div class="pl-kpi-trend negative"><i class="bi bi-arrow-up-short"></i> 5% vs mês anterior</div>
+        </div>
+
+        <div class="pl-admin-card pl-kpi-card">
+          <div class="pl-kpi-top">
+            <div class="pl-kpi-icon-wrapper pl-kpi-icon-4"><i class="bi bi-check-circle-fill"></i></div>
+            <div class="pl-kpi-info">
+              <h3 id="kpi-matches">0</h3>
+              <p>Conexões (Matches)</p>
+            </div>
+          </div>
+          <div class="pl-kpi-trend positive"><i class="bi bi-arrow-up-short"></i> 18% vs mês anterior</div>
+        </div>
+
+        <div class="pl-admin-card pl-kpi-card">
+          <div class="pl-kpi-top">
+            <div class="pl-kpi-icon-wrapper pl-kpi-icon-5"><i class="bi bi-currency-dollar"></i></div>
+            <div class="pl-kpi-info">
+              <h3 id="kpi-revenue">R$ 0,00</h3>
+              <p>Faturamento Estimado</p>
+            </div>
+          </div>
+          <div class="pl-kpi-trend positive"><i class="bi bi-arrow-up-short"></i> 22% vs mês anterior</div>
+        </div>
+      </div>
+
+      <!-- ================= LINHA 2: GRÁFICOS E RECENTES ================= -->
+      <div class="pl-admin-row-charts">
+        
+        <!-- Rosca: Status dos Usuários -->
+        <div class="pl-admin-card">
+          <div class="pl-admin-card-header">
+            <h4 class="pl-admin-card-title">Distribuição de Usuários</h4>
+          </div>
+          <div style="position: relative; height: 220px; width: 100%; display: flex; justify-content: center; align-items: center;">
+            <canvas id="userStatusChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Linha: Crescimento (Evolução de Demandas) -->
+        <div class="pl-admin-card">
+          <div class="pl-admin-card-header">
+            <h4 class="pl-admin-card-title">Crescimento de Demandas</h4>
+            <span style="color: #94a3b8; font-size: 0.75rem;">Este mês <i class="bi bi-chevron-down"></i></span>
+          </div>
+          <div style="position: relative; height: 160px; width: 100%;">
+            <canvas id="demandsGrowthChart"></canvas>
+          </div>
+          <div style="display: flex; gap: 1rem; margin-top: 1rem; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 1rem;">
+            <div>
+              <p style="color: #94a3b8; font-size: 0.75rem; margin: 0;">Total de Vagas Novas</p>
+              <h4 style="color: #f8fafc; margin: 0; font-size: 1.2rem;">467</h4>
+            </div>
+            <div>
+              <p style="color: #94a3b8; font-size: 0.75rem; margin: 0;">Média Diária</p>
+              <h4 style="color: #f8fafc; margin: 0; font-size: 1.2rem;">15,5</h4>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lista: Registros Recentes -->
+        <div class="pl-admin-card">
+          <div class="pl-admin-card-header">
+            <h4 class="pl-admin-card-title">Registros Recentes</h4>
+            <a href="#" class="pl-admin-card-action">Ver todos</a>
+          </div>
+          <div class="pl-list-container" id="recentRegistrationsList">
+            <!-- Injetado via JS -->
+            <div class="pl-estudio-loading" style="padding: 1rem;">Carregando...</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ================= LINHA 3: RANKINGS E MODERAÇÃO ================= -->
+      <div class="pl-admin-row-lists">
+        
+        <!-- Lista: Categorias mais buscadas -->
+        <div class="pl-admin-card">
+          <div class="pl-admin-card-header">
+            <h4 class="pl-admin-card-title">Categorias mais buscadas</h4>
+            <span style="color: #94a3b8; font-size: 0.75rem;">Este mês <i class="bi bi-chevron-down"></i></span>
+          </div>
+          <div class="pl-list-container" id="topCategoriesList">
+             <!-- Injetado via JS -->
+             <div class="pl-estudio-loading" style="padding: 1rem;">Carregando...</div>
+          </div>
+        </div>
+
+        <!-- Lista: Empresas mais ativas -->
+        <div class="pl-admin-card">
+          <div class="pl-admin-card-header">
+            <h4 class="pl-admin-card-title">Empresas mais ativas</h4>
+            <span style="color: #94a3b8; font-size: 0.75rem;">Este mês <i class="bi bi-chevron-down"></i></span>
+          </div>
+          <div class="pl-list-container" id="topCompaniesList">
+             <!-- Injetado via JS -->
+             <div class="pl-estudio-loading" style="padding: 1rem;">Carregando...</div>
+          </div>
+        </div>
+
+        <!-- Alertas: Moderação e Auditoria (Similar ao "Estoque") -->
+        <div class="pl-admin-card">
+          <div class="pl-admin-card-header">
+            <h4 class="pl-admin-card-title">Moderação e Alertas</h4>
+            <a href="#" class="pl-admin-card-action">Ver auditoria</a>
+          </div>
+          
+          <div class="pl-mini-cards-wrapper">
+            <div class="pl-mini-card pl-mini-green">
+              <h4 id="mod-approved">145</h4>
+              <p>Perfis<br>Verificados</p>
+            </div>
+            <div class="pl-mini-card pl-mini-yellow">
+              <h4 id="mod-pending">23</h4>
+              <p>Aguardando<br>Aprovação</p>
+            </div>
+            <div class="pl-mini-card pl-mini-red">
+              <h4 id="mod-banned">5</h4>
+              <p>Contas<br>Banidas</p>
+            </div>
+          </div>
+
+          <div class="pl-mini-card-footer">
+            <span>Denúncias abertas:</span>
+            <strong>12 Casos</strong>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="src/pages/scripts/admin.js"></script>

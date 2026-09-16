@@ -3,10 +3,8 @@
     const emptyEl = document.getElementById('demandaEncerrar-empty');
     const listEl = document.getElementById('demandaEncerrar-list');
 
-    /**
-     * Renderiza a lista de demandas para encerramento.
-     * @param {Array} demandas — [{ id, titulo, data_publicacao, total_candidatos }]
-     */
+    const empresaId = localStorage.getItem('empresaId') || '1'; 
+
     function renderDemandas(demandas) {
         loadingEl.classList.add('d-none');
 
@@ -40,30 +38,36 @@
 
     function bindActions() {
         document.querySelectorAll('.btn-encerrar-vaga').forEach(function (btn) {
-            btn.addEventListener('click', function () {
+            btn.addEventListener('click', async function () {
                 const demandaId = this.getAttribute('data-demanda-id');
                 const card = document.getElementById('encerrar-item-' + demandaId);
 
                 if (!confirm('Tem certeza que deseja encerrar esta demanda? O status será alterado para FECHADA.')) return;
 
-                // TODO: Substituir pelo PATCH/PUT real
-                // fetch('/api/demandas/' + demandaId, {
-                //   method: 'PATCH',
-                //   headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
-                //   body: JSON.stringify({ status: 'FECHADA' })
-                // })
-                // .then(res => { if (!res.ok) throw new Error(res.statusText); return res.json(); })
-                // .then(() => { onSuccess(card); })
-                // .catch(err => { alert('Erro: ' + err.message); });
+                const originalHtml = this.innerHTML;
+                this.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
+                this.disabled = true;
 
-                // Simulação temporária (remover na integração)
-                onSuccess(card);
+                try {
+                    await apiRequest('/demandas/' + demandaId + '/editar', {
+                        method: 'POST',
+                        body: JSON.stringify({ status: 'FECHADA' })
+                    });
 
-                function onSuccess(cardEl) {
-                    cardEl.style.opacity = '0.4';
-                    cardEl.style.pointerEvents = 'none';
-                    var info = cardEl.querySelector('.pl-estudio-item-info p');
-                    if (info) info.innerHTML = '<span style="color: #ff4d4d;"><i class="bi bi-x-circle-fill"></i> Encerrada (FECHADA)</span>';
+                    // Sucesso
+                    card.style.opacity = '0.4';
+                    card.style.pointerEvents = 'none';
+                    const info = card.querySelector('.pl-estudio-item-info p');
+                    if (info) {
+                        info.innerHTML = '<span style="color: #ff4d4d;"><i class="bi bi-x-circle-fill"></i> Encerrada (FECHADA)</span>';
+                    }
+                    this.innerHTML = '<i class="bi bi-check2"></i>';
+
+                } catch (error) {
+                    console.error("Falha ao encerrar demanda:", error);
+                    alert("Erro ao encerrar demanda. Tente novamente mais tarde.");
+                    this.innerHTML = originalHtml;
+                    this.disabled = false;
                 }
             });
         });
@@ -74,11 +78,18 @@
         return new Date(dateStr).toLocaleDateString('pt-BR');
     }
 
-    // Simulação temporária (remover na integração)
-    setTimeout(function () {
-        renderDemandas([
-            { id: 1, titulo: 'Engenheiro Civil Sênior — Obra Residencial', data_publicacao: '2026-09-08', total_candidatos: 12 },
-            { id: 2, titulo: 'Mestre de Obras — Edifício Comercial', data_publicacao: '2026-09-01', total_candidatos: 5 }
-        ]);
-    }, 600);
+    async function loadDemandasAtivas() {
+        try {
+            const data = await apiRequest(`/demandas?id_empresa=${empresaId}&status=ABERTA`, {
+                method: 'GET'
+            });
+            renderDemandas(data);
+
+        } catch (error) {
+            console.error("Falha ao carregar demandas", error);
+            loadingEl.classList.add('d-none');
+        }
+    }
+
+    loadDemandasAtivas();
 })();

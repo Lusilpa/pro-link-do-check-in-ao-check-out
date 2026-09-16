@@ -1,0 +1,297 @@
+/* ====================================================
+   Página: Admin Dashboard
+   Design System Premium (Baseado no Screenshot)
+   ==================================================== */
+
+.pl-admin-fullscreen-bg {
+  position: fixed;
+  inset: 0;
+  background-color: #0b1121; /* Cor escura do fundo da imagem */
+  pointer-events: none;
+  z-index: 0;
+}
+
+.pl-admin-wrapper {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 0 1rem;
+}
+
+.pl-admin-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  padding-bottom: 2rem;
+}
+
+.pl-admin-header {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  margin-bottom: 1.5rem;
+}
+
+.pl-admin-header h2 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #f1f5f9;
+  margin-bottom: 0.2rem;
+}
+
+.pl-admin-header p {
+  color: #94a3b8;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+/* ====================================================
+   Grid Principal (3 Linhas)
+   ==================================================== */
+.pl-admin-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Linha 1: KPIs */
+.pl-admin-row-kpi {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+}
+
+/* Linha 2: Gráficos e Recentes */
+.pl-admin-row-charts {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 1fr;
+  gap: 1rem;
+}
+
+/* Linha 3: Rankings e Alertas */
+.pl-admin-row-lists {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+/* ====================================================
+   Cartões Base
+   ==================================================== */
+.pl-admin-card {
+  background: #111827; /* Fundo do card */
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 1.25rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+}
+
+.pl-admin-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.pl-admin-card-title {
+  color: #e2e8f0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.pl-admin-card-action {
+  color: #3b82f6;
+  font-size: 0.8rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+.pl-admin-card-action:hover {
+  text-decoration: underline;
+  color: #60a5fa;
+}
+
+/* ====================================================
+   Componentes: KPIs
+   ==================================================== */
+.pl-kpi-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.pl-kpi-top {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.pl-kpi-icon-wrapper {
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+}
+/* Cores dos Ícones KPI (baseado no print) */
+.pl-kpi-icon-1 { background: rgba(59, 130, 246, 0.15); color: #3b82f6; }
+.pl-kpi-icon-2 { background: rgba(34, 197, 94, 0.15); color: #22c55e; }
+.pl-kpi-icon-3 { background: rgba(234, 179, 8, 0.15); color: #eab308; }
+.pl-kpi-icon-4 { background: rgba(168, 85, 247, 0.15); color: #a855f7; }
+.pl-kpi-icon-5 { background: rgba(14, 165, 233, 0.15); color: #0ea5e9; }
+
+.pl-kpi-info h3 {
+  color: #f8fafc;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1;
+}
+.pl-kpi-info p {
+  color: #94a3b8;
+  font-size: 0.8rem;
+  margin: 0;
+}
+.pl-kpi-trend {
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-top: 0.5rem;
+}
+.pl-kpi-trend.positive { color: #22c55e; }
+.pl-kpi-trend.negative { color: #ef4444; }
+
+/* ====================================================
+   Listas (Recentes, Rankings)
+   ==================================================== */
+.pl-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.pl-list-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+.pl-list-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.pl-list-title {
+  color: #e2e8f0;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+.pl-list-subtitle {
+  color: #64748b;
+  font-size: 0.75rem;
+}
+.pl-list-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.3rem;
+}
+.pl-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+.pl-badge-blue { background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3); }
+.pl-badge-yellow { background: rgba(234, 179, 8, 0.2); color: #facc15; border: 1px solid rgba(234, 179, 8, 0.3); }
+.pl-badge-green { background: rgba(34, 197, 94, 0.2); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.3); }
+
+/* ====================================================
+   Layout de Mini-Cartões (Estoque / Moderação)
+   ==================================================== */
+.pl-mini-cards-wrapper {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+.pl-mini-card {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  padding: 1rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.pl-mini-card h4 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+.pl-mini-card p {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  margin: 0;
+  line-height: 1.2;
+}
+.pl-mini-green h4 { color: #4ade80; }
+.pl-mini-yellow h4 { color: #facc15; }
+.pl-mini-red h4 { color: #f87171; }
+
+.pl-mini-card-footer {
+  margin-top: auto;
+  padding-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.pl-mini-card-footer span {
+  color: #94a3b8;
+  font-size: 0.8rem;
+}
+.pl-mini-card-footer strong {
+  color: #60a5fa;
+  font-size: 0.9rem;
+}
+
+/* ====================================================
+   Responsividade
+   ==================================================== */
+@media (max-width: 1200px) {
+  .pl-admin-row-charts {
+    grid-template-columns: 1fr 1fr;
+  }
+  .pl-admin-row-charts > div:nth-child(3) {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 992px) {
+  .pl-admin-row-kpi {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .pl-admin-row-lists {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .pl-admin-row-kpi {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .pl-admin-row-charts {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .pl-admin-row-kpi {
+    grid-template-columns: 1fr;
+  }
+}

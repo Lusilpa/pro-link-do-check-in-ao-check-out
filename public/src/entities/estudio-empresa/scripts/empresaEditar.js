@@ -1,25 +1,34 @@
 (function () {
-    var form = document.getElementById('formEditarEmpresa');
-    var btn = document.getElementById('btn-salvar-empresa');
-    var feedback = document.getElementById('empresaEditar-feedback');
+    const form = document.getElementById('formEditarEmpresa');
+    const btn = document.getElementById('btn-salvar-empresa');
+    const feedback = document.getElementById('empresaEditar-feedback');
+
+    const empresaId = localStorage.getItem('empresaId') || '1';
 
     if (!form) return;
 
-    // TODO: Popular campos ao carregar a página
-    // fetch('/api/pessoa-juridica/' + empresaId, {
-    //   headers: { 'Authorization': 'Bearer ' + token }
-    // })
-    // .then(res => res.json())
-    // .then(data => {
-    //   form.razao_social.value  = data.razao_social;
-    //   form.nome_fantasia.value = data.nome_fantasia || '';
-    //   document.getElementById('empresa-cnpj').value = data.cnpj;
-    //   form.nome.value      = data.nome;
-    //   form.email.value     = data.email;
-    //   form.telefone.value  = data.telefone;
-    // });
+    async function loadEmpresaData() {
+        try {
+            const data = await apiRequest(`/perfil/${empresaId}`, {
+                method: 'GET'
+            });
 
-    form.addEventListener('submit', function (e) {
+            form.razao_social.value  = data?.razao_social || '';
+            form.nome_fantasia.value = data?.nome_fantasia || '';
+            const cnpjInput = document.getElementById('empresa-cnpj');
+            if (cnpjInput) cnpjInput.value = data?.cnpj || '';
+            form.nome.value      = data?.nome || '';
+            form.email.value     = data?.email || '';
+            form.telefone.value  = data?.telefone || '';
+            
+        } catch (error) {
+            console.error("Falha ao carregar dados da empresa:", error);
+        }
+    }
+
+    loadEmpresaData();
+
+    form.addEventListener('submit', async function (e) {
         e.preventDefault();
 
         if (!form.checkValidity()) {
@@ -27,7 +36,7 @@
             return;
         }
 
-        var payload = {
+        const payload = {
             razao_social: form.razao_social.value.trim(),
             nome_fantasia: form.nome_fantasia.value.trim() || null,
             nome: form.nome.value.trim(),
@@ -35,42 +44,40 @@
             telefone: form.telefone.value.trim()
         };
 
+        const originalBtnHTML = btn.innerHTML;
         btn.disabled = true;
-        btn.innerHTML = '<i class="bi bi-hourglass-split"></i> Salvando...';
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Salvando...';
 
-        // TODO: Substituir pelo fetch real
-        // fetch('/api/pessoa-juridica/' + empresaId, {
-        //   method: 'PUT',
-        //   headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
-        //   body: JSON.stringify(payload)
-        // })
-        // .then(res => { if (!res.ok) throw new Error(res.statusText); return res.json(); })
-        // .then(() => { onSuccess(); })
-        // .catch(err => { onError(err.message); });
+        try {
+            await apiRequest(`/perfil`, {
+                method: 'POST',
+                body: JSON.stringify(payload)
+            });
 
-        // Simulação temporária
-        setTimeout(function () { onSuccess(); }, 800);
-
-        function onSuccess() {
+            // Sucesso
             btn.innerHTML = '<i class="bi bi-check-circle"></i> Salvo!';
             btn.style.color = '#00d278';
             btn.style.borderColor = '#00d278';
+            
             feedback.classList.remove('d-none', 'pl-estudio-sub-alert--warning');
             feedback.innerHTML = '<i class="bi bi-check-circle"></i> <span>Dados atualizados com sucesso.</span>';
-            setTimeout(function () {
+            
+            setTimeout(() => {
                 btn.disabled = false;
-                btn.innerHTML = '<i class="bi bi-check2-square"></i> Salvar Alterações';
+                btn.innerHTML = originalBtnHTML;
                 btn.style.color = '';
                 btn.style.borderColor = '';
-            }, 2000);
-        }
+            }, 2500);
 
-        function onError(msg) {
+        } catch (error) {
+            console.error("Erro ao salvar perfil da empresa:", error);
+            
             btn.disabled = false;
-            btn.innerHTML = '<i class="bi bi-check2-square"></i> Salvar Alterações';
+            btn.innerHTML = originalBtnHTML;
+            
             feedback.classList.remove('d-none');
             feedback.classList.add('pl-estudio-sub-alert--warning');
-            feedback.innerHTML = '<i class="bi bi-exclamation-triangle"></i> <span>Erro: ' + msg + '</span>';
+            feedback.innerHTML = `<i class="bi bi-exclamation-triangle"></i> <span>Erro ao atualizar os dados: ${error.message}</span>`;
         }
     });
 })();

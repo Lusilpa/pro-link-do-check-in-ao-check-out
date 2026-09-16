@@ -1,19 +1,20 @@
 (function () {
-    var form = document.getElementById('formVerificacao');
-    var btn = document.getElementById('btn-enviar-verificacao');
-    var feedback = document.getElementById('verificacao-feedback');
-    var statusInfo = document.getElementById('verificacao-status-info');
+    const form = document.getElementById('formVerificacao');
+    const btn = document.getElementById('btn-enviar-verificacao');
+    const feedback = document.getElementById('verificacao-feedback');
+    const statusInfo = document.getElementById('verificacao-status-info');
 
-    // Upload triggers — mostram nome do arquivo selecionado
+    const empresaId = localStorage.getItem('empresaId') || '1';
+
     setupUpload('upload-contrato-trigger', 'doc-contrato-social', 'contrato-label');
     setupUpload('upload-comprovante-trigger', 'doc-cnpj-comprovante', 'comprovante-label');
 
     function setupUpload(triggerId, inputId, labelId) {
-        var trigger = document.getElementById(triggerId);
-        var input = document.getElementById(inputId);
-        var label = document.getElementById(labelId);
+        const trigger = document.getElementById(triggerId);
+        const input = document.getElementById(inputId);
+        const label = document.getElementById(labelId);
         if (trigger && input) {
-            trigger.addEventListener('click', function () { input.click(); });
+            trigger.addEventListener('click', () => input.click());
             input.addEventListener('change', function () {
                 if (this.files.length > 0) {
                     label.textContent = this.files[0].name;
@@ -23,48 +24,49 @@
         }
     }
 
-    /**
-     * Atualiza o card de status visual.
-     * @param {'NAO_SOLICITADA'|'PENDENTE'|'APROVADA'|'REJEITADA'} status
-     * @param {string|null} dataSolicitacao
-     */
     function renderStatus(status, dataSolicitacao) {
-        var map = {
+        const map = {
             'NAO_SOLICITADA': { icon: 'bi-question-circle', color: 'rgba(255,255,255,0.6)', label: 'Não Solicitada', desc: 'Você ainda não solicitou a verificação.' },
             'PENDENTE': { icon: 'bi-clock-history', color: '#ffc107', label: 'Aguardando Análise', desc: 'Seu pedido foi enviado em ' + (dataSolicitacao || '—') + '. Prazo estimado: 5 dias úteis.' },
             'APROVADA': { icon: 'bi-patch-check-fill', color: '#00d278', label: 'Empresa Verificada ✓', desc: 'Seu selo está ativo. Seu perfil tem destaque nas buscas.' },
             'REJEITADA': { icon: 'bi-x-octagon', color: '#ff4d4d', label: 'Verificação Rejeitada', desc: 'Revise os documentos e tente novamente.' }
         };
-        var s = map[status] || map['NAO_SOLICITADA'];
-        statusInfo.innerHTML =
-            '<h5 style="color: ' + s.color + ';"><i class="bi ' + s.icon + '"></i> ' + s.label + '</h5>' +
-            '<p>' + s.desc + '</p>';
+        const s = map[status] || map['NAO_SOLICITADA'];
+        
+        if(statusInfo) {
+            statusInfo.innerHTML =
+                `<h5 style="color: ${s.color};"><i class="bi ${s.icon}"></i> ${s.label}</h5>` +
+                `<p>${s.desc}</p>`;
+        }
 
-        // Se já aprovada ou pendente, desabilita o formulário
         if (status === 'APROVADA' || status === 'PENDENTE') {
-            btn.disabled = true;
-            btn.style.opacity = '0.5';
+            if(btn) {
+                btn.disabled = true;
+                btn.style.opacity = '0.5';
+            }
         }
     }
 
-    // TODO: Carregar status ao abrir a página
-    // fetch('/api/verificacao-empresa/' + empresaId, {
-    //   headers: { 'Authorization': 'Bearer ' + token }
-    // })
-    // .then(res => res.json())
-    // .then(data => { renderStatus(data.status, data.data_solicitacao); })
-    // .catch(() => { renderStatus('NAO_SOLICITADA'); });
+    async function loadStatusVerificacao() {
+        try {
+            const data = await apiRequest(`/empresa/validar/${empresaId}`, {
+                method: 'GET'
+            });
+            renderStatus(data?.status || 'NAO_SOLICITADA', data?.data_solicitacao);
+        } catch (error) {
+            renderStatus('NAO_SOLICITADA');
+        }
+    }
 
-    // Simulação temporária
-    setTimeout(function () { renderStatus('NAO_SOLICITADA'); }, 500);
+    loadStatusVerificacao();
 
     if (!form) return;
 
-    form.addEventListener('submit', function (e) {
+    form.addEventListener('submit', async function (e) {
         e.preventDefault();
 
-        var contrato = document.getElementById('doc-contrato-social');
-        var comprovante = document.getElementById('doc-cnpj-comprovante');
+        const contrato = document.getElementById('doc-contrato-social');
+        const comprovante = document.getElementById('doc-cnpj-comprovante');
 
         if (!contrato.files.length || !comprovante.files.length) {
             feedback.classList.remove('d-none');
@@ -73,41 +75,40 @@
             return;
         }
 
-        var formData = new FormData();
+        const formData = new FormData();
         formData.append('contrato_social', contrato.files[0]);
         formData.append('comprovante_cadastral', comprovante.files[0]);
 
+        const originalBtnHTML = btn.innerHTML;
         btn.disabled = true;
-        btn.innerHTML = '<i class="bi bi-hourglass-split"></i> Enviando...';
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Enviando...';
 
-        // TODO: Substituir pelo fetch real
-        // fetch('/api/verificacao-empresa', {
-        //   method: 'POST',
-        //   headers: { 'Authorization': 'Bearer ' + token },
-        //   body: formData
-        // })
-        // .then(res => { if (!res.ok) throw new Error(res.statusText); return res.json(); })
-        // .then(() => { onSuccess(); })
-        // .catch(err => { onError(err.message); });
+        try {
+            // OBS: Esta rota não existe atualmente no backend e precisa ser criada
+            await apiRequest('/empresa/validar', {
+                method: 'POST',
+                headers: {}, // Passar headers vazio para que o FormData injete o multipart/form-data corretamente e sobresscreva o BaseHeaders
+                body: formData
+            });
 
-        // Simulação temporária
-        setTimeout(function () { onSuccess(); }, 800);
-
-        function onSuccess() {
+            // Sucesso
             btn.innerHTML = '<i class="bi bi-check-circle"></i> Documentos Enviados!';
             btn.style.color = '#00d278';
             btn.style.borderColor = '#00d278';
+            
             renderStatus('PENDENTE', new Date().toLocaleDateString('pt-BR'));
+            
             feedback.classList.remove('d-none', 'pl-estudio-sub-alert--warning');
             feedback.innerHTML = '<i class="bi bi-check-circle"></i> <span>Solicitação enviada. Acompanhe o status nesta tela.</span>';
-        }
 
-        function onError(msg) {
+        } catch (error) {
+            console.error("Erro ao enviar documentos:", error);
             btn.disabled = false;
-            btn.innerHTML = '<i class="bi bi-send"></i> Enviar para Verificação';
+            btn.innerHTML = originalBtnHTML;
+            
             feedback.classList.remove('d-none');
             feedback.classList.add('pl-estudio-sub-alert--warning');
-            feedback.innerHTML = '<i class="bi bi-exclamation-triangle"></i> <span>Erro: ' + msg + '</span>';
+            feedback.innerHTML = `<i class="bi bi-exclamation-triangle"></i> <span>Erro ao enviar arquivos: ${error.message}</span>`;
         }
     });
 })();

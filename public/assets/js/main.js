@@ -19,7 +19,7 @@ $(document).ready(function() {
         '#perfil': 'src/pages/layouts/portfolio.html', 
         '#criacao': 'src/pages/layouts/estudioProfissional.html',
         '#admin': 'src/pages/layouts/admin.html',
-        '#painel-empresa': 'src/pages/layouts/studiEempresa.html',
+        '#painel-empresa': 'src/pages/layouts/estudioEmpresa.html',
         '#config': 'src/pages/layouts/config.html',
         
         // Sub-páginas do Estúdio Profissional
@@ -29,6 +29,14 @@ $(document).ready(function() {
         '#portfolio-criar': 'src/entities/estudio-profissional/layouts/portfolioCriar.html',
         '#portfolio-editar': 'src/entities/estudio-profissional/layouts/portfolioEditar.html',
         '#portfolio-validar': 'src/entities/estudio-profissional/layouts/portfolioValidar.html',
+
+        // Sub-páginas do Painel Empresa
+        '#demanda-criar': 'src/entities/estudio-empresa/layouts/demandaCriar.html',
+        '#demanda-gerenciar': 'src/entities/estudio-empresa/layouts/demandaGerenciar.html',
+        '#demanda-encerrar': 'src/entities/estudio-empresa/layouts/demandaEncerrar.html',
+        '#empresa-editar': 'src/entities/estudio-empresa/layouts/empresaEditar.html',
+        '#empresa-validar': 'src/entities/estudio-empresa/layouts/empresaValidar.html',
+        '#candidatos-analisar': 'src/entities/estudio-empresa/layouts/candidatosAnalisar.html',
 
         //Imgs
         '#Manaus':'assets/img/fundo-login-manaus.jpg',
@@ -104,11 +112,26 @@ $(document).ready(function() {
                         }
                     }, 50);
                 }
+                // Dispara renderização dos cartões internos do Painel Empresa
+                if (hash === '#painel-empresa') {
+                    setTimeout(() => {
+                        if (typeof window.initEstudioEmpresa === 'function') {
+                            window.initEstudioEmpresa();
+                        }
+                    }, 50);
+                }
                 // Dispara a inicialização da tela de Configurações
                 if (hash === '#config') {
                     setTimeout(() => {
                         if (typeof window.initConfig === 'function') {
                             window.initConfig();
+                        }
+                    }, 50);
+                // Dispara renderização da tela de Administração
+                if (hash === '#admin') {
+                    setTimeout(() => {
+                        if (typeof window.initAdmin === 'function') {
+                            window.initAdmin();
                         }
                     }, 50);
                 }
