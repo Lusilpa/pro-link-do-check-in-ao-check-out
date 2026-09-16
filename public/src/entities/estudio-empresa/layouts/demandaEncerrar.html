@@ -1,0 +1,44 @@
+<link rel="stylesheet" href="src/entities/estudio-profissional/styles/estudio-sub.css">
+
+<div class="pl-estudio-sub-fullscreen-bg"></div>
+
+<div class="pl-estudio-sub-page-wrapper">
+  <div class="pl-estudio-sub-main-container">
+    
+    <button class="pl-btn-back-estudio" onclick="window.location.hash = '#painel-empresa'">
+      <i class="bi bi-arrow-left"></i> Voltar ao Painel
+    </button>
+
+    <div class="pl-estudio-sub-header">
+      <h2 class="pl-estudio-sub-title">Encerrar Demanda</h2>
+      <p class="pl-estudio-sub-subtitle">Selecione uma demanda ativa para encerrar o processo seletivo permanentemente.</p>
+    </div>
+
+    <div class="pl-estudio-sub-panel">
+      
+      <div class="pl-estudio-sub-alert pl-estudio-sub-alert--warning" style="margin-bottom: 1rem;">
+        <i class="bi bi-exclamation-triangle"></i>
+        <span>Atenção: Encerrar uma demanda altera o status para <strong>FECHADA</strong> e notifica todos os candidatos. Esta ação não pode ser desfeita.</span>
+      </div>
+
+      <!-- Estado de loading -->
+      <div id="demandaEncerrar-loading" class="pl-estudio-sub-alert">
+        <i class="bi bi-hourglass-split"></i>
+        <span>Carregando demandas abertas...</span>
+      </div>
+
+      <!-- Estado vazio -->
+      <div id="demandaEncerrar-empty" class="pl-estudio-sub-alert d-none">
+        <i class="bi bi-inbox"></i>
+        <span>Nenhuma demanda aberta para encerrar.</span>
+      </div>
+
+      <!-- TODO: GET /api/demandas?id_empresa={id}&status=ABERTA — Tabela: demandas -->
+      <div class="pl-estudio-item-list d-none" id="demandaEncerrar-list"></div>
+
+    </div>
+
+  </div>
+</div>
+
+<script src="src/entities/estudio-empresa/scripts/demandaEncerrar.js"></script>

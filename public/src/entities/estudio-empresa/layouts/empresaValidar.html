@@ -1,0 +1,92 @@
+<link rel="stylesheet" href="src/entities/estudio-profissional/styles/estudio-sub.css">
+
+<div class="pl-estudio-sub-fullscreen-bg"></div>
+
+<div class="pl-estudio-sub-page-wrapper">
+  <div class="pl-estudio-sub-main-container">
+
+    <button class="pl-btn-back-estudio" onclick="window.location.hash = '#painel-empresa'">
+      <i class="bi bi-arrow-left"></i> Voltar ao Painel
+    </button>
+
+    <div class="pl-estudio-sub-header">
+      <h2 class="pl-estudio-sub-title">Selo de Empresa Verificada</h2>
+      <p class="pl-estudio-sub-subtitle">Solicite a verificação do CNPJ da sua empresa para receber o selo de
+        autenticidade Pro-Link.</p>
+    </div>
+
+    <div class="pl-estudio-sub-panel">
+
+      <div class="pl-estudio-sub-alert">
+        <i class="bi bi-patch-check"></i>
+        <span>Empresas verificadas ganham destaque nas buscas, selos visuais no perfil e maior confiança dos
+          profissionais ao receber propostas.</span>
+      </div>
+
+      <!-- TODO: GET /api/verificacao-empresa/:id — Status atual da verificação -->
+      <!-- Status possíveis: NAO_SOLICITADA | PENDENTE | APROVADA | REJEITADA -->
+      <div class="pl-estudio-sub-field-group">
+
+        <div class="pl-estudio-sub-field">
+          <label class="pl-estudio-sub-label">Status Atual</label>
+          <!-- Container dinâmico para o status — será preenchido via JS -->
+          <div class="pl-estudio-item-card" style="cursor: default;" id="verificacao-status-card">
+            <div class="pl-estudio-item-info" id="verificacao-status-info">
+              <h5><i class="bi bi-hourglass-split"></i> Consultando status...</h5>
+              <p>Aguarde enquanto verificamos o estado da solicitação.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="pl-estudio-sub-field">
+          <label class="pl-estudio-sub-label">Documentação Necessária</label>
+          <p class="pl-estudio-sub-hint" style="margin-bottom: 0.8rem;">Envie os documentos abaixo para que nossa equipe
+            valide a autenticidade da empresa.</p>
+        </div>
+
+        <!-- TODO: POST /api/verificacao-empresa — FormData com arquivos -->
+        <form id="formVerificacao" enctype="multipart/form-data" novalidate>
+          <div class="pl-estudio-sub-field">
+            <label class="pl-estudio-sub-label" for="doc-contrato-social">Contrato Social / Estatuto *</label>
+            <div class="pl-estudio-sub-alert" style="cursor: pointer;" id="upload-contrato-trigger">
+              <i class="bi bi-file-earmark-pdf"></i>
+              <div>
+                <strong style="color: var(--prolink-light); display: block;" id="contrato-label">Anexar
+                  Documento</strong>
+                <span style="font-size: 0.8rem;">PDF, máximo 10MB</span>
+              </div>
+            </div>
+            <input type="file" id="doc-contrato-social" name="contrato_social" class="d-none" accept=".pdf" required>
+          </div>
+
+          <div class="pl-estudio-sub-field">
+            <label class="pl-estudio-sub-label" for="doc-cnpj-comprovante">Comprovante de Situação Cadastral (Receita
+              Federal) *</label>
+            <div class="pl-estudio-sub-alert" style="cursor: pointer;" id="upload-comprovante-trigger">
+              <i class="bi bi-file-earmark-pdf"></i>
+              <div>
+                <strong style="color: var(--prolink-light); display: block;" id="comprovante-label">Anexar
+                  Comprovante</strong>
+                <span style="font-size: 0.8rem;">PDF, máximo 10MB</span>
+              </div>
+            </div>
+            <input type="file" id="doc-cnpj-comprovante" name="comprovante_cadastral" class="d-none" accept=".pdf"
+              required>
+          </div>
+
+          <!-- Feedback visual -->
+          <div id="verificacao-feedback" class="pl-estudio-sub-alert d-none" style="margin-top: 1rem;"></div>
+
+          <button type="submit" class="pl-estudio-sub-btn-save" id="btn-enviar-verificacao" style="margin-top: 1.5rem;">
+            <i class="bi bi-send"></i> Enviar para Verificação
+          </button>
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<script src="src/entities/estudio-empresa/scripts/empresaValidar.js"></script>

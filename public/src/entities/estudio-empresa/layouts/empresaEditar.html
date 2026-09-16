@@ -1,0 +1,82 @@
+<link rel="stylesheet" href="src/entities/estudio-profissional/styles/estudio-sub.css">
+
+<div class="pl-estudio-sub-fullscreen-bg"></div>
+
+<div class="pl-estudio-sub-page-wrapper">
+  <div class="pl-estudio-sub-main-container">
+
+    <button class="pl-btn-back-estudio" onclick="window.location.hash = '#painel-empresa'">
+      <i class="bi bi-arrow-left"></i> Voltar ao Painel
+    </button>
+
+    <div class="pl-estudio-sub-header">
+      <h2 class="pl-estudio-sub-title">Editar Página da Empresa</h2>
+      <p class="pl-estudio-sub-subtitle">Atualize as informações públicas da sua organização.</p>
+    </div>
+
+    <div class="pl-estudio-sub-panel">
+      <!-- TODO: PUT /api/pessoa-juridica/:id — Tabelas: pessoa_juridica + usuarios -->
+      <!-- TODO: GET /api/pessoa-juridica/:id (para popular os campos no carregamento) -->
+      <form id="formEditarEmpresa" novalidate>
+        <div class="pl-estudio-sub-field-group">
+
+          <!-- razao_social VARCHAR(150) NOT NULL — tabela pessoa_juridica -->
+          <div class="pl-estudio-sub-field">
+            <label class="pl-estudio-sub-label" for="empresa-razao-social">Razão Social *</label>
+            <input class="pl-estudio-sub-input" type="text" id="empresa-razao-social" name="razao_social"
+              maxlength="150" placeholder="Ex: Construtora Horizonte LTDA" required>
+          </div>
+
+          <!-- nome_fantasia VARCHAR(150) — tabela pessoa_juridica -->
+          <div class="pl-estudio-sub-field">
+            <label class="pl-estudio-sub-label" for="empresa-nome-fantasia">Nome Fantasia</label>
+            <input class="pl-estudio-sub-input" type="text" id="empresa-nome-fantasia" name="nome_fantasia"
+              maxlength="150" placeholder="Ex: Horizonte Construções">
+            <p class="pl-estudio-sub-hint">Opcional. Será exibido no perfil público se preenchido.</p>
+          </div>
+
+          <!-- cnpj VARCHAR(18) NOT NULL UNIQUE — tabela pessoa_juridica — somente leitura -->
+          <div class="pl-estudio-sub-field">
+            <label class="pl-estudio-sub-label" for="empresa-cnpj">CNPJ</label>
+            <input class="pl-estudio-sub-input" type="text" id="empresa-cnpj" name="cnpj" maxlength="18"
+              placeholder="00.000.000/0001-00" disabled style="opacity: 0.5;">
+            <p class="pl-estudio-sub-hint">O CNPJ foi definido no cadastro e não pode ser alterado.</p>
+          </div>
+
+          <!-- nome VARCHAR(150) NOT NULL — tabela usuarios -->
+          <div class="pl-estudio-sub-field">
+            <label class="pl-estudio-sub-label" for="empresa-nome-responsavel">Nome do Responsável *</label>
+            <input class="pl-estudio-sub-input" type="text" id="empresa-nome-responsavel" name="nome" maxlength="150"
+              placeholder="Nome completo do representante legal" required>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <!-- email VARCHAR(254) NOT NULL UNIQUE — tabela usuarios -->
+            <div class="pl-estudio-sub-field">
+              <label class="pl-estudio-sub-label" for="empresa-email">E-mail Corporativo *</label>
+              <input class="pl-estudio-sub-input" type="email" id="empresa-email" name="email" maxlength="254"
+                placeholder="contato@empresa.com.br" required>
+            </div>
+            <!-- telefone VARCHAR(25) NOT NULL — tabela usuarios -->
+            <div class="pl-estudio-sub-field">
+              <label class="pl-estudio-sub-label" for="empresa-telefone">Telefone *</label>
+              <input class="pl-estudio-sub-input" type="tel" id="empresa-telefone" name="telefone" maxlength="25"
+                placeholder="(92) 99999-9999" required>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Feedback visual -->
+        <div id="empresaEditar-feedback" class="pl-estudio-sub-alert d-none" style="margin-top: 1rem;"></div>
+
+        <button type="submit" class="pl-estudio-sub-btn-save" id="btn-salvar-empresa" style="margin-top: 1.5rem;">
+          <i class="bi bi-check2-square"></i> Salvar Alterações
+        </button>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+<script src="src/entities/estudio-empresa/scripts/empresaEditar.js"></script>

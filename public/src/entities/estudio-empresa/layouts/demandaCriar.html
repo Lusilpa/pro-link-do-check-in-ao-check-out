@@ -1,0 +1,136 @@
+<link rel="stylesheet" href="src/entities/estudio-profissional/styles/estudio-sub.css">
+
+<div class="pl-estudio-sub-fullscreen-bg"></div>
+
+<div class="pl-estudio-sub-page-wrapper">
+  <div class="pl-estudio-sub-main-container">
+
+    <button class="pl-btn-back-estudio" onclick="window.location.hash = '#painel-empresa'">
+      <i class="bi bi-arrow-left"></i> Voltar ao Painel
+    </button>
+
+    <div class="pl-estudio-sub-header">
+      <h2 class="pl-estudio-sub-title">Criar Nova Demanda</h2>
+      <p class="pl-estudio-sub-subtitle">Publique uma oportunidade para atrair os melhores profissionais da construção
+        civil.</p>
+    </div>
+
+    <div class="pl-estudio-sub-panel">
+      <!-- TODO: POST /api/demandas — Tabela: demandas -->
+      <form id="formCriarDemanda" novalidate>
+        <div class="pl-estudio-sub-field-group">
+
+          <!-- titulo VARCHAR(150) NOT NULL -->
+          <div class="pl-estudio-sub-field">
+            <label class="pl-estudio-sub-label" for="demanda-titulo">Título da Demanda *</label>
+            <input class="pl-estudio-sub-input" type="text" id="demanda-titulo" name="titulo" maxlength="150"
+              placeholder="Ex: Engenheiro Civil Sênior — Obra Residencial" required>
+          </div>
+
+          <!-- descricao TEXT NOT NULL -->
+          <div class="pl-estudio-sub-field">
+            <label class="pl-estudio-sub-label" for="demanda-descricao">Descrição *</label>
+            <textarea class="pl-estudio-sub-textarea" id="demanda-descricao" name="descricao" rows="5"
+              placeholder="Descreva as responsabilidades, escopo do projeto e expectativas..." required></textarea>
+          </div>
+
+          <!-- area_demanda TEXT NOT NULL -->
+          <div class="pl-estudio-sub-field">
+            <label class="pl-estudio-sub-label" for="demanda-area">Área da Demanda (CONFEA/CREA) *</label>
+            <input class="pl-estudio-sub-input" type="text" id="demanda-area" name="area_demanda"
+              placeholder="Ex: Engenharia Civil, Arquitetura de Interiores..." required>
+            <p class="pl-estudio-sub-hint">Informe a área técnica principal desta demanda.</p>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <!-- tipo_demanda ENUM('ESTAGIO','PROJETO','MENTORIA','PESQUISA','VOLUNTARIADO') -->
+            <div class="pl-estudio-sub-field">
+              <label class="pl-estudio-sub-label" for="demanda-tipo">Tipo de Demanda *</label>
+              <select class="pl-estudio-sub-input" id="demanda-tipo" name="tipo_demanda" style="appearance: auto;"
+                required>
+                <option value="">Selecione...</option>
+                <option value="PROJETO">Projeto</option>
+                <option value="ESTAGIO">Estágio</option>
+                <option value="MENTORIA">Mentoria</option>
+                <option value="PESQUISA">Pesquisa</option>
+                <option value="VOLUNTARIADO">Voluntariado</option>
+              </select>
+            </div>
+            <!-- modalidade ENUM('HIBRIDO','PRESENCIAL','REMOTO') -->
+            <div class="pl-estudio-sub-field">
+              <label class="pl-estudio-sub-label" for="demanda-modalidade">Modalidade *</label>
+              <select class="pl-estudio-sub-input" id="demanda-modalidade" name="modalidade" style="appearance: auto;"
+                required>
+                <option value="">Selecione...</option>
+                <option value="PRESENCIAL">Presencial</option>
+                <option value="REMOTO">Remoto</option>
+                <option value="HIBRIDO">Híbrido</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1rem;">
+            <!-- cidade_demanda TEXT NOT NULL -->
+            <div class="pl-estudio-sub-field">
+              <label class="pl-estudio-sub-label" for="demanda-cidade">Cidade *</label>
+              <input class="pl-estudio-sub-input" type="text" id="demanda-cidade" name="cidade_demanda"
+                placeholder="Ex: Manaus" required>
+            </div>
+            <!-- uf_demanda ENUM(27 UFs) -->
+            <div class="pl-estudio-sub-field">
+              <label class="pl-estudio-sub-label" for="demanda-uf">UF *</label>
+              <select class="pl-estudio-sub-input" id="demanda-uf" name="uf_demanda" style="appearance: auto;" required>
+                <option value="">UF</option>
+                <option value="AC">AC</option>
+                <option value="AL">AL</option>
+                <option value="AP">AP</option>
+                <option value="AM" selected>AM</option>
+                <option value="BA">BA</option>
+                <option value="CE">CE</option>
+                <option value="DF">DF</option>
+                <option value="ES">ES</option>
+                <option value="GO">GO</option>
+                <option value="MA">MA</option>
+                <option value="MT">MT</option>
+                <option value="MS">MS</option>
+                <option value="MG">MG</option>
+                <option value="PA">PA</option>
+                <option value="PB">PB</option>
+                <option value="PR">PR</option>
+                <option value="PE">PE</option>
+                <option value="PI">PI</option>
+                <option value="RJ">RJ</option>
+                <option value="RN">RN</option>
+                <option value="RS">RS</option>
+                <option value="RO">RO</option>
+                <option value="RR">RR</option>
+                <option value="SC">SC</option>
+                <option value="SP">SP</option>
+                <option value="SE">SE</option>
+                <option value="TO">TO</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- data_fechamento DATETIME NULL -->
+          <div class="pl-estudio-sub-field">
+            <label class="pl-estudio-sub-label" for="demanda-fechamento">Data de Fechamento (opcional)</label>
+            <input class="pl-estudio-sub-input" type="date" id="demanda-fechamento" name="data_fechamento">
+            <p class="pl-estudio-sub-hint">Se definida, a demanda será encerrada automaticamente nesta data.</p>
+          </div>
+
+        </div>
+
+        <!-- Feedback visual -->
+        <div id="demandaCriar-feedback" class="pl-estudio-sub-alert d-none" style="margin-top: 1rem;"></div>
+
+        <button type="submit" class="pl-estudio-sub-btn-save" id="btn-publicar-demanda" style="margin-top: 1.5rem;">
+          <i class="bi bi-megaphone"></i> Publicar Demanda
+        </button>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+<script src="src/entities/estudio-empresa/scripts/demandaCriar.js"> </script>
