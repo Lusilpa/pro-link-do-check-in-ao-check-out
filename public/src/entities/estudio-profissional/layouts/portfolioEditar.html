@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="src/entities/estudio-profissional/styles/estudio-sub.css">
-
+<link rel="stylesheet" href="src/entities/estudio-profissional/styles/portfolioEditar.css">
 <div class="pl-estudio-sub-fullscreen-bg"></div>
 
 <div class="pl-estudio-sub-page-wrapper">
@@ -56,16 +56,4 @@
   </div>
 </div>
 
-<script>
-  (function() {
-    document.querySelectorAll('.btn-del-port').forEach(btn => {
-      btn.addEventListener('click', function() {
-        const targetId = this.getAttribute('data-target');
-        const card = document.getElementById(targetId);
-        if (card && confirm('Tem certeza que deseja remover este projeto do portfólio?')) {
-          card.style.display = 'none';
-        }
-      });
-    });
-  })();
-</script>
+<script src="src/entities/estudio-profissional/scripts/portfolioEditar.js"></script>

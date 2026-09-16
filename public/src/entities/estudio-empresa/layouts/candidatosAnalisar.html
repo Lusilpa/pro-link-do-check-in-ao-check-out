@@ -1,0 +1,51 @@
+<link rel="stylesheet" href="src/entities/estudio-profissional/styles/estudio-sub.css">
+<link rel="stylesheet" href="src/entities/estudio-empresa/styles/candidatosAnalisar.css">
+
+<div class="pl-estudio-sub-fullscreen-bg"></div>
+
+<div class="pl-estudio-sub-page-wrapper">
+  <div class="pl-estudio-sub-main-container">
+    
+    <button class="pl-btn-back-estudio" onclick="window.location.hash = '#painel-empresa'">
+      <i class="bi bi-arrow-left"></i> Voltar ao Painel
+    </button>
+
+    <div class="pl-estudio-sub-header">
+      <h2 class="pl-estudio-sub-title">Analisar Candidatos</h2>
+      <p class="pl-estudio-sub-subtitle">Revise os profissionais que se candidataram às suas vagas ativas.</p>
+    </div>
+
+    <div class="pl-estudio-sub-panel">
+      
+      <!-- Filtro por demanda — TODO: Popular via GET /api/demandas?id_empresa={id}&status=ABERTA -->
+      <div class="pl-estudio-sub-field">
+        <label class="pl-estudio-sub-label" for="filtro-vaga">Filtrar por Vaga</label>
+        <select class="pl-estudio-sub-input" id="filtro-vaga" name="filtro_demanda_id" style="appearance: auto;">
+          <option value="">Todas as Vagas</option>
+          <!-- TODO: Options serão populadas dinamicamente -->
+        </select>
+      </div>
+
+      <!-- Estado de loading -->
+      <div id="candidatos-loading" class="pl-estudio-sub-alert" style="margin-top: 1rem;">
+        <i class="bi bi-hourglass-split"></i>
+        <span>Carregando candidatos...</span>
+      </div>
+
+      <!-- Estado vazio -->
+      <div id="candidatos-empty" class="pl-estudio-sub-alert d-none" style="margin-top: 1rem;">
+        <i class="bi bi-inbox"></i>
+        <span>Nenhum candidato encontrado para o filtro selecionado.</span>
+      </div>
+
+      <!-- TODO: GET /api/demonstracoes-interesse?id_empresa={id} — Tabela: demonstracoes_interesse -->
+      <!-- JOIN com usuarios (nome), profissionais (categoria_profissional), demandas (titulo) -->
+      <div class="pl-estudio-item-list d-none" id="candidatos-list" style="margin-top: 1rem;"></div>
+
+    </div>
+
+  </div>
+</div>
+
+<script src="src/entities/estudio-empresa/scripts/candidatosAnalisar.js"></script>
+

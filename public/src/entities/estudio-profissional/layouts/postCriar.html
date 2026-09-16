@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="src/entities/estudio-profissional/styles/estudio-sub.css">
-
+<link rel="stylesheet" href="src/entities/estudio-profissional/styles/postCriar.css">
 <div class="pl-estudio-sub-fullscreen-bg"></div>
 
 <div class="pl-estudio-sub-page-wrapper">
@@ -49,18 +49,4 @@
   </div>
 </div>
 
-<script>
-  (function() {
-    const btn = document.getElementById('btn-publicar-post');
-    if (btn) {
-      btn.addEventListener('click', () => {
-        btn.innerHTML = '<i class="bi bi-check-circle"></i> Publicado!';
-        btn.style.color = '#00d278';
-        btn.style.borderColor = '#00d278';
-        setTimeout(() => {
-          window.location.hash = '#criacao';
-        }, 1500);
-      });
-    }
-  })();
-</script>
+<script src="src/entities/estudio-profissional/scripts/postCriar.js"></script>
