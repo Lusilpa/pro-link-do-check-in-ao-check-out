@@ -116,6 +116,20 @@
   margin-bottom: 1rem;
 }
 
+.pl-portfolio-meta {
+  margin-bottom: 1rem;
+}
+
+.pl-portfolio-meta-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  color: var(--prolink-text-muted);
+  margin: 0 0 0.3rem;
+}
+
 .pl-portfolio-badges {
   display: flex;
   flex-wrap: wrap;
@@ -240,6 +254,54 @@
   border-radius: 6px;
   font-size: 0.85rem;
   border: 1px dashed rgba(255,255,255,0.1);
+}
+
+/* Projetos: usada tanto na seção própria "Projetos" quanto nos projetos vinculados
+   dentro de uma experiência (mesmas classes montadas por portfolio.js). */
+.pl-project-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.pl-project-list .pl-project-list {
+  margin-top: 0.75rem;
+}
+
+.pl-project-item {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 0.75rem;
+  border-radius: 6px;
+  border: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+.pl-project-title {
+  font-size: 0.95rem;
+  color: var(--prolink-text-light);
+  margin: 0 0 0.3rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.pl-project-desc {
+  font-size: 0.85rem;
+  color: var(--prolink-text-muted);
+  margin: 0;
+}
+
+.pl-project-gallery {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.6rem;
+}
+
+.pl-project-gallery img {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 6px;
 }
 
 /* ====================================================

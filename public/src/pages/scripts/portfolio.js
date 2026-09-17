@@ -33,11 +33,15 @@
         let socialHtml = '';
         if (data.portfolio.links_contato.linkedin) socialHtml += `<a href="${data.portfolio.links_contato.linkedin}" target="_blank"><i class="bi bi-linkedin"></i></a>`;
         if (data.portfolio.links_contato.github) socialHtml += `<a href="${data.portfolio.links_contato.github}" target="_blank"><i class="bi bi-github"></i></a>`;
-        $('#portfolioSocialLinks').html(socialHtml);
+        // ID real do container em portfolio.html é #portfolioLinks (não #portfolioSocialLinks
+        // - esse ID não existe na página, então os links nunca apareciam).
+        $('#portfolioLinks').html(socialHtml);
     }
 
     function renderContent(data) {
-        $('#portfolioSummary').text(data.portfolio.resumo_profissional);
+        // ID real do parágrafo em portfolio.html é #portfolioAbout (não #portfolioSummary
+        // - esse ID não existe na página, então o resumo nunca aparecia).
+        $('#portfolioAbout').text(data.portfolio.resumo_profissional || 'Nenhuma informação adicionada ainda.');
 
         let skillsHtml = '';
         data.competencias.forEach(skill => {
@@ -55,6 +59,11 @@
                 <span>CATs Válidas</span>
             </div>
         `);
+
+        // Projetos do portfólio (nível principal, não exige vínculo com uma experiência
+        // - ver PortfolioController::show(), campo "projetos"). Os vinculados a uma
+        // experiência específica continuam aparecendo também dentro dela, mais abaixo.
+        renderProjetos(data.projetos || []);
 
         let expHtml = '';
         data.experiencias.forEach(exp => {
@@ -87,6 +96,34 @@
         $('#portfolioExperience').html(expHtml);
     }
 
+    // Renderiza a lista de projetos do portfólio, com a galeria de imagens (se houver
+    // - ver ProjetoController::store()/update() e projeto_imagens).
+    function renderProjetos(projetos) {
+        const $container = $('#portfolioProjects');
+        if (!$container.length) return;
+
+        if (!projetos || projetos.length === 0) {
+            $container.html('<p class="pl-section-text" style="opacity: 0.6;">Nenhum projeto cadastrado ainda.</p>');
+            return;
+        }
+
+        let html = '';
+        projetos.forEach(proj => {
+            const galeriaHtml = (proj.imagens && proj.imagens.length > 0)
+                ? `<div class="pl-project-gallery">${proj.imagens.map(url => `<img src="${url}" alt="Imagem do projeto ${proj.titulo}">`).join('')}</div>`
+                : '';
+
+            html += `
+                <div class="pl-project-item">
+                    <h5 class="pl-project-title"><i class="bi bi-rocket-takeoff"></i> ${proj.titulo}</h5>
+                    <p class="pl-project-desc">${proj.descricao || ''}</p>
+                    ${galeriaHtml}
+                </div>
+            `;
+        });
+        $container.html(html);
+    }
+
     // ==========================================
     // ESTADO DE ERRO
     // ==========================================
@@ -94,7 +131,8 @@
     function renderError(message) {
         $('#portfolioName').text('Erro ao carregar');
         $('#portfolioTitle').text('');
-        $('#portfolioSummary').text(message);
+        // ID real e #portfolioAbout - ver mesma correcao em renderContent().
+        $('#portfolioAbout').text(message);
     }
 
     // ==========================================

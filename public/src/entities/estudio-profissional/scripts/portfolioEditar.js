@@ -37,10 +37,19 @@
                 card.className = 'pl-estudio-item-card';
                 card.id = `port-item-${proj.id}`;
 
+                // Miniatura da primeira imagem da galeria (ProjetoController::store/update
+                // salva em ordem - ver projeto_imagens.ordem), se o projeto tiver alguma.
+                const thumbHtml = (proj.imagens && proj.imagens.length > 0)
+                    ? `<img src="${proj.imagens[0]}" alt="" style="width: 48px; height: 48px; object-fit: cover; border-radius: 6px; margin-right: 0.75rem; flex-shrink: 0;">`
+                    : '';
+
                 card.innerHTML = `
-                  <div class="pl-estudio-item-info">
-                    <h5>${proj.titulo || 'Projeto Sem Título'}</h5>
-                    <p>Categoria: ${proj.categoria || 'Geral'} • Ano: ${proj.ano || '—'}</p>
+                  <div class="pl-estudio-item-info" style="display: flex; align-items: center;">
+                    ${thumbHtml}
+                    <div>
+                      <h5>${proj.titulo || 'Projeto Sem Título'}</h5>
+                      <p>Categoria: ${proj.categoria || 'Geral'} • Ano: ${proj.ano || '—'}</p>
+                    </div>
                   </div>
                   <div class="pl-estudio-item-actions">
                     <button class="pl-estudio-item-btn btn-editar-port" data-target="${proj.id}" title="Editar">

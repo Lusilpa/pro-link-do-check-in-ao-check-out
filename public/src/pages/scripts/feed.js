@@ -59,6 +59,14 @@ $(document).ready(function() {
     const heartIcon = post.liked_by_me ? 'bi-heart-fill' : 'bi-heart';
     const heartColor = post.liked_by_me ? '#ff4d6d' : 'var(--prolink-blue)';
 
+    // A midia do post (campo "midia" em postCriar.js) aceita imagem ou PDF - o back
+    // so devolve a URL (image_url), entao decide aqui pela extensao como renderizar.
+    const midiaHtml = !post.image_url
+      ? ''
+      : /\.pdf(\?|$)/i.test(post.image_url)
+        ? `<p style="margin: 0 0 0.75rem;"><a href="${post.image_url}" target="_blank" rel="noopener" style="color: var(--prolink-blue);"><i class="bi bi-file-earmark-pdf"></i> Ver anexo (PDF)</a></p>`
+        : `<img src="${post.image_url}" alt="Mídia do post" style="max-width: 100%; border-radius: 8px; margin-bottom: 0.75rem; display: block;">`;
+
     return `
       <div class="pl-feed-card" data-post-id="${post.id}" style="background-color: var(--prolink-bg-darker); border: 1px solid var(--prolink-blue); border-left: 4px solid var(--prolink-blue); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);">
         <div class="pl-feed-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
@@ -77,6 +85,7 @@ $(document).ready(function() {
         <div class="pl-feed-body">
           <h4 style="color: var(--prolink-light); font-size: 1.1rem; font-weight: 700; margin-bottom: 0.75rem;">${post.title}</h4>
           <p style="color: var(--prolink-light); font-size: 0.95rem; line-height: 1.5; opacity: 0.9;">${post.content}</p>
+          ${midiaHtml}
         </div>
         <div class="pl-feed-footer" style="display: flex; gap: 1.5rem; color: var(--prolink-blue); font-weight: 600;">
           <span class="pl-btn-like" style="cursor: pointer;"><i class="bi ${heartIcon}" style="color: ${heartColor};"></i> <span class="pl-like-count">${post.likes_count}</span></span>

@@ -1,2 +1,36 @@
 /* Estilos para postCriar */
 
+/* Preview do arquivo selecionado em #post-midia (mesmo padrao visual do anexo
+   de cartas virtuais: .pl-attachment-item em card-envio.css). */
+.pl-post-midia-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+  background: rgba(255, 255, 255, 0.05);
+  border-left: 3px solid var(--prolink-blue);
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  color: var(--prolink-light);
+  margin-top: 0.75rem;
+}
+
+.pl-post-midia-item span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.pl-post-midia-item button {
+  background: transparent;
+  border: none;
+  color: #ef4444;
+  cursor: pointer;
+  flex-shrink: 0;
+}

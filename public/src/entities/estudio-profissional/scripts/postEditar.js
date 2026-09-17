@@ -5,6 +5,24 @@
     const emptyEl = document.getElementById('postEditar-empty');
     const listEl = document.getElementById('postEditar-list');
 
+    const viewList = document.getElementById('postEditar-view-list');
+    const viewForm = document.getElementById('postEditar-view-form');
+
+    const tituloInput = document.getElementById('postEditar-titulo');
+    const conteudoInput = document.getElementById('postEditar-conteudo');
+    const mediaInput = document.getElementById('postEditar-midia');
+    const mediaPreview = document.getElementById('postEditar-midia-preview');
+    const mediaAtualEl = document.getElementById('postEditar-midia-atual');
+    const btnSalvar = document.getElementById('btn-post-editar-salvar');
+    const btnCancelar = document.getElementById('btn-post-editar-cancelar');
+
+    // Posts já buscados na lista - reaproveitado para preencher o formulário sem
+    // precisar de uma segunda chamada à API (o back já devolve titulo/conteudo/imagemUrl).
+    let postsCache = [];
+    let postEmEdicao = null;
+    // true quando o usuário pediu para remover a mídia atual sem escolher uma nova.
+    let removerMidiaAtual = false;
+
     async function carregarPosts() {
         if (!loadingEl || !emptyEl || !listEl) return;
 
@@ -26,12 +44,14 @@
 
             const posts = response.data || [];
 
-            if (posts.length === 0) {
+            postsCache = response.data || [];
+
+            if (postsCache.length === 0) {
                 emptyEl.classList.remove('d-none');
                 return;
             }
 
-            posts.forEach(post => {
+            postsCache.forEach(post => {
                 const card = document.createElement('div');
                 card.className = 'pl-estudio-item-card';
                 card.id = `post-item-${post.id}`;
@@ -39,13 +59,12 @@
                 card.innerHTML = `
                   <div class="pl-estudio-item-info">
                     <h5>${post.titulo || 'Post Sem Título'}</h5>
-                    <p>Publicado em: ${post.data_postagem ? new Date(post.data_postagem).toLocaleDateString() : '—'} • ${post.status_post || 'Público'}</p>
+                    <p>Publicado em: ${post.dataDePostagem ? new Date(post.dataDePostagem).toLocaleDateString() : '—'} • ${post.status || 'Público'}</p>
                   </div>
                   <div class="pl-estudio-item-actions">
                     <button class="pl-estudio-item-btn btn-editar-post" data-target="${post.id}" title="Editar">
                       <i class="bi bi-pencil"></i>
                     </button>
-                    <!-- Podemos ter exclusão aqui tb se quiser -->
                   </div>
                 `;
                 listEl.appendChild(card);
