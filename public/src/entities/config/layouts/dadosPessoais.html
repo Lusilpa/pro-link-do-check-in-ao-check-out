@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="src/entities/config/styles/config-sub.css">
+﻿<link rel="stylesheet" href="src/entities/config/styles/config-sub.css">
 
 <div class="pl-cfg-panel">
 
@@ -90,7 +90,8 @@
 
       <div class="pl-cfg-field">
         <label class="pl-cfg-label" for="cfg-resumo">Resumo Profissional</label>
-        <textarea class="pl-cfg-input" id="cfg-resumo" rows="4" placeholder="Descreva brevemente sua experiência e especialidades..." style="resize: vertical;"></textarea>
+        <textarea class="pl-cfg-input" id="cfg-resumo" rows="4"
+          placeholder="Descreva brevemente sua experiência e especialidades..." style="resize: vertical;"></textarea>
       </div>
     </div>
   </div>
@@ -101,21 +102,5 @@
 
 </div>
 
-<script>
-  (function() {
-    const btn = document.getElementById('btn-salvar-dados');
-    if (btn) {
-      btn.addEventListener('click', function() {
-        // TODO: integrar com API PUT /usuarios/:id
-        btn.innerHTML = '<i class="bi bi-check-circle"></i> Salvo!';
-        btn.style.color = '#00d278';
-        btn.style.borderColor = '#00d278';
-        setTimeout(() => {
-          btn.innerHTML = '<i class="bi bi-check-lg"></i> Salvar Alterações';
-          btn.style.color = '';
-          btn.style.borderColor = '';
-        }, 2000);
-      });
-    }
-  })();
-</script>
+<script src="src/shared/api/dados-pessoais.js"></script>
+<script src="src/entities/config/scripts/dadosPessoais.js"></script>

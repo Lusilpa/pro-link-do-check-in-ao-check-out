@@ -37,7 +37,7 @@ async function loginUser(credentials) {
             credentials: 'include', // Necessário para salvar o cookie de sessão do PHP
             body: JSON.stringify(credentials)
         });
-        
+
         // O backend faz redirect no sucesso (Response::redirect('/feed'))
         if (response.redirected || response.ok) {
             // Em caso de sucesso de login, definimos um usuário básico localmente para a flag de logado
@@ -62,7 +62,7 @@ async function registerUser(formData) {
             credentials: 'include', // Importante para sessão local ou CSRF futuros
             body: formData // Não definir Content-Type: browser define boundary automaticamente
         });
-        
+
         if (response.redirected || response.ok) {
             return { success: true };
         }
@@ -73,6 +73,7 @@ async function registerUser(formData) {
         console.error('[Auth] Erro no cadastro:', error.message);
         return { success: false, message: error.message };
     }
+
 }
 
 // Recuperar Senha
@@ -85,7 +86,7 @@ async function recoverPassword(email) {
             credentials: 'include',
             body: JSON.stringify({ email })
         });
-        
+
         if (response.redirected || response.ok) {
             return { success: true };
         }
@@ -122,7 +123,7 @@ async function logoutUser() {
     } catch (e) {
         console.error('Erro no logout remoto', e);
     }
-    
+
     // Limpe os dados locais
     sessionStorage.removeItem('prolink_user');
     window.location.hash = '#auth';

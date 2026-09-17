@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
     // Mapeamento das rotas
     const routes = {
         // Rotas sem Navbar/TopBar (Páginas de Login/Auth)
@@ -12,16 +12,16 @@ $(document).ready(function() {
         // Rotas com Navbar e TopBar
         '#feed': 'src/pages/layouts/feed.html',
         '#search-demandas': 'src/pages/layouts/searchDemandas.html',
-        '#search-talentos': 'src/pages/layouts/searchTalentos.html', 
+        '#search-talentos': 'src/pages/layouts/searchTalentos.html',
         '#cartas': 'src/pages/layouts/caixaCorreio.html',
 
         // Rotas adicionais
-        '#perfil': 'src/pages/layouts/portfolio.html', 
+        '#perfil': 'src/pages/layouts/portfolio.html',
         '#criacao': 'src/pages/layouts/estudioProfissional.html',
         '#admin': 'src/pages/layouts/admin.html',
         '#painel-empresa': 'src/pages/layouts/studiEempresa.html',
         '#config': 'src/pages/layouts/config.html',
-        
+
         // Sub-páginas do Estúdio Profissional
         '#post-criar': 'src/entities/estudio-profissional/layouts/postCriar.html',
         '#post-editar': 'src/entities/estudio-profissional/layouts/postEditar.html',
@@ -31,7 +31,7 @@ $(document).ready(function() {
         '#portfolio-validar': 'src/entities/estudio-profissional/layouts/portfolioValidar.html',
 
         //Imgs
-        '#Manaus':'assets/img/fundo-login-manaus.jpg',
+        '#Manaus': 'assets/img/fundo-login-manaus.jpg',
         '#Logo': 'assets/img/logo-pro-link.png',
         '#Brasao': 'assets/img/logo-pl.png'
     };
@@ -45,9 +45,15 @@ $(document).ready(function() {
     $.when(
         $navbarContainer.load('src/app/layouts/navBar.html'),
         $topbarContainer.load('src/app/layouts/topBar.html')
-    ).done(function() {
+    ).done(function () {
         console.log("Pro-Link: Navbar e TopBar carregadas com sucesso.");
         initRouter();
+
+        $(document).on('click', 'a[href="#perfil"]', async function () {
+            if (typeof window.criarPortfolio === 'function') {
+                await window.criarPortfolio();
+            }
+        });
         // Aplica o estado ativo correto após a navbar estar no DOM
         updateNavState(window.location.hash || '#auth');
     });
@@ -69,7 +75,7 @@ $(document).ready(function() {
         let currentHash = window.location.hash || '#auth';
         loadPage(currentHash);
 
-        $(window).on('hashchange', function() {
+        $(window).on('hashchange', function () {
             loadPage(window.location.hash);
         });
     }
@@ -92,7 +98,7 @@ $(document).ready(function() {
         }
 
         // Carrega o HTML da página específica no content principal
-        $appContent.hide().load(pageUrl, function(response, status, xhr) {
+        $appContent.hide().load(pageUrl, function (response, status, xhr) {
             if (status === "error") {
                 $appContent.html(`<div class="alert alert-danger">Erro 404: Arquivo não encontrado (${pageUrl}).</div>`);
             } else {
