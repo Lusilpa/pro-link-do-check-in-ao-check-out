@@ -52,9 +52,10 @@ async function fetchTalentos(filters = {}) {
     const endpoint = `/profissionais${params ? `?${params}` : ''}`;
 
     try {
-        return await apiRequest(endpoint);
+        const response = await apiRequest(endpoint);
+        return response.data || [];
     } catch (error) {
-        console.warn('[Pro-Link API] Talentos indisponíveis. Usando dados sintéticos.');
+        console.warn('[Pro-Link API] Talentos indisponíveis. Usando dados sintéticos.', error.message);
         return TALENTOS_MOCK;
     }
 }

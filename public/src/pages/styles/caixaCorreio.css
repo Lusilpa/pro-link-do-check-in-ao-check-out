@@ -139,7 +139,11 @@
 .pl-toast-icon { font-size: 1.2rem; color: var(--prolink-blue); flex-shrink: 0; }
 .pl-toast.toast-error { border-left-color: #ff4d4d; }
 .pl-toast.toast-error .pl-toast-icon { color: #ff4d4d; }
-.pl-toast.toast-fadeout { opacity: 0; transform: translateX(50px); transition: opacity 0.3s, transform 0.3s; }
+/* animation: none e obrigatorio aqui - o "forwards" da toastSlideIn continua prendendo
+   opacity/transform no valor final indefinidamente, e uma animation sempre vence uma
+   transition na mesma propriedade. Sem isso, o toast nunca recebe o transitionend e
+   fica acumulando na tela para sempre. */
+.pl-toast.toast-fadeout { animation: none; opacity: 0; transform: translateX(50px); transition: opacity 0.3s, transform 0.3s; }
 
 @keyframes toastSlideIn {
   from { opacity: 0; transform: translateX(100px); }

@@ -1,51 +1,48 @@
-window.initDetailCorreio = function(mailData = null) {
-    if (!mailData) {
-        mailData = {
-            id: 1, senderName: "Empresa Tapajós", senderEmail: "rh@tapajos.com",
-            subject: "Proposta de Demanda: Automação de RH",
-            body: "Olá Luan,\n\nVimos o seu portfólio na plataforma Pro-Link e ficamos impressionados com seus projetos em Python e React.\n\nGostaríamos de propor uma parceria para o desenvolvimento de um sistema multi-agente focado no nosso Departamento Pessoal. Anexamos um PDF com o escopo inicial para você dar uma olhada.\n\nAguardo retorno,\nEquipe Tapajós",
-            date: "Hoje, 10:30 AM",
-            attachments: [{ id: 101, name: "Escopo_Automacao_RH.pdf", type: "pdf" }]
-        };
+window.initDetailCorreio = async function(cartaId = null) {
+    const carta = cartaId !== null ? await fetchCartaVirtualById(cartaId) : null;
+
+    if (!carta) {
+        document.getElementById('dmSenderName').textContent = 'Carta não encontrada';
+        document.getElementById('dmAvatarInitial').textContent = '?';
+        document.getElementById('dmSenderEmail').textContent = '';
+        document.getElementById('dmDate').textContent = '';
+        document.getElementById('dmSubject').textContent = '';
+        document.getElementById('dmBodyText').textContent = '';
+        document.getElementById('dmAttachmentsZone').style.display = 'none';
+        return;
     }
 
-    document.getElementById('dmSenderName').textContent = mailData.senderName;
-    // Pega a primeira letra do nome para o Avatar
-    document.getElementById('dmAvatarInitial').textContent = mailData.senderName.charAt(0).toUpperCase();
-    
-    document.getElementById('dmSenderEmail').textContent = mailData.senderEmail;
-    document.getElementById('dmDate').textContent = mailData.date;
-    document.getElementById('dmSubject').textContent = mailData.subject;
-    // [SEGURANÇA C1 CORRIGIDO] Nunca usar innerHTML com dado de back-end.
-    // Convertemos \n → <br> via DOM seguro, sem abrir vetor XSS.
+    document.getElementById('dmSenderName').textContent = 'Para: ' + carta.destinatarioEmail;
+    document.getElementById('dmAvatarInitial').textContent = carta.destinatarioEmail.charAt(0).toUpperCase();
+    document.getElementById('dmSenderEmail').textContent = carta.remetenteEmail ? `De: ${carta.remetenteEmail}` : '';
+    document.getElementById('dmDate').textContent = carta.criadoEm
+        ? new Date(carta.criadoEm.replace(' ', 'T')).toLocaleString('pt-BR')
+        : '';
+    document.getElementById('dmSubject').textContent = carta.titulo;
+
+    // legenda e gravada como HTML (o editor de composição suporta negrito/itálico/listas/links).
     const bodyEl = document.getElementById('dmBodyText');
-    bodyEl.innerHTML = '';
-    mailData.body.split('\n').forEach((line, i, arr) => {
-        bodyEl.appendChild(document.createTextNode(line));
-        if (i < arr.length - 1) bodyEl.appendChild(document.createElement('br'));
-    });
+    bodyEl.innerHTML = carta.legenda || '';
 
     const attZone = document.getElementById('dmAttachmentsZone');
     const attList = document.getElementById('dmAttachmentsList');
-    
-    if (mailData.attachments && mailData.attachments.length > 0) {
+
+    if (carta.nomeArquivo) {
         attZone.style.display = 'block';
         attList.innerHTML = '';
-        // [SEGURANÇA] Usar textContent para nomes de anexos — evita XSS via nome de arquivo malicioso
-        mailData.attachments.forEach(att => {
-            const item = document.createElement('div');
-            item.className = 'pl-dm-att-item';
-            const icon = document.createElement('i');
-            icon.className = 'bi bi-file-earmark-pdf-fill';
-            icon.setAttribute('aria-hidden', 'true');
-            const name = document.createElement('span');
-            name.textContent = att.name; // textContent — seguro contra XSS
-            item.appendChild(icon);
-            item.appendChild(name);
-            attList.appendChild(item);
-        });
+        const item = document.createElement('div');
+        item.className = 'pl-dm-att-item';
+        const icon = document.createElement('i');
+        icon.className = 'bi bi-file-earmark-pdf-fill';
+        icon.setAttribute('aria-hidden', 'true');
+        const name = document.createElement('span');
+        name.textContent = carta.nomeArquivo; // textContent — seguro contra XSS
+        item.appendChild(icon);
+        item.appendChild(name);
+        attList.appendChild(item);
     } else {
-        attZone.style.display = 'none'; attList.innerHTML = '';
+        attZone.style.display = 'none';
+        attList.innerHTML = '';
     }
 
     const btnClose = document.getElementById('closeDetailMailPanel');
@@ -55,31 +52,34 @@ window.initDetailCorreio = function(mailData = null) {
         newBtnClose.addEventListener('click', () => { document.dispatchEvent(new CustomEvent('prolink:close-mail-read')); });
     }
 
+    // "Responder" não se aplica a uma carta que você mesmo enviou (o destinatário é
+    // externo) — reaproveitado como atalho para compor uma nova carta ao mesmo e-mail.
     const btnReply = document.getElementById('btnReplyMail');
     if (btnReply) {
+        btnReply.innerHTML = '<i class="bi bi-pencil-square" aria-hidden="true"></i> Nova carta';
         const newBtnReply = btnReply.cloneNode(true);
         btnReply.parentNode.replaceChild(newBtnReply, btnReply);
         newBtnReply.addEventListener('click', () => {
             document.dispatchEvent(new CustomEvent('prolink:open-mail-compose', {
-                detail: { replyTo: mailData.senderEmail, originalSubject: mailData.subject }
+                detail: { replyTo: carta.destinatarioEmail, originalSubject: carta.titulo }
             }));
         });
     }
 
-    // Delete Button action -> Toast
+    // Excluir agora chama a API de verdade (POST /cartas-virtuais/{id}/remover).
     const btnDelete = document.getElementById('btnDeleteMail');
-    if(btnDelete) {
+    if (btnDelete) {
         const newBtnDelete = btnDelete.cloneNode(true);
         btnDelete.parentNode.replaceChild(newBtnDelete, btnDelete);
-        newBtnDelete.addEventListener('click', () => {
-            if(window.prolinkToast) window.prolinkToast('Mensagem excluída.', 'error');
-            setTimeout(() => document.dispatchEvent(new CustomEvent('prolink:close-mail-read')), 300);
+        newBtnDelete.addEventListener('click', async () => {
+            try {
+                await deleteCartaVirtual(carta.id);
+                if (window.prolinkToast) window.prolinkToast('Carta removida.');
+                if (typeof window.refreshCorreioList === 'function') window.refreshCorreioList();
+                setTimeout(() => document.dispatchEvent(new CustomEvent('prolink:close-mail-read')), 300);
+            } catch (error) {
+                if (window.prolinkToast) window.prolinkToast(error.message || 'Erro ao remover carta.', 'error');
+            }
         });
     }
 };
-
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => { if(typeof window.initDetailCorreio === 'function') window.initDetailCorreio(); });
-} else {
-    setTimeout(() => { if(typeof window.initDetailCorreio === 'function') window.initDetailCorreio(); }, 100);
-}

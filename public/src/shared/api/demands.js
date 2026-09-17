@@ -73,9 +73,10 @@ async function fetchAllDemands(filters = {}) {
     const params = new URLSearchParams(filters).toString();
     const endpoint = `/demandas${params ? `?${params}` : ''}`;
     try {
-        return await apiRequest(endpoint);
+        const response = await apiRequest(endpoint);
+        return response.data || [];
     } catch (error) {
-        console.warn('[Pro-Link API] Demandas indisponíveis. Usando dados sintéticos.');
+        console.warn('[Pro-Link API] Demandas indisponíveis. Usando dados sintéticos.', error.message);
         return DEMANDS_MOCK;
     }
 }
@@ -85,9 +86,10 @@ async function fetchAllDemands(filters = {}) {
 // Tenta buscar os dados detalhados de uma demanda específica. Se falhar, procura dentro da base de mock sintético.
 async function fetchDemandById(id) {
     try {
-        return await apiRequest(`/demandas/${id}`);
+        const response = await apiRequest(`/demandas/${id}`);
+        return response.data;
     } catch (error) {
-        console.warn(`[Pro-Link API] Demanda #${id} não encontrada. Usando fallback.`);
+        console.warn(`[Pro-Link API] Demanda #${id} não encontrada. Usando fallback.`, error.message);
         return DEMANDS_MOCK.find(d => d.id === Number(id)) || null;
     }
 }
@@ -98,10 +100,10 @@ async function fetchDemandById(id) {
 // ATENÇÃO: `titulo` e `mensagem` são NOT NULL na tabela `demonstracoes_interesse`.
 // Adaptar para exibir uma modal de confirmação ao usuário futuramente.
 async function expressInterestInDemand(demandId) {
-    return apiRequest(`/interesses`, { 
+    return apiRequest(`/interesses`, {
         method: 'POST',
         body: JSON.stringify({
-            demanda_id: demandId,
+            id_demanda: demandId,
             titulo: 'Demonstração de Interesse',
             mensagem: 'Tenho interesse nesta demanda e gostaria de discutir mais detalhes.'
         })
@@ -120,17 +122,17 @@ async function createDemand(demandData) {
 
 // Atualizar Demanda
 // Edição de oportunidade
-// Substitui os dados da demanda (PUT) com as informações fornecidas no objeto updates.
+// A rota real e POST /demandas/{id}/editar (nao ha PUT /demandas/{id} registrado).
 async function updateDemand(id, updates) {
-    return apiRequest(`/demandas/${id}`, {
-        method: 'PUT',
+    return apiRequest(`/demandas/${id}/editar`, {
+        method: 'POST',
         body: JSON.stringify(updates)
     });
 }
 
 // Excluir Demanda
 // Remoção de oportunidade
-// Envia requisição DELETE para remover a demanda de forma permanente do banco de dados.
+// A rota real e POST /demandas/{id}/remover (nao ha DELETE /demandas/{id} registrado).
 async function deleteDemand(id) {
-    return apiRequest(`/demandas/${id}`, { method: 'DELETE' });
+    return apiRequest(`/demandas/${id}/remover`, { method: 'POST' });
 }

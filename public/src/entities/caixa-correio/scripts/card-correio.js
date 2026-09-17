@@ -1,43 +1,58 @@
 (function initCardCorreio() {
-    const mockMails = [
-        { id: 1, sender: "Empresa Tapajós", subject: "Proposta de Demanda: Automação de RH", snippet: "Olá Luan, vimos o seu perfil e gostaríamos de propor uma parceria para o desenvolvimento de um sistema...", date: "10:30", unread: true },
-        { id: 2, sender: "CREA-AM", subject: "Atualização de Acervo Técnico (ART)", snippet: "Sua solicitação de validação da ART número 12345/2026 foi aprovada com sucesso.", date: "Ontem", unread: false },
-        { id: 3, sender: "UEE-AM", subject: "Pauta para o 2º Encontro Nacional", snippet: "Segue em anexo a pauta e a programação para os painéis de tecnologia. Favor revisar até amanhã.", date: "10 Set", unread: true }
-    ];
-
     const wrapper = document.getElementById('correio-cards-wrapper');
     const badge = document.getElementById('unreadCountBadge');
     if (!wrapper) return;
 
-    if (mockMails.length === 0) {
-        wrapper.innerHTML = `
-            <div class="pl-empty-state">
-                <i class="bi bi-mailbox"></i>
-                <h6>Sua caixa está vazia</h6>
-                <p class="small">Novas mensagens e propostas aparecerão aqui.</p>
-            </div>
-        `;
-        return;
+    // Extrai texto puro da legenda (gravada como HTML pelo editor rich-text do compose).
+    function stripHtml(html) {
+        const tmp = document.createElement('div');
+        tmp.innerHTML = html || '';
+        return tmp.textContent || '';
     }
 
-    let html = '';
-    let unreadCount = 0;
+    function formatDate(dataIso) {
+        if (!dataIso) return '';
+        const d = new Date(dataIso.replace(' ', 'T'));
+        return d.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' });
+    }
 
-    mockMails.forEach((mail, index) => {
-        if(mail.unread) unreadCount++;
-        html += `
-        <div class="pl-correio-card ${mail.unread ? 'unread' : ''}" data-id="${mail.id}" style="animation-delay: ${index * 0.08}s">
-            ${mail.unread ? '<div class="pl-unread-dot"></div>' : ''}
-            <div class="pl-correio-header">
-                <span class="pl-correio-sender"><i class="bi bi-person-circle"></i> ${mail.sender}</span>
-                <span class="pl-correio-date">${mail.date}</span>
+    async function render() {
+        const cartas = await fetchCartasVirtuais();
+
+        if (!cartas || cartas.length === 0) {
+            wrapper.innerHTML = `
+                <div class="pl-empty-state">
+                    <i class="bi bi-mailbox"></i>
+                    <h6>Nenhuma carta enviada</h6>
+                    <p class="small">Cartas virtuais que você enviar aparecerão aqui.</p>
+                </div>
+            `;
+            if (badge) badge.textContent = '0 cartas';
+            return;
+        }
+
+        let html = '';
+        cartas.forEach((carta, index) => {
+            const snippet = stripHtml(carta.legenda).slice(0, 120);
+            html += `
+            <div class="pl-correio-card" data-id="${carta.id}" style="animation-delay: ${index * 0.08}s">
+                <div class="pl-correio-header">
+                    <span class="pl-correio-sender"><i class="bi bi-send"></i> Para: ${carta.destinatarioEmail}</span>
+                    <span class="pl-correio-date">${formatDate(carta.criadoEm)}</span>
+                </div>
+                <h5 class="pl-correio-subject">${carta.titulo}</h5>
+                <p class="pl-correio-snippet">${snippet}</p>
             </div>
-            <h5 class="pl-correio-subject">${mail.subject}</h5>
-            <p class="pl-correio-snippet">${mail.snippet}</p>
-        </div>
-        `;
-    });
+            `;
+        });
 
-    wrapper.innerHTML = html;
-    if(badge) badge.textContent = `${unreadCount} não lida${unreadCount !== 1 ? 's' : ''}`;
+        wrapper.innerHTML = html;
+        if (badge) badge.textContent = `${cartas.length} carta${cartas.length !== 1 ? 's' : ''} enviada${cartas.length !== 1 ? 's' : ''}`;
+    }
+
+    // Exposto para que o compose (card-envio.js) e o detalhe (detail-correio.js)
+    // possam atualizar a lista após criar/remover uma carta.
+    window.refreshCorreioList = render;
+
+    render();
 })();
