@@ -31,7 +31,6 @@
     <header id="topbar-container"></header>
 
     <!-- O jQuery injetará as telas (login, feed, etc) aqui dentro -->
-    <!-- Ajustei as margens para não colidir com o Top Bar (adicionei pt-3) -->
     <main id="app-content" class="container mt-2 pt-3 mb-5 pb-5">
         <!-- O conteúdo aparecerá aqui dinamicamente -->
     </main>
@@ -51,14 +50,14 @@
     <script src="src/shared/api/recuperacao-senha.js"></script>
     <script src="src/shared/api/feed.js"></script>
     
-    <!-- Componentes Globais -->
+    <!-- Componentes Globais (A base para suas interfaces dinâmicas) -->
     <script src="src/pages/scripts/estudioProfissional.js"></script>
     <script src="src/pages/scripts/estudioEmpresa.js"></script>
     <script src="src/pages/scripts/config.js"></script>
+    <script src="src/pages/scripts/admin.js"></script> <!-- AQUI ESTÁ O SCRIPT DO ADMIN -->
     
-    <!-- Chart.js -->
+    <!-- Chart.js (Obrigatório para desenhar os gráficos na Dashboard) -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 
     <!-- Seu Roteador SPA -->
     <script src="assets/js/main.js"></script>
