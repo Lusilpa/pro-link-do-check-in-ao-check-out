@@ -3,7 +3,8 @@
     const btn = document.getElementById('btn-salvar-empresa');
     const feedback = document.getElementById('empresaEditar-feedback');
 
-    const empresaId = localStorage.getItem('empresaId') || '1';
+    const user = typeof getAuthUser === 'function' ? getAuthUser() : null;
+    const empresaId = user ? user.id : '1';
 
     if (!form) return;
 
