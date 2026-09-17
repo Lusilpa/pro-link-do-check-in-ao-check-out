@@ -37,7 +37,7 @@ async function loginUser(credentials) {
             body: JSON.stringify(credentials)
         });
         const data = await response.json().catch(() => ({}));
-        
+
         // O backend faz redirect no sucesso (Response::redirect('/feed')) ou retorna 200
         if (response.redirected || response.ok) {
             // Em caso de sucesso de login, definimos um usuário básico localmente para a flag de logado
@@ -115,7 +115,7 @@ function loginWithLinkedIn() {
 async function logoutUser() {
     try {
         // Avise o backend para invalidar a sessão
-        await fetch(`${API_BASE_URL}/logout`, {
+        await fetch(`${API_BASE_URL}/auth/logout`, {
             method: 'POST',
             credentials: 'include'
         });
