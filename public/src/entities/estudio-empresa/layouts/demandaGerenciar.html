@@ -1,0 +1,50 @@
+<link rel="stylesheet" href="src/entities/estudio-profissional/styles/estudio-sub.css">
+<link rel="stylesheet" href="src/entities/estudio-empresa/styles/demandaGerenciar.css">
+
+<div class="pl-estudio-sub-fullscreen-bg"></div>
+
+<div class="pl-estudio-sub-page-wrapper">
+  <div class="pl-estudio-sub-main-container">
+    
+    <button class="pl-btn-back-estudio" onclick="window.location.hash = '#painel-empresa'">
+      <i class="bi bi-arrow-left"></i> Voltar ao Painel
+    </button>
+
+    <div class="pl-estudio-sub-header">
+      <h2 class="pl-estudio-sub-title">Gerenciar Demandas Ativas</h2>
+      <p class="pl-estudio-sub-subtitle">Edite informações, veja estatísticas de candidaturas e atualize suas vagas em andamento.</p>
+    </div>
+
+    <div class="pl-estudio-sub-panel">
+      
+      <!-- Estado de loading (visível enquanto carrega) -->
+      <div id="demandaGerenciar-loading" class="pl-estudio-sub-alert">
+        <i class="bi bi-hourglass-split"></i>
+        <span>Carregando demandas ativas...</span>
+      </div>
+
+      <!-- Estado vazio (visível quando não há demandas) -->
+      <div id="demandaGerenciar-empty" class="pl-estudio-sub-alert d-none">
+        <i class="bi bi-inbox"></i>
+        <span>Nenhuma demanda ativa encontrada. <a href="#demanda-criar" style="color: var(--prolink-blue);">Crie uma nova vaga</a>.</span>
+      </div>
+
+      <!-- Estado de erro -->
+      <div id="demandaGerenciar-error" class="pl-estudio-sub-alert pl-estudio-sub-alert--warning d-none">
+        <i class="bi bi-exclamation-triangle"></i>
+        <span id="demandaGerenciar-error-msg">Erro ao carregar demandas.</span>
+      </div>
+
+      <!-- TODO: GET /api/demandas?id_empresa={id}&status=ABERTA — Tabela: demandas -->
+      <!-- Container para cards dinâmicos -->
+      <div class="pl-estudio-item-list d-none" id="demandaGerenciar-list">
+        <!-- Template de card (será clonado via JS para cada demanda) -->
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<script src="src/entities/estudio-empresa/scripts/demandaGerenciar.js"></script>
+
