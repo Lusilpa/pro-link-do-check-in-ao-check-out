@@ -7,23 +7,26 @@ function initTalentDetail(talentData = null) {
 
 function populateTalentPanel(d) {
   // 1. Header (Info Básica)
+  // Campos conforme retornados por GET /profissionais (ProfissionalRepository::buscarTalentos):
+  // nome, categoria_profissional, numero_registro_confea_crea (null para universitarios),
+  // resumo_profissional, competencias:[{nome, nivel}].
   document.getElementById('tdName').textContent = d.nome || 'Profissional';
-  document.getElementById('tdTitle').textContent = d.titulo || 'Sem título definido';
-  
-  // Selo CREA ou Estudante
+  document.getElementById('tdTitle').textContent = d.categoria_profissional || 'Sem título definido';
+
+  // Selo CREA ou Estudante (sem numero_registro_confea_crea = universitario)
   const badgesContainer = document.getElementById('tdBadges');
-  if (d.is_student) {
+  if (d.numero_registro_confea_crea) {
+    badgesContainer.innerHTML = `<span class="pl-badge pl-badge-crea"><i class="bi bi-patch-check-fill"></i> CREA ${d.numero_registro_confea_crea}</span>`;
+  } else {
     badgesContainer.innerHTML = `<span class="pl-badge pl-badge-student"><i class="bi bi-mortarboard-fill"></i> UNIVERSITÁRIO</span>`;
-  } else if (d.registro_crea) {
-    badgesContainer.innerHTML = `<span class="pl-badge pl-badge-crea"><i class="bi bi-patch-check-fill"></i> CREA ${d.registro_crea}</span>`;
   }
 
   // 2. Resumo e Competências
-  document.getElementById('tdSummary').textContent = d.resumo || 'Resumo profissional não disponibilizado.';
-  
+  document.getElementById('tdSummary').textContent = d.resumo_profissional || 'Resumo profissional não disponibilizado.';
+
   const skillsContainer = document.getElementById('tdSkills');
-  if (d.habilidades && d.habilidades.length > 0) {
-    skillsContainer.innerHTML = d.habilidades.map(skill => `<span class="pl-skill-badge">${skill}</span>`).join('');
+  if (d.competencias && d.competencias.length > 0) {
+    skillsContainer.innerHTML = d.competencias.map(c => `<span class="pl-skill-badge" title="Nível: ${c.nivel}">${c.nome}</span>`).join('');
   } else {
     skillsContainer.innerHTML = '<span class="pl-td-section-text">Nenhuma competência registrada.</span>';
   }
