@@ -8,6 +8,9 @@
   flex-direction: column;
   height: 100%;
   color: var(--prolink-light);
+  /* Evita que qualquer item interno (ex: nome de anexo comprido) force o
+     card a ficar mais largo que o container e estoure o layout. */
+  overflow-x: hidden;
 }
 
 @media (max-width: 768px) {
@@ -231,17 +234,33 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  min-width: 0;
 }
 
 .pl-attachment-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 0.75rem;
   background: rgba(255, 255, 255, 0.05);
   padding: 0.6rem 1rem;
   border-radius: 6px;
   font-size: 0.85rem;
   color: var(--prolink-light);
+  /* Sem isto, um item flex nao encolhe abaixo do conteudo (min-width:auto por
+     padrao) - um nome de arquivo comprido empurrava o card pra fora da largura
+     do painel e sobrepunha o botao de enviar. */
+  min-width: 0;
+}
+
+/* Nome do arquivo/demanda: trunca com reticencias em vez de estourar a largura. */
+.pl-attachment-item span {
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .pl-btn-remove-attachment {
@@ -249,6 +268,7 @@
   border: none;
   color: #ef4444;
   cursor: pointer;
+  flex-shrink: 0;
 }
 
 .pl-envio-actions {

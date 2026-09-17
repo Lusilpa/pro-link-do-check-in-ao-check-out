@@ -1,0 +1,103 @@
+<link rel="stylesheet" href="src/pages/styles/recuperacaoSenha.css">
+
+<div class="auth-page-wrapper">
+
+  <div class="auth-image-panel">
+    <img src="assets/img/logo-pro-link.png" alt="Pro-Link Logo" class="mobile-logo d-lg-none" onerror="this.style.display='none';">
+  </div>
+
+  <div class="auth-form-panel">
+
+    <div class="form-content-wrapper">
+      <img src="assets/img/logo-pro-link.png" alt="Pro-Link Logo" class="desktop-logo d-none d-lg-block" onerror="this.style.display='none';">
+
+      <div class="mb-4 text-center text-lg-start">
+        <h4 class="text-white fw-semibold mb-2">Criar nova senha</h4>
+        <p class="text-muted-custom mb-0">Defina uma nova senha de acesso para sua conta Pro-Link.</p>
+      </div>
+
+      <div id="resetTokenAlert" class="alert alert-danger d-none" role="alert"></div>
+
+      <form id="resetPasswordForm">
+
+        <div class="mb-3">
+          <label for="newPassword" class="form-label text-white fw-medium ms-1 mb-2" style="font-size: 0.9rem;">Nova senha</label>
+          <div class="input-group auth-input-group">
+            <span class="input-group-text"><i class="bi bi-lock"></i></span>
+            <input type="password" id="newPassword" name="newPassword" class="form-control placeholder-white" placeholder="Digite a nova senha" minlength="8" required>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label for="confirmNewPassword" class="form-label text-white fw-medium ms-1 mb-2" style="font-size: 0.9rem;">Confirmar nova senha</label>
+          <div class="input-group auth-input-group">
+            <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+            <input type="password" id="confirmNewPassword" name="confirmNewPassword" class="form-control placeholder-white" placeholder="Repita a nova senha" minlength="8" required>
+          </div>
+        </div>
+
+        <button type="submit" id="resetPasswordSubmit" class="btn btn-prolink-pill w-100 mt-2">
+          Redefinir senha
+        </button>
+
+        <div class="text-center mt-4">
+          <a href="#auth" class="auth-link fw-semibold"><i class="bi bi-arrow-left me-2"></i>Voltar para o login</a>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    const form = document.getElementById("resetPasswordForm");
+    const alertBox = document.getElementById("resetTokenAlert");
+
+    function showAlert(message) {
+      alertBox.textContent = message;
+      alertBox.classList.remove("d-none");
+    }
+
+    // O link do e-mail (AuthController::recoverPassword) aponta para
+    // "#redefinir-senha?token=...": o token vem depois do "?" dentro do proprio
+    // hash, ja que o roteador (main.js) so usa a parte antes do "?" para escolher a pagina.
+    const hashQuery = window.location.hash.split("?")[1] || "";
+    const token = new URLSearchParams(hashQuery).get("token");
+
+    if (!token) {
+      showAlert("Link de redefinição inválido ou incompleto. Solicite um novo link em \"Esqueceu sua senha?\".");
+      form.querySelectorAll("input, button").forEach((el) => (el.disabled = true));
+      return;
+    }
+
+    form.addEventListener("submit", async function (event) {
+      event.preventDefault();
+
+      const newPassword = document.getElementById("newPassword").value;
+      const confirmNewPassword = document.getElementById("confirmNewPassword").value;
+
+      if (newPassword !== confirmNewPassword) {
+        showAlert("As senhas não coincidem. Por favor, verifique.");
+        return;
+      }
+
+      const submitBtn = document.getElementById("resetPasswordSubmit");
+      const originalBtnText = submitBtn.innerHTML;
+      submitBtn.innerHTML = `<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Salvando...`;
+      submitBtn.disabled = true;
+      alertBox.classList.add("d-none");
+
+      const result = await resetPassword(token, newPassword);
+
+      if (result.success) {
+        alert("Senha redefinida com sucesso! Faça login com sua nova senha.");
+        window.location.hash = "#auth";
+      } else {
+        showAlert(result.message || "Erro ao redefinir a senha.");
+        submitBtn.innerHTML = originalBtnText;
+        submitBtn.disabled = false;
+      }
+    });
+  })();
+</script>

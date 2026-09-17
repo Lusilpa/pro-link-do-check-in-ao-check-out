@@ -9,21 +9,17 @@ window.initAdmin = async function () {
     try {
         await loadAdminData();
         setupAdminFormListener();
-<<<<<<< Updated upstream
 
         // Chamadas Mocks do Demo Day
         if (typeof loadUniversitarios === 'function') loadUniversitarios();
         if (typeof loadDenuncias === 'function') loadDenuncias();
         if (typeof loadAuditoria === 'function') loadAuditoria();
-=======
->>>>>>> Stashed changes
     } catch (error) {
         console.error('[Admin] Erro ao inicializar:', error);
     }
 };
 
 async function loadAdminData() {
-<<<<<<< Updated upstream
     // MOCK fallback para o Demo Day caso o backend falhe/demore
     const MOCK_DASHBOARD = {
         kpis: { totalUsers: 142, activeDemands: 18, checkins: 305, virtualLetters: 305, pendingMod: 3 },
@@ -57,101 +53,29 @@ async function loadAdminData() {
         console.warn('[Admin] Erro na API do dashboard. Carregando MOCK para demonstração.', e);
         renderAdminDashboard(MOCK_DASHBOARD);
     }
-=======
-    // TODO: Integração real com o backend
-    // try {
-    //     const res = await fetch('/api/admin/dashboard', {
-    //         headers: { 'Authorization': `Bearer ${localStorage.getItem('pl_token')}` }
-    //     });
-    //     if (res.ok) {
-    //         const data = await res.json();
-    //         renderAdminDashboard(data);
-    //         return;
-    //     }
-    // } catch (e) {
-    //     console.warn('Backend indisponível, usando mock.');
-    // }
-
-    // FAKE DATA adaptado para o escopo real do Pro-Link
-    const mockData = {
-        kpis: {
-            totalUsers: 1450,
-            activeDemands: 342,
-            checkins: 890,
-            virtualLetters: 512,
-            pendingMod: 45
-        },
-        charts: {
-            userStatus: [65, 30, 5], // Profissionais (Crea), Empresas, Admins
-            demandsGrowth: [10, 25, 45, 80, 150, 210, 342] // Curva de crescimento
-        },
-        recentRegistrations: [
-            { id: 'DM-001', name: 'Engenheiro Civil Pleno', sub: 'Construtora Alpha', status: 'MATCH ENCONTRADO', date: 'Hoje, 11:10', color: 'cyan' },
-            { id: 'CHK-104', name: 'Check-in Realizado', sub: 'Luan Palma', status: 'VERIFICADO', date: 'Hoje, 09:45', color: 'green' },
-            { id: 'CAT-099', name: 'Validação de Acervo Técnico', sub: 'Engª. Amanda Costa', status: 'EM AUDITORIA', date: 'Ontem, 17:30', color: 'yellow' }
-        ],
-        topCategories: [
-            { name: 'Engenharia Civil (Estrutural)', count: 120 },
-            { name: 'Engenharia Elétrica (Projetos)', count: 85 },
-            { name: 'Agronomia (Gestão de Safra)', count: 64 },
-            { name: 'Engenharia de Segurança', count: 40 }
-        ],
-        topCompanies: [
-            { name: 'Construtora Alpha S.A', count: 48 },
-            { name: 'EcoEnergia Solutions', count: 32 },
-            { name: 'AgroTech Brasil', count: 25 },
-            { name: 'InfraObras Ltda.', count: 18 }
-        ],
-        moderation: {
-            approved: 420,
-            pending: 45,
-            banned: 12
-        },
-        stats: {
-            connections: 312,
-            dailyAvg: '10,4'
-        }
-    };
-
-    renderAdminDashboard(mockData);
->>>>>>> Stashed changes
 }
 
 function setupAdminFormListener() {
     const form = document.getElementById('formAdminRegister');
     if (!form) return;
 
-<<<<<<< Updated upstream
     form.addEventListener('submit', async function (e) {
-=======
-    form.addEventListener('submit', async function(e) {
->>>>>>> Stashed changes
         e.preventDefault();
 
         const nome = document.getElementById('admin-nome').value;
         const email = document.getElementById('admin-email').value;
         const senha = document.getElementById('admin-senha').value;
         const nivel = document.getElementById('admin-nivel').value;
-<<<<<<< Updated upstream
 
         const payload = { nome, email, senha, nivel };
         console.log('[Admin] Payload Cadastro Admin:', payload);
 
-=======
-        
-        const payload = { nome, email, senha, nivel };
-        console.log('[Admin] Payload Cadastro Admin:', payload);
-
-        // TODO: Integração real
-        /*
->>>>>>> Stashed changes
         try {
             const btn = form.querySelector('.pl-admin-btn-save');
             const originalText = btn.innerHTML;
             btn.innerHTML = 'Salvando...';
             btn.disabled = true;
 
-<<<<<<< Updated upstream
             const data = await apiRequest('/admin/register', {
                 method: 'POST',
                 body: JSON.stringify(payload)
@@ -173,37 +97,6 @@ function setupAdminFormListener() {
                 btn.disabled = false;
             }
         }
-=======
-            const res = await fetch('/api/admin/register', {
-                method: 'POST',
-                headers: { 
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('pl_token')}`
-                },
-                body: JSON.stringify(payload)
-            });
-
-            if (res.ok) {
-                alert('Administrador cadastrado com sucesso!');
-                document.getElementById('adminRegisterModal').style.display = 'none';
-                form.reset();
-            } else {
-                const err = await res.json();
-                alert('Erro ao cadastrar: ' + (err.message || 'Falha na requisição.'));
-            }
-            btn.innerHTML = originalText;
-            btn.disabled = false;
-        } catch(error) {
-            console.error('Erro na integração', error);
-            alert('Erro de conexão ao salvar administrador.');
-        }
-        */
-
-        // Mock success
-        alert('Cadastro mockado executado! Verifique o console para ver o payload.');
-        document.getElementById('adminRegisterModal').style.display = 'none';
-        form.reset();
->>>>>>> Stashed changes
     });
 }
 
@@ -319,7 +212,6 @@ function renderCharts(chartData) {
 
 window.addEventListener('hashchange', function () {
     if (window.location.hash !== '#admin') window._adminInitialized = false;
-<<<<<<< Updated upstream
 });
 
 // Funções para as novas áreas (Mocks para fins demonstrativos do Demo Day)
@@ -448,6 +340,3 @@ window.loadAuditoria = async function () {
         list.innerHTML = '<div class="pl-estudio-loading" style="padding: 1rem; color: red;">Erro ao carregar auditoria.</div>';
     }
 };
-=======
-});
->>>>>>> Stashed changes

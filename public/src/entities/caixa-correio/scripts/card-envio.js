@@ -250,6 +250,7 @@
             try {
                 // Uma carta por destinatário — o modelo do backend suporta um único
                 // destinatario_email por carta virtual (sem CC).
+                let falhasEmail = 0;
                 for (const email of chips) {
                     const formData = new FormData();
                     formData.append('titulo', titulo);
@@ -258,11 +259,21 @@
                     if (demandaAnexo) formData.append('id_demanda', demandaAnexo.demandaId);
                     if (arquivoAnexo) formData.append('arquivo', arquivoAnexo.file);
 
-                    await createCartaVirtual(formData);
+                    // O backend cria a carta e tenta o envio real por e-mail (SMTP) nesta
+                    // mesma chamada; email_enviado:false não é erro HTTP (a carta foi
+                    // registrada), então precisa ser conferido aqui para não mentir no toast.
+                    const resultado = await createCartaVirtual(formData);
+                    if (resultado && resultado.email_enviado === false) falhasEmail++;
                 }
 
                 if (window.prolinkToast) {
-                    window.prolinkToast(chips.length > 1 ? `${chips.length} cartas enviadas com sucesso!` : 'Carta enviada com sucesso!');
+                    if (falhasEmail === 0) {
+                        window.prolinkToast(chips.length > 1 ? `${chips.length} cartas enviadas com sucesso!` : 'Carta enviada com sucesso!');
+                    } else if (falhasEmail === chips.length) {
+                        window.prolinkToast('Carta registrada, mas não foi possível enviar o e-mail. Tente novamente mais tarde.', 'error');
+                    } else {
+                        window.prolinkToast(`${chips.length - falhasEmail} de ${chips.length} cartas enviadas por e-mail. Algumas falharam — tente novamente.`, 'error');
+                    }
                 }
                 if (typeof window.refreshCorreioList === 'function') window.refreshCorreioList();
 

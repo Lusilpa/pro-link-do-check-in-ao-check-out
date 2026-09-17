@@ -17,13 +17,20 @@ var API_URL = (typeof API_BASE_URL !== 'undefined') ? API_BASE_URL : 'http://loc
 async function sendProfileRequest(endpoint, dados) {
 
     try {
+        // O backend exige o campo "_csrf" em todo POST (CsrfMiddleware). Sem ele, a
+        // resposta e 419 em texto puro (nao JSON) e o catch do response.json() abaixo
+        // mascara isso como um erro generico, mesmo com os dados corretos.
+        const _csrf = typeof getCsrfToken === 'function'
+            ? await getCsrfToken()
+            : (await (await fetch(`${API_URL}/csrf-token`, { credentials: 'include' })).json()).csrf_token;
+
         const response = await fetch(`${API_URL}${endpoint}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             credentials: 'include', // Envia o cookie de sessão do PHP
-            body: JSON.stringify(dados)
+            body: JSON.stringify({ ...dados, _csrf })
         });
 
         const data = await response.json().catch(() => ({}));

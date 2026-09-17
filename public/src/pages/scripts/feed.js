@@ -71,7 +71,8 @@ $(document).ready(function() {
               <span style="color: var(--prolink-light); font-size: 0.85rem; opacity: 0.7;">${post.author_role} • ${post.time_ago}</span>
             </div>
           </div>
-          <button style="background: none; border: none; color: var(--prolink-blue); font-size: 1.2rem; cursor: pointer;"><i class="bi bi-three-dots-vertical"></i></button>
+          <!-- Botão de opções do post (sem ação implementada ainda) -->
+          <!-- <button style="background: none; border: none; color: var(--prolink-blue); font-size: 1.2rem; cursor: pointer;"><i class="bi bi-three-dots-vertical"></i></button> -->
         </div>
         <div class="pl-feed-body">
           <h4 style="color: var(--prolink-light); font-size: 1.1rem; font-weight: 700; margin-bottom: 0.75rem;">${post.title}</h4>

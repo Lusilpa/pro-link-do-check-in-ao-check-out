@@ -2,10 +2,13 @@
 // Camada de Transporte
 // Responsabilidade única: executar fetch com configuração padrão da plataforma. Todos os arquivos de shared/api devem usar este cliente ao invés de fetch() diretamente.
 
-// API_BASE_URL ja e declarado por auth.js, carregado antes deste arquivo em index.html.
-// Nao redeclarar aqui: como os scripts de shared/api compartilham o escopo global (nao sao
-// modules), um segundo "const API_BASE_URL" lança "Identifier has already been declared" e
-// impede todo o resto deste arquivo (incluindo apiRequest) de ser definido.
+// URL Base da API
+// _http.js e o primeiro script de shared/api carregado em index.html, entao a constante
+// fica declarada aqui. Como esses scripts compartilham o escopo global (nao sao modules),
+// os demais arquivos (auth.js, portfolio.js etc.) apenas leem API_BASE_URL - nao a
+// redeclaram, senao um segundo "const API_BASE_URL" lançaria "Identifier has already
+// been declared" e impediria o resto do arquivo de ser definido.
+const API_BASE_URL = 'http://localhost:8080';
 
 // Cabeçalhos Base
 // O backend usa sessão nativa (cookies), então não usamos mais JWT no cabeçalho Authorization.
