@@ -36,7 +36,7 @@
 
             try {
                 // Passar headers: {} permite que o multipart/form-data do FormData sobrescreva o application/json padrão
-                const data = await apiRequest('/portfolio', {
+                const data = await apiRequest('/projetos', {
                     method: 'POST',
                     headers: {}, 
                     body: formData
