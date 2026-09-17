@@ -15,54 +15,43 @@
         <h4 class="pl-portfolio-title" id="portfolioTitle">...</h4>
         
         <div class="pl-portfolio-badges" id="portfolioBadges">
-          <!-- Selo CREA injetado via JS -->
+          <!-- Selos injetados via JS -->
         </div>
 
-        <div class="pl-portfolio-info-list">
-          <div class="pl-portfolio-info-item">
-            <i class="bi bi-geo-alt"></i> <span id="portfolioLocation">...</span>
-          </div>
-          <div class="pl-portfolio-info-item">
-            <i class="bi bi-envelope"></i> <span id="portfolioEmail">...</span>
-          </div>
+        <div class="pl-portfolio-links" id="portfolioLinks">
+          <!-- Links injetados via JS -->
         </div>
 
-        <button class="pl-btn-contact" id="btnContact">
-          <i class="bi bi-chat-dots-fill"></i> Entrar em Contato
+        <button class="pl-btn-connect" id="btnConnect" onclick="alert('Funcionalidade de mensagem em desenvolvimento.')">
+          <i class="bi bi-chat-dots-fill"></i> Enviar Mensagem
         </button>
-
-        <div class="pl-portfolio-social" id="portfolioSocialLinks">
-          <!-- Links injetados -->
-        </div>
       </div>
     </aside>
 
-    <!-- COLUNA DIREITA: Conteúdo Dinâmico -->
+    <!-- COLUNA DIREITA: Conteúdo Principal -->
     <main class="pl-portfolio-content">
       
-      <!-- Resumo -->
-      <section class="pl-portfolio-section">
-        <h3 class="pl-section-title"><i class="bi bi-file-person"></i> Resumo Profissional</h3>
-        <p class="pl-section-text" id="portfolioSummary">Carregando resumo...</p>
-      </section>
+      <!-- Seção: Sobre Mim -->
+      <div class="pl-portfolio-card pl-portfolio-section">
+        <h3 class="pl-section-title"><i class="bi bi-file-earmark-person"></i> Sobre Mim</h3>
+        <p class="pl-section-text" id="portfolioAbout">Carregando informações...</p>
+      </div>
 
-      <!-- Competências -->
-      <section class="pl-portfolio-section">
-        <h3 class="pl-section-title"><i class="bi bi-stars"></i> Competências Técnicas</h3>
-        <div class="pl-skills-container" id="portfolioSkills"></div>
-      </section>
+      <!-- Seção: Competências -->
+      <div class="pl-portfolio-card pl-portfolio-section">
+        <h3 class="pl-section-title"><i class="bi bi-lightning-charge"></i> Competências Principais</h3>
+        <div class="pl-skills-grid" id="portfolioSkills">
+          <!-- Skills injetadas via JS -->
+        </div>
+      </div>
 
-      <!-- Acervo Técnico -->
-      <section class="pl-portfolio-section">
-        <h3 class="pl-section-title"><i class="bi bi-shield-check"></i> Acervo Técnico Validado</h3>
-        <div class="pl-acervo-grid" id="portfolioAcervo"></div>
-      </section>
-
-      <!-- Experiências + Projetos -->
-      <section class="pl-portfolio-section" style="border: none; padding: 0;">
-        <h3 class="pl-section-title"><i class="bi bi-briefcase"></i> Experiência e Projetos</h3>
-        <div class="pl-timeline-container" id="portfolioExperience"></div>
-      </section>
+      <!-- Seção: Experiência Profissional -->
+      <div class="pl-portfolio-card pl-portfolio-section">
+        <h3 class="pl-section-title"><i class="bi bi-briefcase"></i> Experiência Profissional</h3>
+        <div class="pl-experience-list" id="portfolioExperience">
+          <!-- Experiências injetadas via JS -->
+        </div>
+      </div>
 
     </main>
 

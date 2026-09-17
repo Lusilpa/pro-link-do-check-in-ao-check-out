@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
     // Mapeamento das rotas
     const routes = {
         // Rotas sem Navbar/TopBar (Páginas de Login/Auth)
@@ -12,16 +12,16 @@ $(document).ready(function() {
         // Rotas com Navbar e TopBar
         '#feed': 'src/pages/layouts/feed.html',
         '#search-demandas': 'src/pages/layouts/searchDemandas.html',
-        '#search-talentos': 'src/pages/layouts/searchTalentos.html', 
+        '#search-talentos': 'src/pages/layouts/searchTalentos.html',
         '#cartas': 'src/pages/layouts/caixaCorreio.html',
 
         // Rotas adicionais
-        '#perfil': 'src/pages/layouts/portfolio.html', 
+        '#perfil': 'src/pages/layouts/portfolio.html',
         '#criacao': 'src/pages/layouts/estudioProfissional.html',
         '#admin': 'src/pages/layouts/admin.html',
         '#painel-empresa': 'src/pages/layouts/estudioEmpresa.html',
         '#config': 'src/pages/layouts/config.html',
-        
+
         // Sub-páginas do Estúdio Profissional
         '#post-criar': 'src/entities/estudio-profissional/layouts/postCriar.html',
         '#post-editar': 'src/entities/estudio-profissional/layouts/postEditar.html',
@@ -39,7 +39,7 @@ $(document).ready(function() {
         '#candidatos-analisar': 'src/entities/estudio-empresa/layouts/candidatosAnalisar.html',
 
         //Imgs
-        '#Manaus':'assets/img/fundo-login-manaus.jpg',
+        '#Manaus': 'assets/img/fundo-login-manaus.jpg',
         '#Logo': 'assets/img/logo-pro-link.png',
         '#Brasao': 'assets/img/logo-pl.png'
     };
@@ -47,13 +47,13 @@ $(document).ready(function() {
     // Elementos principais do DOM
     const $appContent = $('#app-content');
     const $navbarContainer = $('#navbar-container');
-    const $topbarContainer = $('#topbar-container'); // NOVO: Container do Top Bar
+    const $topbarContainer = $('#topbar-container');
 
     // Inicializa a aplicação injetando a Navbar e o Top Bar simultaneamente
     $.when(
         $navbarContainer.load('src/app/layouts/navBar.html'),
         $topbarContainer.load('src/app/layouts/topBar.html')
-    ).done(function() {
+    ).done(function () {
         console.log("Pro-Link: Navbar e TopBar carregadas com sucesso.");
         initRouter();
         // Aplica o estado ativo correto após a navbar estar no DOM
@@ -77,7 +77,7 @@ $(document).ready(function() {
         let currentHash = window.location.hash || '#auth';
         loadPage(currentHash);
 
-        $(window).on('hashchange', function() {
+        $(window).on('hashchange', function () {
             loadPage(window.location.hash);
         });
     }
@@ -100,10 +100,11 @@ $(document).ready(function() {
         }
 
         // Carrega o HTML da página específica no content principal
-        $appContent.hide().load(pageUrl, function(response, status, xhr) {
+        $appContent.hide().load(pageUrl, function (response, status, xhr) {
             if (status === "error") {
                 $appContent.html(`<div class="alert alert-danger">Erro 404: Arquivo não encontrado (${pageUrl}).</div>`);
             } else {
+                
                 // Dispara renderização dos cartões internos do Estúdio Profissional
                 if (hash === '#criacao') {
                     setTimeout(() => {
@@ -112,6 +113,7 @@ $(document).ready(function() {
                         }
                     }, 50);
                 }
+                
                 // Dispara renderização dos cartões internos do Painel Empresa
                 if (hash === '#painel-empresa') {
                     setTimeout(() => {
@@ -120,6 +122,7 @@ $(document).ready(function() {
                         }
                     }, 50);
                 }
+                
                 // Dispara a inicialização da tela de Configurações
                 if (hash === '#config') {
                     setTimeout(() => {
@@ -127,11 +130,22 @@ $(document).ready(function() {
                             window.initConfig();
                         }
                     }, 50);
+                }
+                
                 // Dispara renderização da tela de Administração
                 if (hash === '#admin') {
                     setTimeout(() => {
                         if (typeof window.initAdmin === 'function') {
                             window.initAdmin();
+                        }
+                    }, 50);
+                }
+                
+                // Dispara renderização do Perfil (Portfólio)
+                if (hash === '#perfil') {
+                    setTimeout(() => {
+                        if (typeof window.initPortfolio === 'function') {
+                            window.initPortfolio();
                         }
                     }, 50);
                 }
