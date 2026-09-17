@@ -313,6 +313,7 @@
   border: 1px solid rgba(43, 140, 255, 0.3);
 }
 
+<<<<<<< Updated upstream
 /* Botões de Ação nas Listas */
 .pl-action-btn {
   background-color: transparent !important;
@@ -386,6 +387,8 @@
   transform: translateY(0) !important;
 }
 
+=======
+>>>>>>> Stashed changes
 /* Botão Cadastrar Admin */
 .pl-btn-admin-register {
   background: transparent;

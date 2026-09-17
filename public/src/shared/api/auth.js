@@ -61,7 +61,7 @@ async function registerUser(formData) {
             credentials: 'include', // Importante para sessão local ou CSRF futuros
             body: formData // Não definir Content-Type: browser define boundary automaticamente
         });
-        
+
         if (response.redirected || response.ok) {
             return { success: true };
         }
@@ -72,6 +72,7 @@ async function registerUser(formData) {
         console.error('[Auth] Erro no cadastro:', error.message);
         return { success: false, message: error.message };
     }
+
 }
 
 // Recuperar Senha
@@ -84,7 +85,7 @@ async function recoverPassword(email) {
             credentials: 'include',
             body: JSON.stringify({ email })
         });
-        
+
         if (response.redirected || response.ok) {
             return { success: true };
         }
@@ -121,7 +122,7 @@ async function logoutUser() {
     } catch (e) {
         console.error('Erro no logout remoto', e);
     }
-    
+
     // Limpe os dados locais
     sessionStorage.removeItem('prolink_user');
     window.location.hash = '#auth';

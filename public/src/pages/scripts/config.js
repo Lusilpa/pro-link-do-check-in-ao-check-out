@@ -1,4 +1,4 @@
-window.initConfig = function() {
+﻿window.initConfig = function() {
     if (window._configInitialized) return;
     window._configInitialized = true;
 
@@ -16,19 +16,19 @@ window.initConfig = function() {
         'politicas':     'src/entities/config/layouts/politicas.html',
     };
 
-    // Função para Injetar o Subcomponente e trocar a tela
+    // FunÃ§Ã£o para Injetar o Subcomponente e trocar a tela
     async function openComponent(targetKey) {
         const filePath = componentMap[targetKey];
         
         if (!filePath) {
-            alert(`A tela de ${targetKey} ainda está em desenvolvimento.`);
+            alert(`A tela de ${targetKey} ainda estÃ¡ em desenvolvimento.`);
             return;
         }
 
         try {
             slot.innerHTML = `<p style="color: var(--prolink-accent);">Carregando ${targetKey}...</p>`;
             
-            // Transição visual
+            // TransiÃ§Ã£o visual
             menuArea.classList.add('d-none');
             dynamicArea.classList.remove('d-none');
 
@@ -41,7 +41,7 @@ window.initConfig = function() {
             // Executa os scripts internos do subcomponente
             slot.querySelectorAll('script').forEach(oldScript => {
                 const newScript = document.createElement('script');
-                if (oldScript.src) newScript.src = oldScript.src;
+                if (oldScript.src) { newScript.src = oldScript.src; newScript.async = false; }
                 else newScript.textContent = oldScript.textContent;
                 document.body.appendChild(newScript);
                 oldScript.remove();
@@ -53,7 +53,7 @@ window.initConfig = function() {
         }
     }
 
-    // Adiciona evento de clique em todos os botões do menu (atributo data-target)
+    // Adiciona evento de clique em todos os botÃµes do menu (atributo data-target)
     document.querySelectorAll('[data-target]').forEach(btn => {
         btn.addEventListener('click', function() {
             const target = this.getAttribute('data-target');
@@ -61,26 +61,26 @@ window.initConfig = function() {
         });
     });
 
-    // Botão Voltar (Retorna ao Menu Principal)
+    // BotÃ£o Voltar (Retorna ao Menu Principal)
     if (btnBack) {
         btnBack.addEventListener('click', () => {
             dynamicArea.classList.add('d-none');
             menuArea.classList.remove('d-none');
-            slot.innerHTML = ''; // Limpa a memória do slot atual
+            slot.innerHTML = ''; // Limpa a memÃ³ria do slot atual
         });
     }
 
-    // Lógica do Botão Sair
+    // LÃ³gica do BotÃ£o Sair
     if (btnLogout) {
         btnLogout.addEventListener('click', () => {
-            // Aqui você pode limpar localStorage/sessionStorage
+            // Aqui vocÃª pode limpar localStorage/sessionStorage
             // localStorage.removeItem('userToken');
             window.location.hash = '#'; // Redireciona para a tela de login/auth
         });
     }
 };
 
-// Limpeza da flag ao sair da rota de configurações
+// Limpeza da flag ao sair da rota de configuraÃ§Ãµes
 window.addEventListener('hashchange', function() {
     if (window.location.hash !== '#config') {
         window._configInitialized = false;
