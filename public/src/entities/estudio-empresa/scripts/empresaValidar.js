@@ -84,7 +84,6 @@
         btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Enviando...';
 
         try {
-            // OBS: Esta rota não existe atualmente no backend e precisa ser criada
             await apiRequest('/empresa/validar', {
                 method: 'POST',
                 headers: {}, // Passar headers vazio para que o FormData injete o multipart/form-data corretamente e sobresscreva o BaseHeaders

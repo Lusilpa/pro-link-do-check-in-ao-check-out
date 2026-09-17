@@ -24,13 +24,17 @@ async function getMyPortfolio() {
 
 async function criarPortfolio(dados = {}) {
     try {
+        // O backend exige o campo "_csrf" em todo POST (CsrfMiddleware) - ver mesma
+        // correção em shared/api/mudancaSenha.js e dados-pessoais.js.
+        const _csrf = await getCsrfToken();
+
         const response = await fetch(`${API_BASE_URL}/portfolio`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             credentials: 'include',
-            body: JSON.stringify(dados)
+            body: JSON.stringify({ ...dados, _csrf })
         });
 
         const data = await response.json().catch(() => ({}));

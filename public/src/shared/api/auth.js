@@ -2,10 +2,8 @@
 // Gerenciamento de Sessão
 // Consagra funções para login, cadastro, recuperação de senha e autenticação social. Gerencia a persistência da sessão via cookies nativos.
 
-// A URL Base já está declarada no _http.js.
-// Constantes
-// URL Base da API
-// Declarado localmente para que o script de autenticação seja independente de _http.js.
+// A URL Base (API_BASE_URL) já está declarada em _http.js, carregado antes deste
+// arquivo em index.html - não redeclarar aqui (ver comentário em _http.js).
 
 // Token CSRF
 // Obtencao sob demanda
@@ -111,6 +109,32 @@ async function recoverPassword(email) {
         throw new Error(data.message || 'Erro ao solicitar recuperação de senha.');
     } catch (error) {
         console.error('[Auth] Erro na recuperação de senha:', error.message);
+        return { success: false, message: error.message };
+    }
+}
+
+// Redefinir Senha
+// Consome o token recebido por e-mail (link gerado em AuthController::recoverPassword)
+// e grava a nova senha.
+async function resetPassword(token, password) {
+    try {
+        const _csrf = await fetchCsrfToken();
+        const response = await fetch(`${API_BASE_URL}/reset-password`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify({ token, password, _csrf })
+        });
+
+        const data = await response.json().catch(() => ({}));
+
+        if (!response.ok) {
+            throw new Error(data.message || 'Erro ao redefinir a senha.');
+        }
+
+        return { success: true };
+    } catch (error) {
+        console.error('[Auth] Erro ao redefinir senha:', error.message);
         return { success: false, message: error.message };
     }
 }

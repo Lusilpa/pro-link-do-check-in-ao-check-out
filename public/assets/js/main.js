@@ -6,6 +6,7 @@ $(document).ready(function () {
         '#landing': 'src/pages/layouts/landing.html',
         '#auth': 'src/pages/layouts/auth.html',
         '#senha': 'src/pages/layouts/recuperacaoSenha.html',
+        '#redefinir-senha': 'src/pages/layouts/redefinirSenha.html',
         '#termos-e-lgpd': 'src/pages/layouts/termosElgpd.html',
         '#cadastro': 'src/pages/layouts/cadastreSe.html',
 
@@ -103,19 +104,23 @@ $(document).ready(function () {
 
     // Motor de renderização das páginas e animação das barras
     function loadPage(hash) {
-        const rotasPublicas = ['', '#landing', '#auth', '#senha', '#termos-e-lgpd', '#cadastro'];
+        // O link de redefinição de senha (e-mail) chega como "#redefinir-senha?token=...":
+        // a parte depois do "?" e o token consumido pela propria pagina, nao faz parte da rota.
+        const [hashSemQuery] = hash.split('?');
+
+        const rotasPublicas = ['', '#landing', '#auth', '#senha', '#redefinir-senha', '#termos-e-lgpd', '#cadastro'];
 
         const estaAutenticado = !!localStorage.getItem('userToken') || !!sessionStorage.getItem('prolink_user');
 
-        if (!rotasPublicas.includes(hash) && !estaAutenticado) {
+        if (!rotasPublicas.includes(hashSemQuery) && !estaAutenticado) {
             window.location.hash = '#auth';
             return;
         }
 
-        const pageUrl = routes[hash] || routes['#landing'];
+        const pageUrl = routes[hashSemQuery] || routes['#landing'];
 
         // Oculta a Navbar e o Top Bar (Ajusta tela cheia para auth/cadastro)
-        if (hash === '#auth' || hash === '#senha' || hash === '#cadastro' || hash === '#termos-e-lgpd' || hash === '#landing') {
+        if (hashSemQuery === '#auth' || hashSemQuery === '#senha' || hashSemQuery === '#redefinir-senha' || hashSemQuery === '#cadastro' || hashSemQuery === '#termos-e-lgpd' || hashSemQuery === '#landing') {
             $navbarContainer.removeClass('d-flex').addClass('d-none');
             $topbarContainer.addClass('d-none');
             $appContent.removeClass('container mt-2 pt-3 mb-5 pb-5').addClass('p-0 m-0');

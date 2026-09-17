@@ -26,9 +26,11 @@ function renderFeedCard(postData) {
                     <span class="pl-user-role">${postData.author_role} • ${postData.time_ago}</span>
                 </div>
             </div>
+            <!-- Botão de opções do post (sem ação implementada ainda)
             <button class="pl-btn-options" aria-label="Opções do post">
                 <i class="bi bi-three-dots-vertical" aria-hidden="true"></i>
             </button>
+            -->
         </div>
 
         <div class="pl-feed-body">
