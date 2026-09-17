@@ -56,6 +56,12 @@ $(document).ready(function () {
     ).done(function () {
         console.log("Pro-Link: Navbar e TopBar carregadas com sucesso.");
         initRouter();
+
+        $(document).on('click', 'a[href="#perfil"]', async function () {
+            if (typeof window.criarPortfolio === 'function') {
+                await window.criarPortfolio();
+            }
+        });
         // Aplica o estado ativo correto após a navbar estar no DOM
         updateNavState(window.location.hash || '#auth');
     });

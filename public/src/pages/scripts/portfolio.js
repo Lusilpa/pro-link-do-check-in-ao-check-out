@@ -15,6 +15,10 @@
         $('#portfolioName').text(data.usuario.nome);
         $('#portfolioTitle').text(data.profissional.categoria_profissional);
         $('#portfolioEmail').text(data.usuario.email);
+        const cidade = (data.usuario?.cidade || '').trim();
+        const estado = (data.usuario?.estado || '').trim();
+        const localizacao = [cidade, estado].filter(Boolean).join(' - ');
+        $('#portfolioLocation').text(localizacao || 'Não informada');
 
         if (data.profissional.registro_validado) {
             $('#portfolioBadges').html(`
@@ -28,7 +32,7 @@
 
         let socialHtml = '';
         if (data.portfolio.links_contato.linkedin) socialHtml += `<a href="${data.portfolio.links_contato.linkedin}" target="_blank"><i class="bi bi-linkedin"></i></a>`;
-        if (data.portfolio.links_contato.github)   socialHtml += `<a href="${data.portfolio.links_contato.github}" target="_blank"><i class="bi bi-github"></i></a>`;
+        if (data.portfolio.links_contato.github) socialHtml += `<a href="${data.portfolio.links_contato.github}" target="_blank"><i class="bi bi-github"></i></a>`;
         $('#portfolioSocialLinks').html(socialHtml);
     }
 

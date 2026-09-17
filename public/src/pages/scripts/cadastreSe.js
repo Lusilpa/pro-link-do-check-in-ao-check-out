@@ -79,7 +79,7 @@
             submitBtn.disabled = true;
 
             const formData = new FormData(registerForm);
-            
+
             // Requer que a função global registerUser já esteja declarada no projeto (ex: auth.js)
             const result = await window.registerUser(formData);
 
