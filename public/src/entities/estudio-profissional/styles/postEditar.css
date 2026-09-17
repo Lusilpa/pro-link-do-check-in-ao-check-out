@@ -1,2 +1,93 @@
 /* Estilos para postEditar */
 
+/* Preview do novo arquivo escolhido em #postEditar-midia (mesmo padrao de
+   postCriar.css / .pl-attachment-item de cartas virtuais). */
+.pl-post-midia-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+  background: rgba(255, 255, 255, 0.05);
+  border-left: 3px solid var(--prolink-blue);
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  color: var(--prolink-light);
+  margin-top: 0.75rem;
+}
+
+.pl-post-midia-item span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.pl-post-midia-item button {
+  background: transparent;
+  border: none;
+  color: #ef4444;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* Mídia já salva no post (exibida antes de trocar por um novo arquivo). */
+.pl-post-midia-atual {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(43, 140, 255, 0.2);
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  color: var(--prolink-light);
+  margin-bottom: 0.75rem;
+}
+
+.pl-post-midia-atual img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.pl-post-midia-atual span {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.pl-post-midia-atual button {
+  background: transparent;
+  border: none;
+  color: #ef4444;
+  cursor: pointer;
+  flex-shrink: 0;
+  font-size: 0.8rem;
+}
+
+#btn-post-editar-cancelar {
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.7);
+  font-family: var(--font-primary, 'Ubuntu', sans-serif);
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 12px 24px;
+  cursor: pointer;
+}
+
+#btn-post-editar-cancelar:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+  color: var(--prolink-light);
+}

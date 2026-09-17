@@ -1,2 +1,35 @@
 /* Estilos para portfolioCriar */
 
+/* Preview de cada imagem escolhida em #port-galeria (mesmo padrao de
+   postCriar.css / .pl-attachment-item de cartas virtuais). */
+.pl-galeria-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+  background: rgba(255, 255, 255, 0.05);
+  border-left: 3px solid var(--prolink-blue);
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  color: var(--prolink-light);
+}
+
+.pl-galeria-item span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.pl-galeria-item button {
+  background: transparent;
+  border: none;
+  color: #ef4444;
+  cursor: pointer;
+  flex-shrink: 0;
+}
