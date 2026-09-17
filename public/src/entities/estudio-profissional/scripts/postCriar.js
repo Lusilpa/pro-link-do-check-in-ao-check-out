@@ -1,13 +1,14 @@
 (function initPostCriar() {
     console.log('Script postCriar inicializado com integração fetch (apiRequest).');
 
-    const btnPostar = document.getElementById('btn-postar-feed');
+    const btnPostar = document.getElementById('btn-publicar-post');
 
     if (btnPostar) {
         btnPostar.addEventListener('click', async () => {
             if (btnPostar.disabled) return;
 
-            const textInput = document.getElementById('post-texto');
+            const titleInput = document.getElementById('post-titulo');
+            const textInput = document.getElementById('post-conteudo');
             const mediaInput = document.getElementById('post-midia');
 
             if (!textInput || textInput.value.trim() === '') {
@@ -17,9 +18,13 @@
 
             const formData = new FormData();
             formData.append('conteudo', textInput.value.trim());
-            
+
             if (mediaInput && mediaInput.files.length > 0) {
                 formData.append('midia', mediaInput.files[0]);
+            }
+
+            if (titleInput && titleInput.value.trim() !== '') {
+                formData.append('titulo', titleInput.value.trim());
             }
 
             const originalHtml = btnPostar.innerHTML;
@@ -46,7 +51,7 @@
             } catch (error) {
                 console.error("Falha ao criar post:", error);
                 alert(`Não foi possível realizar a publicação: ${error.message}`);
-                
+
                 btnPostar.innerHTML = originalHtml;
                 btnPostar.disabled = false;
             }

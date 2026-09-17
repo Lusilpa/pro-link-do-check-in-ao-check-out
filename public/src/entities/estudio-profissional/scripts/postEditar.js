@@ -1,42 +1,62 @@
 (function initPostEditar() {
-    console.log('Script postEditar inicializado com integração preparada.');
+    const container = document.getElementById('postListContainer');
 
-    const editButtons = document.querySelectorAll('.pl-estudio-item-btn[title="Editar"]');
+    async function loadPosts() {
+        try {
+            const posts = await getUserPosts();
 
-    editButtons.forEach(btn => {
-        btn.addEventListener('click', function () {
-            // Em uma integração real, nós buscaríamos o ID do post
-            // Supondo que a estrutura use data-id no card principal
-            const card = this.closest('.pl-estudio-item-card');
-
-            // Simulação de extração de ID do elemento DOM (ex: id="post-item-123" ou data-id="123")
-            let postId = card.getAttribute('data-id');
-            if (!postId && card.id) {
-                postId = card.id.replace('post-item-', '');
+            if (!posts.length) {
+                container.innerHTML = '<p class="pl-empty-text">Você ainda não tem publicações.</p>';
+                return;
             }
 
-            // Fallback se não achar id no mock
-            if (!postId) postId = 'simulado';
+            container.innerHTML = posts.map(renderPostCard).join('');
+        } catch (err) {
+            console.error('Erro ao carregar posts:', err);
+            container.innerHTML = '<p class="pl-error-text">Não foi possível carregar suas publicações.</p>';
+        }
+    }
 
-            const postTitle = card.querySelector('h5')?.innerText || 'Post';
+    function renderPostCard(post) {
+        const dataFormatada = formatarData(post.dataDePostagem);
 
-            console.log(`Iniciando edição do post: ${postTitle} (ID: ${postId})`);
+        return `
+            <div class="pl-estudio-item-card" data-id="${post.id}">
+                <div class="pl-estudio-item-info">
+                    <h5>${escapeHtml(post.titulo)}</h5>
+                    <p>Publicado em: ${dataFormatada}</p>
+                </div>
+                <div class="pl-estudio-item-actions">
+                    <button class="pl-estudio-item-btn" title="Editar">
+                        <i class="bi bi-pencil"></i>
+                    </button>
+                </div>
+            </div>
+        `;
+    }
 
-            // Redireciona para o formulário de edição passando o ID via hash ou query string
-            // ex: window.location.hash = `#post-editar-form?id=${encodeURIComponent(postId)}`;
+    function formatarData(dataString) {
+        // "2026-09-17 10:47:52" -> troca o espaço por T
+        // (Safari não parseia string de data com espaço)
+        const data = new Date(dataString.replace(' ', 'T'));
+        return data.toLocaleDateString('pt-BR');
+    }
 
-            // Apenas para feedback visual temporário
-            const originalContent = this.innerHTML;
-            this.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
-            this.disabled = true;
+    function escapeHtml(str) {
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
+    }
 
-            setTimeout(() => {
-                // Simulando navegação
-                console.log(`Navegando para rota de edição: #post-editar-form?id=${postId}`);
-                alert(`Integração: Redirecionando para editar o post ID ${postId}...`);
-                this.innerHTML = originalContent;
-                this.disabled = false;
-            }, 600);
-        });
+    container.addEventListener('click', function (e) {
+        const btn = e.target.closest('.pl-estudio-item-btn[title="Editar"]');
+        if (!btn) return;
+
+        const card = btn.closest('.pl-estudio-item-card');
+        const postId = card.dataset.id;
+
+        window.location.hash = `#post-editar-form?id=${encodeURIComponent(postId)}`;
     });
+
+    loadPosts();
 })();
