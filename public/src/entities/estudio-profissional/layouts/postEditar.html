@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="src/entities/estudio-profissional/styles/estudio-sub.css">
-
+<link rel="stylesheet" href="src/entities/estudio-profissional/styles/postEditar.css">
 <div class="pl-estudio-sub-fullscreen-bg"></div>
 
 <div class="pl-estudio-sub-page-wrapper">
@@ -18,29 +18,23 @@
       
       <div class="pl-estudio-item-list">
         
-        <!-- Fake Data -->
-        <div class="pl-estudio-item-card">
-          <div class="pl-estudio-item-info">
-            <h5>Reforma Estrutural: Antes e Depois</h5>
-            <p>Publicado em: 10/09/2026 • 150 curtidas</p>
+        <!-- Loading State -->
+        <div id="postEditar-loading" class="pl-estudio-sub-empty-state">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Carregando...</span>
           </div>
-          <div class="pl-estudio-item-actions">
-            <button class="pl-estudio-item-btn" title="Editar">
-              <i class="bi bi-pencil"></i>
-            </button>
-          </div>
+          <p class="mt-3">Buscando suas publicações...</p>
         </div>
 
-        <div class="pl-estudio-item-card">
-          <div class="pl-estudio-item-info">
-            <h5>Novo Projeto de Interiores</h5>
-            <p>Publicado em: 05/09/2026 • 89 curtidas</p>
-          </div>
-          <div class="pl-estudio-item-actions">
-            <button class="pl-estudio-item-btn" title="Editar">
-              <i class="bi bi-pencil"></i>
-            </button>
-          </div>
+        <!-- Empty State -->
+        <div id="postEditar-empty" class="pl-estudio-sub-empty-state d-none">
+          <i class="bi bi-chat-square-text"></i>
+          <h4>Nenhum Post</h4>
+          <p>Você ainda não fez nenhuma publicação na comunidade.</p>
+        </div>
+
+        <div id="postEditar-list" class="d-none" style="width: 100%; display: flex; flex-direction: column; gap: 1rem;">
+            <!-- Posts rendered here -->
         </div>
 
       </div>
@@ -49,3 +43,4 @@
 
   </div>
 </div>
+<script src="src/entities/estudio-profissional/scripts/postEditar.js"></script>

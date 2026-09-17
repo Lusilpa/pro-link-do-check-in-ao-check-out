@@ -4,7 +4,8 @@
 
   <div class="pl-cfg-alert">
     <i class="bi bi-shield-lock"></i>
-    <span>Para sua segurança, confirme sua senha atual antes de definir uma nova. A nova senha deve ter no mínimo 8 caracteres.</span>
+    <span>Para sua segurança, confirme sua senha atual antes de definir uma nova. A nova senha deve ter no mínimo 8
+      caracteres.</span>
   </div>
 
   <!-- Seção: Senha Atual -->
@@ -14,7 +15,8 @@
     </h4>
     <div class="pl-cfg-field">
       <label class="pl-cfg-label" for="cfg-senha-atual">Senha Atual</label>
-      <input class="pl-cfg-input" type="password" id="cfg-senha-atual" placeholder="••••••••" autocomplete="current-password">
+      <input class="pl-cfg-input" type="password" id="cfg-senha-atual" placeholder="••••••••"
+        autocomplete="current-password">
     </div>
   </div>
 
@@ -28,20 +30,25 @@
     <div class="pl-cfg-field-group">
       <div class="pl-cfg-field">
         <label class="pl-cfg-label" for="cfg-nova-senha">Nova Senha</label>
-        <input class="pl-cfg-input" type="password" id="cfg-nova-senha" placeholder="••••••••" autocomplete="new-password">
+        <input class="pl-cfg-input" type="password" id="cfg-nova-senha" placeholder="••••••••"
+          autocomplete="new-password">
         <p class="pl-cfg-hint">Mínimo 8 caracteres. Use letras maiúsculas, números e símbolos.</p>
       </div>
 
       <div class="pl-cfg-field">
         <label class="pl-cfg-label" for="cfg-confirmar-senha">Confirmar Nova Senha</label>
-        <input class="pl-cfg-input" type="password" id="cfg-confirmar-senha" placeholder="••••••••" autocomplete="new-password">
+        <input class="pl-cfg-input" type="password" id="cfg-confirmar-senha" placeholder="••••••••"
+          autocomplete="new-password">
       </div>
 
       <!-- Indicador de força -->
       <div>
         <p class="pl-cfg-hint" style="margin-bottom: 0.4rem;">Força da senha:</p>
-        <div id="cfg-senha-strength-bar" style="height: 4px; border-radius: 2px; background: rgba(255,255,255,0.1); overflow: hidden;">
-          <div id="cfg-senha-strength-fill" style="height: 100%; width: 0%; border-radius: 2px; transition: width 0.3s ease, background-color 0.3s ease;"></div>
+        <div id="cfg-senha-strength-bar"
+          style="height: 4px; border-radius: 2px; background: rgba(255,255,255,0.1); overflow: hidden;">
+          <div id="cfg-senha-strength-fill"
+            style="height: 100%; width: 0%; border-radius: 2px; transition: width 0.3s ease, background-color 0.3s ease;">
+          </div>
         </div>
         <p id="cfg-senha-strength-label" class="pl-cfg-hint" style="margin-top: 0.3rem;"></p>
       </div>
@@ -55,14 +62,14 @@
 </div>
 
 <script>
-  (function() {
+  (function () {
     const inputNova = document.getElementById('cfg-nova-senha');
     const fill = document.getElementById('cfg-senha-strength-fill');
     const label = document.getElementById('cfg-senha-strength-label');
 
     function calcForce(pwd) {
       let score = 0;
-      if (pwd.length >= 8)  score++;
+      if (pwd.length >= 8) score++;
       if (pwd.length >= 12) score++;
       if (/[A-Z]/.test(pwd)) score++;
       if (/[0-9]/.test(pwd)) score++;
@@ -71,14 +78,14 @@
     }
 
     if (inputNova) {
-      inputNova.addEventListener('input', function() {
+      inputNova.addEventListener('input', function () {
         const score = calcForce(this.value);
         const map = [
-          { w: '0%',   c: 'transparent', t: '' },
-          { w: '25%',  c: '#ff4d4d',     t: 'Fraca' },
-          { w: '50%',  c: '#ffc107',     t: 'Razoável' },
-          { w: '75%',  c: '#2b8cff',     t: 'Boa' },
-          { w: '100%', c: '#00d278',     t: 'Forte' },
+          { w: '0%', c: 'transparent', t: '' },
+          { w: '25%', c: '#ff4d4d', t: 'Fraca' },
+          { w: '50%', c: '#ffc107', t: 'Razoável' },
+          { w: '75%', c: '#2b8cff', t: 'Boa' },
+          { w: '100%', c: '#00d278', t: 'Forte' },
         ];
         const s = map[Math.min(score, 4)];
         fill.style.width = s.w;
@@ -89,9 +96,9 @@
 
     const btn = document.getElementById('btn-alterar-senha');
     if (btn) {
-      btn.addEventListener('click', function() {
-        const atual   = document.getElementById('cfg-senha-atual').value;
-        const nova    = document.getElementById('cfg-nova-senha').value;
+      btn.addEventListener('click', function () {
+        const atual = document.getElementById('cfg-senha-atual').value;
+        const nova = document.getElementById('cfg-nova-senha').value;
         const confirma = document.getElementById('cfg-confirmar-senha').value;
 
         if (!atual || !nova || !confirma) return;
@@ -113,3 +120,6 @@
     }
   })();
 </script>
+
+<script src="src/shared/api/mudancaSenha.js"></script>
+<script src="src/entities/config/scripts/mudancaSenha.js"></script>

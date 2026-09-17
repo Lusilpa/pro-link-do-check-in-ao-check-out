@@ -1,0 +1,37 @@
+<link rel="stylesheet" href="src/pages/styles/estudioProfissional.css">
+
+<!-- Fundo fixo cobrindo a tela toda (padrão das demais páginas) -->
+<div class="pl-estudio-fullscreen-bg"></div>
+
+<div class="pl-estudio-page-wrapper">
+  <div class="pl-estudio-main-container">
+
+    <div class="pl-estudio-header">
+      <h2>Painel da Empresa</h2>
+      <p>Gerencie suas demandas de projetos, analise os candidatos e mantenha os dados da sua organização atualizados.</p>
+    </div>
+
+    <div class="pl-estudio-grid">
+      <!-- Slot 1: Gerenciamento de Demandas (Esquerda) -->
+      <div class="pl-estudio-grid-item" id="slot-demanda-gerenciar">
+        <div class="pl-estudio-loading">Carregando Demandas...</div>
+      </div>
+
+      <!-- Slot 2: Analise de Candidatos (Direita) -->
+      <div class="pl-estudio-grid-item" id="slot-candidatos-analisar">
+        <div class="pl-estudio-loading">Carregando Candidatos...</div>
+      </div>
+
+      <!-- Slot 3: Editar Empresa e Validação (Base Completa) -->
+      <div class="pl-estudio-grid-item pl-grid-full-width" id="slot-empresa-editar">
+        <div class="pl-estudio-loading">Carregando Perfil da Empresa...</div>
+      </div>
+
+      <!-- Slot 4: Logs de Auditoria (Base Completa) -->
+      <div class="pl-estudio-grid-item pl-grid-full-width" id="slot-audit-logs">
+        <div class="pl-estudio-loading">Carregando Auditoria...</div>
+      </div>
+    </div>
+
+  </div>
+</div>

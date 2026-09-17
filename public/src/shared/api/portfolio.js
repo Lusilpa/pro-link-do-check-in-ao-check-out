@@ -1,7 +1,3 @@
-const userSession = JSON.parse(sessionStorage.getItem('prolink_user') || '{}');
-
-const userId = userSession.id;
-
 // Buscar Portfólio do Usuário Logado
 // GET /portfolio/me
 // Usa a sessão (cookie) pra saber de quem é o portfólio — mesmo
@@ -25,6 +21,33 @@ async function getMyPortfolio() {
         return { success: false, message: error.message };
     }
 }
+
+async function criarPortfolio(dados = {}) {
+    try {
+        const response = await fetch(`${API_BASE_URL}/portfolio`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+            body: JSON.stringify(dados)
+        });
+
+        const data = await response.json().catch(() => ({}));
+
+        if (!response.ok) {
+            throw new Error(data.message || 'Erro ao criar portfolio');
+        }
+
+        return { success: true, data };
+    } catch (error) {
+        console.error('[Portfolio] Falha na criacao automatica do portfolio:', error.message);
+        return { success: false, message: error.message };
+    }
+
+}
+
+window.criarPortfolio = criarPortfolio;
 
 // Buscar Portfólio Público de Outro Usuário
 // GET /portfolio/:id
@@ -56,5 +79,5 @@ async function getPortfolioById(userId) {
 // se não receber nada, busca o portfólio do usuário LOGADO.
 // Isso evita que pages/scripts/portfolio.js precise decidir isso sozinho.
 async function fetchPortfolio(userId = null) {
-    return userId ? getPortfolioById(userId) : getMyPortfolio(userId);
+    return userId ? getPortfolioById(userId) : getMyPortfolio();
 }
