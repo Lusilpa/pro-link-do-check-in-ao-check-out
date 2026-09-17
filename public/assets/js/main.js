@@ -82,6 +82,15 @@ $(document).ready(function () {
 
     // Motor de renderização das páginas e animação das barras
     function loadPage(hash) {
+        const rotasPublicas = ['', '#landing', '#auth', '#senha', '#termos-e-lgpd', '#cadastro'];
+
+        const estaAutenticado = !!localStorage.getItem('userToken') || !!sessionStorage.getItem('prolink_user');
+
+        if (!rotasPublicas.includes(hash) && !estaAutenticado) {
+            window.location.hash = '#auth';
+            return;
+        }
+
         const pageUrl = routes[hash] || routes['#landing'];
 
         // Oculta a Navbar e o Top Bar (Ajusta tela cheia para auth/cadastro)
