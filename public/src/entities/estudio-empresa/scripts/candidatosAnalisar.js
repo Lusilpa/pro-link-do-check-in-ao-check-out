@@ -129,9 +129,13 @@
       listEl.classList.add('d-none');
       emptyEl.classList.add('d-none');
 
-      // Obs: a rota do backend exige o ID da demanda na URL: /demandas/{id}/interesses
-      // Se não houver filtro, passamos 'todas' ou deixamos a responsabilidade para o backend
-      let url = demandaIdFilter ? `/demandas/${demandaIdFilter}/interesses` : `/meus-interesses`;
+      // Se não houver filtro e for empresa, não deve chamar /meus-interesses (que é rota de estudante)
+      if (!demandaIdFilter) {
+          loadingEl.classList.add('d-none');
+          emptyEl.classList.remove('d-none');
+          return;
+      }
+      let url = `/demandas/${demandaIdFilter}/interesses`;
 
       try {
           const data = await apiRequest(url, {

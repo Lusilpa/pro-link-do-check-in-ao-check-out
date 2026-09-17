@@ -5,8 +5,9 @@
     const errorMsg = document.getElementById('demandaGerenciar-error-msg');
     const listEl = document.getElementById('demandaGerenciar-list');
 
-    // Simulação do ID da empresa logada (deve vir do seu Auth Context)
-    const empresaId = localStorage.getItem('empresaId') || '1'; 
+    // ID da empresa logada vindo do Auth Context
+    const user = typeof getAuthUser === 'function' ? getAuthUser() : null;
+    const empresaId = user ? user.id : '1';
 
     function renderDemandas(demandas) {
         loadingEl.classList.add('d-none');

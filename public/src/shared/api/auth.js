@@ -2,10 +2,21 @@
 // Gerenciamento de Sessão
 // Consagra funções para login, cadastro, recuperação de senha e autenticação social. Gerencia a persistência da sessão via cookies nativos.
 
-// A URL Base já está declarada no _http.js.
-// Constantes
-// URL Base da API
-// Declarado localmente para que o script de autenticação seja independente de _http.js.
+// A URL Base (API_BASE_URL) já está declarada em _http.js, carregado antes deste
+// arquivo em index.html - não redeclarar aqui (ver comentário em _http.js).
+
+// Token CSRF
+// Obtencao sob demanda
+// O backend exige o campo "_csrf" em todo POST (CsrfMiddleware). Como esta SPA nao
+// renderiza os formularios via View do PHP, buscamos o token vigente da sessao
+// atraves do endpoint GET /csrf-token antes de cada envio.
+async function fetchCsrfToken() {
+    const response = await fetch(`${API_BASE_URL}/csrf-token`, {
+        credentials: 'include',
+    });
+    const data = await response.json();
+    return data.csrf_token;
+}
 
 // Obter Usuário Logado
 // Leitura de Perfil Local
@@ -30,11 +41,12 @@ function isUserAuthenticated() {
 // Envia e-mail e senha para o servidor com credentials incluídas.
 async function loginUser(credentials) {
     try {
+        const _csrf = await fetchCsrfToken();
         const response = await fetch(`${API_BASE_URL}/auth/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include', // Necessário para salvar o cookie de sessão do PHP
-            body: JSON.stringify(credentials)
+            body: JSON.stringify({ ...credentials, _csrf })
         });
         const data = await response.json().catch(() => ({}));
 
@@ -56,6 +68,8 @@ async function loginUser(credentials) {
 // Criação de nova conta
 async function registerUser(formData) {
     try {
+        const _csrf = await fetchCsrfToken();
+        formData.append('_csrf', _csrf);
         const response = await fetch(`${API_BASE_URL}/auth/register`, {
             method: 'POST',
             credentials: 'include', // Importante para sessão local ou CSRF futuros
@@ -79,11 +93,12 @@ async function registerUser(formData) {
 // Fluxo de redefinição
 async function recoverPassword(email) {
     try {
+        const _csrf = await fetchCsrfToken();
         const response = await fetch(`${API_BASE_URL}/recover-password`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
-            body: JSON.stringify({ email })
+            body: JSON.stringify({ email, _csrf })
         });
 
         if (response.redirected || response.ok) {
@@ -94,6 +109,32 @@ async function recoverPassword(email) {
         throw new Error(data.message || 'Erro ao solicitar recuperação de senha.');
     } catch (error) {
         console.error('[Auth] Erro na recuperação de senha:', error.message);
+        return { success: false, message: error.message };
+    }
+}
+
+// Redefinir Senha
+// Consome o token recebido por e-mail (link gerado em AuthController::recoverPassword)
+// e grava a nova senha.
+async function resetPassword(token, password) {
+    try {
+        const _csrf = await fetchCsrfToken();
+        const response = await fetch(`${API_BASE_URL}/reset-password`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify({ token, password, _csrf })
+        });
+
+        const data = await response.json().catch(() => ({}));
+
+        if (!response.ok) {
+            throw new Error(data.message || 'Erro ao redefinir a senha.');
+        }
+
+        return { success: true };
+    } catch (error) {
+        console.error('[Auth] Erro ao redefinir senha:', error.message);
         return { success: false, message: error.message };
     }
 }
