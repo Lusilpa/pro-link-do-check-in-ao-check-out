@@ -1,4 +1,4 @@
-﻿window.initConfig = function() {
+﻿window.initConfig = function () {
     if (window._configInitialized) return;
     window._configInitialized = true;
 
@@ -7,19 +7,19 @@
     const slot = document.getElementById('config-component-slot');
     const btnBack = document.getElementById('btn-config-back');
     const btnLogout = document.getElementById('btn-logout');
-    
+
     // Mapeamento completo de sub-componentes
     const componentMap = {
         'dadosPessoais': 'src/entities/config/layouts/dadosPessoais.html',
-        'mudancaSenha':  'src/entities/config/layouts/mudancaSenha.html',
-        'mudancaConta':  'src/entities/config/layouts/mudancaConta.html',
-        'politicas':     'src/entities/config/layouts/politicas.html',
+        'mudancaSenha': 'src/entities/config/layouts/mudancaSenha.html',
+        'mudancaConta': 'src/entities/config/layouts/mudancaConta.html',
+        'politicas': 'src/entities/config/layouts/politicas.html',
     };
 
     // FunÃ§Ã£o para Injetar o Subcomponente e trocar a tela
     async function openComponent(targetKey) {
         const filePath = componentMap[targetKey];
-        
+
         if (!filePath) {
             alert(`A tela de ${targetKey} ainda estÃ¡ em desenvolvimento.`);
             return;
@@ -27,7 +27,7 @@
 
         try {
             slot.innerHTML = `<p style="color: var(--prolink-accent);">Carregando ${targetKey}...</p>`;
-            
+
             // TransiÃ§Ã£o visual
             menuArea.classList.add('d-none');
             dynamicArea.classList.remove('d-none');
@@ -35,7 +35,7 @@
             // Busca o componente interno
             const response = await fetch(filePath);
             if (!response.ok) throw new Error(`HTTP ${response.status}`);
-            
+
             slot.innerHTML = await response.text();
 
             // Executa os scripts internos do subcomponente
@@ -55,7 +55,7 @@
 
     // Adiciona evento de clique em todos os botÃµes do menu (atributo data-target)
     document.querySelectorAll('[data-target]').forEach(btn => {
-        btn.addEventListener('click', function() {
+        btn.addEventListener('click', function () {
             const target = this.getAttribute('data-target');
             if (target) openComponent(target);
         });
@@ -74,14 +74,20 @@
     if (btnLogout) {
         btnLogout.addEventListener('click', () => {
             // Aqui vocÃª pode limpar localStorage/sessionStorage
-            // localStorage.removeItem('userToken');
-            window.location.hash = '#'; // Redireciona para a tela de login/auth
+            localStorage.removeItem('userToken');
+
+            sessionStorage.removeItem('prolink_user');
+            sessionStorage.clear();
+            localStorage.clear();
+
+
+            window.location.replace('#auth'); // Redireciona para a tela de login/auth
         });
     }
 };
 
 // Limpeza da flag ao sair da rota de configuraÃ§Ãµes
-window.addEventListener('hashchange', function() {
+window.addEventListener('hashchange', function () {
     if (window.location.hash !== '#config') {
         window._configInitialized = false;
     }
