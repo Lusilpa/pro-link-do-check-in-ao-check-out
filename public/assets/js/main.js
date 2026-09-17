@@ -69,6 +69,12 @@ $(document).ready(function () {
         }
 
         initRouter();
+
+        $(document).on('click', 'a[href="#perfil"]', async function () {
+            if (typeof window.criarPortfolio === 'function') {
+                await window.criarPortfolio();
+            }
+        });
         // Aplica o estado ativo correto após a navbar estar no DOM
         updateNavState(window.location.hash || '#auth');
     });
