@@ -1,6 +1,6 @@
 (function initPostManagement() {
     const actionCreate = document.getElementById('actionCreatePost');
-    const actionEdit   = document.getElementById('actionEditPost');
+    const actionEdit = document.getElementById('actionEditPost');
     const actionDelete = document.getElementById('actionDeletePost');
 
     if (actionCreate) {

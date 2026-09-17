@@ -42,6 +42,8 @@
 
             loadingEl.classList.add('d-none');
 
+            const posts = response.data || [];
+
             postsCache = response.data || [];
 
             if (postsCache.length === 0) {
@@ -82,174 +84,13 @@
     function vincularEventosEdicao() {
         document.querySelectorAll('.btn-editar-post').forEach(btn => {
             btn.addEventListener('click', function () {
-                const postId = Number(this.getAttribute('data-target'));
-                const post = postsCache.find(p => p.id === postId);
-                if (post) abrirFormularioEdicao(post);
+                const postId = this.getAttribute('data-target');
+                sessionStorage.setItem('editarPostId', postId);
+                window.location.hash = '#post-criar'; // AJUSTAR: coloque aqui o hash real que abre a tela de criar post
             });
         });
     }
 
-    // --------------------------------------------------------------
-    // Alternância entre a lista e o formulário de edição
-    // --------------------------------------------------------------
-    function abrirFormularioEdicao(post) {
-        postEmEdicao = post;
-        removerMidiaAtual = false;
-
-        tituloInput.value = post.titulo || '';
-        conteudoInput.value = post.conteudo || '';
-        if (mediaInput) mediaInput.value = '';
-        renderMediaPreview();
-        renderMidiaAtual();
-
-        viewList.classList.add('d-none');
-        viewForm.classList.remove('d-none');
-    }
-
-    function voltarParaLista() {
-        postEmEdicao = null;
-        viewForm.classList.add('d-none');
-        viewList.classList.remove('d-none');
-    }
-
-    if (btnCancelar) {
-        btnCancelar.addEventListener('click', voltarParaLista);
-    }
-
-    // --------------------------------------------------------------
-    // Mídia já salva no post (some se o usuário remover ou trocar por outra)
-    // --------------------------------------------------------------
-    function renderMidiaAtual() {
-        if (!mediaAtualEl) return;
-        mediaAtualEl.innerHTML = '';
-
-        if (!postEmEdicao || !postEmEdicao.imagemUrl || removerMidiaAtual) return;
-
-        const isPdf = /\.pdf(\?|$)/i.test(postEmEdicao.imagemUrl);
-
-        const item = document.createElement('div');
-        item.className = 'pl-post-midia-atual';
-
-        if (isPdf) {
-            const icon = document.createElement('i');
-            icon.className = 'bi bi-file-earmark-pdf';
-            icon.style.fontSize = '1.4rem';
-            icon.style.color = 'var(--prolink-blue)';
-            item.appendChild(icon);
-        } else {
-            const img = document.createElement('img');
-            img.src = postEmEdicao.imagemUrl;
-            img.alt = 'Mídia atual do post';
-            item.appendChild(img);
-        }
-
-        const label = document.createElement('span');
-        label.textContent = 'Mídia atual do post';
-        item.appendChild(label);
-
-        const removeBtn = document.createElement('button');
-        removeBtn.type = 'button';
-        removeBtn.textContent = 'Remover';
-        removeBtn.addEventListener('click', () => {
-            removerMidiaAtual = true;
-            renderMidiaAtual();
-        });
-        item.appendChild(removeBtn);
-
-        mediaAtualEl.appendChild(item);
-    }
-
-    // --------------------------------------------------------------
-    // Preview do novo arquivo escolhido (mesmo padrão de postCriar.js)
-    // --------------------------------------------------------------
-    function renderMediaPreview() {
-        if (!mediaPreview) return;
-        mediaPreview.innerHTML = '';
-
-        if (!mediaInput || mediaInput.files.length === 0) return;
-
-        const file = mediaInput.files[0];
-        const icon = file.type === 'application/pdf' ? 'bi-file-earmark-pdf' : 'bi-file-earmark-image';
-
-        const item = document.createElement('div');
-        item.className = 'pl-post-midia-item';
-
-        const label = document.createElement('span');
-        const iconEl = document.createElement('i');
-        iconEl.className = `bi ${icon}`;
-        label.appendChild(iconEl);
-        label.appendChild(document.createTextNode(' ' + file.name));
-
-        const removeBtn = document.createElement('button');
-        removeBtn.type = 'button';
-        removeBtn.setAttribute('aria-label', 'Remover arquivo');
-        removeBtn.innerHTML = '<i class="bi bi-trash3-fill"></i>';
-        removeBtn.addEventListener('click', () => {
-            mediaInput.value = '';
-            renderMediaPreview();
-            renderMidiaAtual();
-        });
-
-        item.appendChild(label);
-        item.appendChild(removeBtn);
-        mediaPreview.appendChild(item);
-
-        // Escolher um novo arquivo substitui a mídia atual - some o bloco "mídia atual".
-        if (mediaAtualEl) mediaAtualEl.innerHTML = '';
-    }
-
-    if (mediaInput) {
-        mediaInput.addEventListener('change', renderMediaPreview);
-    }
-
-    // --------------------------------------------------------------
-    // Salvar alterações (POST /posts/edit)
-    // --------------------------------------------------------------
-    if (btnSalvar) {
-        btnSalvar.addEventListener('click', async () => {
-            if (btnSalvar.disabled || !postEmEdicao) return;
-
-            if (!conteudoInput || conteudoInput.value.trim() === '') {
-                alert('Escreva algo antes de salvar.');
-                return;
-            }
-
-            const formData = new FormData();
-            formData.append('id', postEmEdicao.id);
-            if (tituloInput && tituloInput.value.trim() !== '') {
-                formData.append('titulo', tituloInput.value.trim());
-            }
-            formData.append('conteudo', conteudoInput.value.trim());
-
-            if (mediaInput && mediaInput.files.length > 0) {
-                formData.append('midia', mediaInput.files[0]);
-            } else if (removerMidiaAtual) {
-                formData.append('remover_midia', '1');
-            }
-
-            const originalHtml = btnSalvar.innerHTML;
-            btnSalvar.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Salvando...';
-            btnSalvar.disabled = true;
-
-            try {
-                await apiRequest('/posts/edit', {
-                    method: 'POST',
-                    headers: {},
-                    body: formData
-                });
-
-                if (window.prolinkToast) window.prolinkToast('Post atualizado com sucesso!');
-                voltarParaLista();
-                carregarPosts();
-            } catch (error) {
-                console.error('Falha ao atualizar post:', error);
-                alert(`Não foi possível salvar as alterações: ${error.message}`);
-            } finally {
-                btnSalvar.innerHTML = originalHtml;
-                btnSalvar.disabled = false;
-            }
-        });
-    }
 
     carregarPosts();
 })();

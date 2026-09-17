@@ -25,7 +25,7 @@
     function getTipoPerfil() {
         try {
             const userSession = JSON.parse(sessionStorage.getItem('prolink_user') || '{}');
-            const tipo = userSession.tipoPerfil || userSession.profile_type || userSession.tipo || userSession.perfil;
+            const tipo = userSession.tipoConta;
             if (tipo) return tipo.toLowerCase();
             if (userSession.cnpj || userSession.tipoPessoa === 'JURIDICA') return 'empresa';
         } catch (e) {

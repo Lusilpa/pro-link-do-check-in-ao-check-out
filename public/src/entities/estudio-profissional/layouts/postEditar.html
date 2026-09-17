@@ -4,7 +4,7 @@
 
 <div class="pl-estudio-sub-page-wrapper">
   <div class="pl-estudio-sub-main-container">
-    
+
     <button class="pl-btn-back-estudio" onclick="window.location.hash = '#criacao'">
       <i class="bi bi-arrow-left"></i> Voltar ao Estúdio
     </button>
@@ -44,56 +44,7 @@
       </div>
     </div>
 
-    <!-- ===================== VISÃO 2: FORMULÁRIO DE EDIÇÃO ===================== -->
-    <div id="postEditar-view-form" class="d-none">
-      <div class="pl-estudio-sub-header">
-        <h2 class="pl-estudio-sub-title">Editar Publicação</h2>
-        <p class="pl-estudio-sub-subtitle">Atualize o título, o conteúdo ou a mídia do post.</p>
-      </div>
-
-      <div class="pl-estudio-sub-panel">
-        <div class="pl-estudio-sub-field-group">
-
-          <div class="pl-estudio-sub-field">
-            <label class="pl-estudio-sub-label" for="postEditar-titulo">Título da Publicação</label>
-            <input class="pl-estudio-sub-input" type="text" id="postEditar-titulo" placeholder="Ex: Dicas para aprovação de projetos...">
-          </div>
-
-          <div class="pl-estudio-sub-field">
-            <label class="pl-estudio-sub-label" for="postEditar-conteudo">Conteúdo</label>
-            <textarea class="pl-estudio-sub-textarea" id="postEditar-conteudo" rows="6" placeholder="Escreva o conteúdo do seu post aqui..."></textarea>
-          </div>
-
-          <div class="pl-estudio-sub-field">
-            <label class="pl-estudio-sub-label">Imagem ou Mídia (opcional)</label>
-
-            <!-- Mídia atual do post (some quando um novo arquivo é escolhido ou removida) -->
-            <div id="postEditar-midia-atual"></div>
-
-            <div class="pl-estudio-sub-alert" style="cursor: pointer;" onclick="document.getElementById('postEditar-midia').click()">
-              <i class="bi bi-image"></i>
-              <div>
-                <strong style="color: var(--prolink-light); display: block;">Trocar Arquivo</strong>
-                <span style="font-size: 0.8rem;">Clique para selecionar um novo JPG, PNG ou PDF (max 5MB) — substitui o atual</span>
-              </div>
-            </div>
-            <input type="file" id="postEditar-midia" class="d-none" accept="image/*, .pdf">
-            <div id="postEditar-midia-preview"></div>
-          </div>
-
-        </div>
-
-        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-          <button class="pl-estudio-sub-btn-save" id="btn-post-editar-salvar">
-            <i class="bi bi-save"></i> Salvar Alterações
-          </button>
-          <button class="pl-btn-back-estudio" id="btn-post-editar-cancelar" type="button" style="margin: 0;">
-            Cancelar
-          </button>
-        </div>
-      </div>
-    </div>
-
   </div>
 </div>
+<script src="src/shared/api/postEditar.js"></script>
 <script src="src/entities/estudio-profissional/scripts/postEditar.js"></script>
