@@ -1,23 +1,21 @@
 var API_URL = (typeof API_BASE_URL !== 'undefined') ? API_BASE_URL : 'http://localhost:8080';
 
-async function getUserPosts() {
-    const response = await fetch(`${API_BASE_URL}/posts`, {
+async function getPostById(id) {
+    const response = await fetch(`${API_BASE_URL}/posts/${id}`, {
         method: 'GET',
         credentials: 'include'
     });
 
     if (!response.ok) {
-        throw new Error(`Erro ${response.status} ao buscar posts`);
+        throw new Error(`Erro ${response.status} ao buscar post`);
     }
     const json = await response.json();
     return json.data;
 }
 
 async function updatePost(id, data) {
-    const response = await fetch(`${API_BASE_URL}/posts/edit`, {
+    return apiRequest(`/posts/edit/${id}`, {
         method: 'POST',
-        credentials: 'include',
-        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
     });
 

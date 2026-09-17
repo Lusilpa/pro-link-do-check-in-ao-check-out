@@ -7,7 +7,7 @@
 
     async function carregarPosts() {
         if (!loadingEl || !emptyEl || !listEl) return;
-        
+
         loadingEl.classList.remove('d-none');
         emptyEl.classList.add('d-none');
         listEl.classList.add('d-none');
@@ -21,9 +21,9 @@
             }
 
             const response = await apiRequest(`/posts?usuario_id=${user.id}`, { method: 'GET' });
-            
+
             loadingEl.classList.add('d-none');
-            
+
             const posts = response.data || [];
 
             if (posts.length === 0) {
@@ -64,12 +64,14 @@
 
     function vincularEventosEdicao() {
         document.querySelectorAll('.btn-editar-post').forEach(btn => {
-            btn.addEventListener('click', function() {
+            btn.addEventListener('click', function () {
                 const postId = this.getAttribute('data-target');
-                alert("Redirecionando para editar post: " + postId);
+                sessionStorage.setItem('editarPostId', postId);
+                window.location.hash = '#post-criar'; // AJUSTAR: coloque aqui o hash real que abre a tela de criar post
             });
         });
     }
+
 
     carregarPosts();
 })();
