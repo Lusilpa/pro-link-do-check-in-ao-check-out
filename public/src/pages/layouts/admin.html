@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="src/pages/styles/admin.css">
+<link rel="stylesheet" href="src/pages/styles/admin.css?v=2">
 
 <div class="pl-admin-fullscreen-bg"></div>
 
@@ -124,7 +124,7 @@
         <div class="pl-admin-card">
           <div class="pl-admin-card-header">
             <h4 class="pl-admin-card-title">Monitoramento em Tempo Real</h4>
-            <a href="#" class="pl-admin-card-action">Ver log completo</a>
+            <a href="javascript:void(0)" class="pl-admin-card-action">Ver log completo</a>
           </div>
           <div class="pl-list-container" id="recentRegistrationsList">
             <div class="pl-estudio-loading" style="padding: 1rem;">Carregando...</div>
@@ -162,7 +162,7 @@
         <div class="pl-admin-card">
           <div class="pl-admin-card-header">
             <h4 class="pl-admin-card-title">Moderação de Portfólios (CAT)</h4>
-            <a href="#" class="pl-admin-card-action">Ver fila de aprovação</a>
+            <a href="javascript:void(0)" class="pl-admin-card-action">Ver fila de aprovação</a>
           </div>
 
           <div class="pl-mini-cards-wrapper">
@@ -187,6 +187,53 @@
         </div>
 
       </div>
+      </div>
+
+      <!-- ================= LINHA 4: GESTÃO DE ESTUDANTES ================= -->
+      <div style="margin-top: 1.5rem;">
+        
+        <!-- Gestão de Universitários -->
+        <div class="pl-admin-card">
+          <div class="pl-admin-card-header">
+            <h4 class="pl-admin-card-title">Gestão de Universitários (Aprovação)</h4>
+            <a href="javascript:void(0)" class="pl-admin-card-action" onclick="loadUniversitarios()">Atualizar</a>
+          </div>
+          <div class="pl-list-container" id="universitariosList" style="max-height: 250px; overflow-y: auto;">
+            <div class="pl-estudio-loading" style="padding: 1rem;">Nenhum estudante pendente...</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ================= LINHA 5: APURAÇÃO DE DENÚNCIAS ================= -->
+      <div style="margin-top: 1.5rem;">
+        
+        <!-- Apuração de Denúncias -->
+        <div class="pl-admin-card">
+          <div class="pl-admin-card-header">
+            <h4 class="pl-admin-card-title">Apuração de Denúncias (Moderação)</h4>
+            <a href="javascript:void(0)" class="pl-admin-card-action" onclick="loadDenuncias()">Atualizar</a>
+          </div>
+          <div class="pl-list-container" id="denunciasList" style="max-height: 250px; overflow-y: auto;">
+            <div class="pl-estudio-loading" style="padding: 1rem;">Fila de denúncias limpa...</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ================= LINHA 6: LOGS DE AUDITORIA ================= -->
+      <div style="margin-top: 1.5rem;">
+        <div class="pl-admin-card">
+          <div class="pl-admin-card-header">
+            <h4 class="pl-admin-card-title">Logs de Auditoria (Rastreabilidade)</h4>
+            <a href="javascript:void(0)" class="pl-admin-card-action" onclick="loadAuditoria()">Atualizar</a>
+          </div>
+          <div class="pl-list-container" id="auditoriaList" style="max-height: 300px; overflow-y: auto;">
+            <div class="pl-estudio-loading" style="padding: 1rem;">Carregando logs...</div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>

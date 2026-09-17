@@ -55,6 +55,19 @@ $(document).ready(function () {
         $topbarContainer.load('src/app/layouts/topBar.html')
     ).done(function () {
         console.log("Pro-Link: Navbar e TopBar carregadas com sucesso.");
+        
+        // Roteamento dinâmico do botão de Studio (5º botão)
+        const user = typeof getAuthUser === 'function' ? getAuthUser() : null;
+        if (user && user.perfil) {
+            let studioHref = '#criacao'; // Default (Estudante/Profissional)
+            if (user.perfil.includes('EMPRESA')) {
+                studioHref = '#painel-empresa';
+            } else if (user.perfil.includes('ADMIN')) {
+                studioHref = '#admin';
+            }
+            $('#nav-btn-studio').attr('href', studioHref);
+        }
+
         initRouter();
 
         $(document).on('click', 'a[href="#perfil"]', async function () {

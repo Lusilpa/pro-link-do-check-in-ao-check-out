@@ -2,8 +2,7 @@
 // Gerenciamento de Sessão
 // Consagra funções para login, cadastro, recuperação de senha e autenticação social. Gerencia a persistência da sessão via cookies nativos.
 
-const API_BASE_URL = 'http://localhost:8080';
-
+// A URL Base já está declarada no _http.js.
 // Constantes
 // URL Base da API
 // Declarado localmente para que o script de autenticação seja independente de _http.js.
@@ -37,15 +36,15 @@ async function loginUser(credentials) {
             credentials: 'include', // Necessário para salvar o cookie de sessão do PHP
             body: JSON.stringify(credentials)
         });
-
-        // O backend faz redirect no sucesso (Response::redirect('/feed'))
+        const data = await response.json().catch(() => ({}));
+        
+        // O backend faz redirect no sucesso (Response::redirect('/feed')) ou retorna 200
         if (response.redirected || response.ok) {
             // Em caso de sucesso de login, definimos um usuário básico localmente para a flag de logado
-            sessionStorage.setItem('prolink_user', JSON.stringify({ email: credentials.email }));
+            sessionStorage.setItem('prolink_user', JSON.stringify(data.user || { email: credentials.email }));
             return { success: true };
         }
 
-        const data = await response.json().catch(() => ({}));
         throw new Error(data.message || 'Erro ao realizar login.');
     } catch (error) {
         console.error('[Auth] Erro no login:', error.message);
