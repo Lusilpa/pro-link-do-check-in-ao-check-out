@@ -72,7 +72,10 @@ function mapPostFromApi(post) {
         content: post.conteudo,
         likes_count: post.curtidas ?? 0,
         comments_count: post.comentarios ?? 0,
-        liked_by_me: !!post.curtidoPorMim
+        liked_by_me: !!post.curtidoPorMim,
+        // URL absoluta (backend) da midia anexada ao post, se houver - ver
+        // PostRepository::hydrate() / imagem_caminho.
+        image_url: post.imagemUrl || null
     };
 }
 

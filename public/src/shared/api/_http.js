@@ -52,20 +52,27 @@ async function apiRequest(endpoint, options = {}) {
         ...options,
     };
 
-    if (!['GET', 'HEAD'].includes(method)) {
+    const isMutating = !['GET', 'HEAD'].includes(method);
+
+    if (isMutating) {
         const _csrf = await getCsrfToken();
-        if (isFormData) {
-            config.body.append('_csrf', _csrf);
-        } else {
-            let bodyObj = {};
-            if (typeof config.body === 'string') {
-                try { bodyObj = JSON.parse(config.body); } catch { bodyObj = {}; }
-            }
-            config.body = JSON.stringify({ ...bodyObj, _csrf });
-        }
+        aplicarCsrf(config, isFormData, _csrf);
     }
 
-    const response = await fetch(url, config);
+    let response = await fetch(url, config);
+
+    // O token CSRF fica em cache em memória (getCsrfToken) durante a vida da página.
+    // Se a sessão do servidor for reiniciada/expirar nesse meio tempo (deploy, restart,
+    // sessão expirada por inatividade), o token em cache fica inválido e toda requisição
+    // que altera estado falha com 419 até a página ser recarregada manualmente. Em vez
+    // disso, busca um token novo e tenta mais uma vez antes de desistir.
+    if (response.status === 419 && isMutating) {
+        _cachedCsrfToken = null;
+        const _csrfNovo = await getCsrfToken();
+        aplicarCsrf(config, isFormData, _csrfNovo);
+        response = await fetch(url, config);
+    }
+
     const data = await response.json().catch(() => null);
 
     if (!response.ok) {
@@ -74,4 +81,19 @@ async function apiRequest(endpoint, options = {}) {
     }
 
     return data;
+}
+
+// Substitui o campo "_csrf" no corpo da requisição (FormData ou JSON) pelo valor
+// informado - usado tanto no envio inicial quanto na nova tentativa após um 419.
+function aplicarCsrf(config, isFormData, _csrf) {
+    if (isFormData) {
+        config.body.delete('_csrf');
+        config.body.append('_csrf', _csrf);
+    } else {
+        let bodyObj = {};
+        if (typeof config.body === 'string') {
+            try { bodyObj = JSON.parse(config.body); } catch { bodyObj = {}; }
+        }
+        config.body = JSON.stringify({ ...bodyObj, _csrf });
+    }
 }
