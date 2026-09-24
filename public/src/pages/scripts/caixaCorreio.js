@@ -14,7 +14,13 @@
         toast.className = `pl-toast ${type === 'error' ? 'toast-error' : ''}`;
         const icon = type === 'error' ? 'bi-exclamation-octagon' : 'bi-check-circle';
         
-        toast.innerHTML = `<i class="bi ${icon} pl-toast-icon"></i> <span>${message}</span>`;
+        const iconEl = document.createElement('i');
+        iconEl.className = `bi ${icon} pl-toast-icon`;
+
+        const textEl = document.createElement('span');
+        textEl.textContent = String(message ?? '');
+
+        toast.append(iconEl, textEl);
         container.appendChild(toast);
         
         setTimeout(() => {

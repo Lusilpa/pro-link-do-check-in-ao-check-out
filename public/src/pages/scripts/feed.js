@@ -1,10 +1,10 @@
 $(document).ready(function() {
-    
+
   // 1. Carrega a Barra Lateral
   $('#lateral-inject-area').load('src/entities/feed/layouts/lateral.html', function(response, status, xhr) {
       if(status == "error") console.error("Erro ao carregar menu lateral:", xhr.status, xhr.statusText);
   });
-  
+
   // ==========================================
   // CARREGAMENTO DESKTOP (Coluna da Direita)
   // ==========================================

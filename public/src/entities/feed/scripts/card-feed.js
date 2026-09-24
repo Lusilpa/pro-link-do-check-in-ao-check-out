@@ -8,6 +8,13 @@
 // Substitui o uso de jQuery $.ajax por fetch() centralizado.
 // ==========================================
 
+
+function escapeHtml(value) {
+    return String(value ?? '').replace(/[&<>'"]/g, ch => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
+    })[ch]);
+}
+
 /**
  * Transforma os dados de um post em HTML de card.
  * @param {Object} postData
@@ -15,38 +22,36 @@
  */
 function renderFeedCard(postData) {
     return `
-    <div class="pl-feed-card" data-post-id="${postData.id}">
+    <div class="pl-feed-card" data-post-id="${escapeHtml(postData.id)}">
         <div class="pl-feed-header">
             <div class="pl-user-info">
                 <div class="pl-avatar-teal">
                     <i class="bi bi-person-fill" aria-hidden="true"></i>
                 </div>
                 <div class="pl-user-meta">
-                    <h6 class="pl-user-name">${postData.author_name}</h6>
-                    <span class="pl-user-role">${postData.author_role} • ${postData.time_ago}</span>
+                    <h6 class="pl-user-name">${escapeHtml(postData.author_name)}</h6>
+                    <span class="pl-user-role">${escapeHtml(postData.author_role)} • ${escapeHtml(postData.time_ago)}</span>
                 </div>
             </div>
-            <!-- Botão de opções do post (sem ação implementada ainda)
             <button class="pl-btn-options" aria-label="Opções do post">
                 <i class="bi bi-three-dots-vertical" aria-hidden="true"></i>
             </button>
-            -->
         </div>
 
         <div class="pl-feed-body">
-            <h4 class="pl-feed-title">${postData.title}</h4>
-            <p class="pl-feed-text">${postData.content}</p>
+            <h4 class="pl-feed-title">${escapeHtml(postData.title)}</h4>
+            <p class="pl-feed-text">${escapeHtml(postData.content)}</p>
         </div>
 
         <div class="pl-feed-footer">
             <div class="pl-action-stat">
-                <i class="bi bi-heart" aria-hidden="true"></i> <span>${postData.likes_count}</span>
+                <i class="bi bi-heart" aria-hidden="true"></i> <span>${escapeHtml(postData.likes_count)}</span>
             </div>
             <div class="pl-action-stat">
-                <i class="bi bi-chat-text" aria-hidden="true"></i> <span>${postData.comments_count}</span>
+                <i class="bi bi-chat-text" aria-hidden="true"></i> <span>${escapeHtml(postData.comments_count)}</span>
             </div>
             <div class="pl-action-stat">
-                <i class="bi bi-bar-chart-fill" aria-hidden="true"></i> <span>${postData.views_count}</span>
+                <i class="bi bi-bar-chart-fill" aria-hidden="true"></i> <span>${escapeHtml(postData.views_count)}</span>
             </div>
         </div>
     </div>
@@ -71,4 +76,4 @@ async function loadFeed() {
     }
 
     container.innerHTML = posts.map(renderFeedCard).join('');
-}
+}

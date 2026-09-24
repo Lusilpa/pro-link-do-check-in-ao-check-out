@@ -7,7 +7,7 @@
 
     async function carregarPosts() {
         if (!loadingEl || !emptyEl || !listEl) return;
-        
+
         loadingEl.classList.remove('d-none');
         emptyEl.classList.add('d-none');
         listEl.classList.add('d-none');
@@ -21,9 +21,9 @@
             }
 
             const response = await apiRequest(`/posts?usuario_id=${user.id}`, { method: 'GET' });
-            
+
             loadingEl.classList.add('d-none');
-            
+
             const posts = response.data || [];
 
             if (posts.length === 0) {
@@ -66,11 +66,11 @@
             btn.addEventListener('click', async function() {
                 const targetId = this.getAttribute('data-target');
                 const card = document.getElementById(targetId);
-                
+
                 const postId = targetId.replace('post-item-', '');
 
                 if (card && confirm('Tem certeza que deseja remover este post permanentemente?')) {
-                    
+
                     const originalContent = this.innerHTML;
                     this.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
                     this.disabled = true;
@@ -79,9 +79,9 @@
                         // Não há um POST /posts/{id}/remover explícito no routes,
                         // Vamos supor que seja DELETE /posts/{id} ou algo similar.
                         // Wait! O PostController::destroy usa ID via payload no body caso seja um request POST,
-                        // mas a rota atual não mapeia DELETE ou similar. 
+                        // mas a rota atual não mapeia DELETE ou similar.
                         // Vou verificar como delete funciona no PostController (destroy).
-                        
+
                         await apiRequest(`/posts/${postId}/remover`, {
                             method: 'POST'
                         });
@@ -98,7 +98,7 @@
                     } catch (error) {
                         console.error("Falha ao remover o post:", error);
                         alert(`Não foi possível excluir o post: ${error.message}`);
-                        
+
                         this.innerHTML = originalContent;
                         this.disabled = false;
                     }

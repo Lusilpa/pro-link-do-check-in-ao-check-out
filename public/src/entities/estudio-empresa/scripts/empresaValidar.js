@@ -32,7 +32,7 @@
             'REJEITADA': { icon: 'bi-x-octagon', color: '#ff4d4d', label: 'Verificação Rejeitada', desc: 'Revise os documentos e tente novamente.' }
         };
         const s = map[status] || map['NAO_SOLICITADA'];
-        
+
         if(statusInfo) {
             statusInfo.innerHTML =
                 `<h5 style="color: ${s.color};"><i class="bi ${s.icon}"></i> ${s.label}</h5>` +
@@ -94,9 +94,9 @@
             btn.innerHTML = '<i class="bi bi-check-circle"></i> Documentos Enviados!';
             btn.style.color = '#00d278';
             btn.style.borderColor = '#00d278';
-            
+
             renderStatus('PENDENTE', new Date().toLocaleDateString('pt-BR'));
-            
+
             feedback.classList.remove('d-none', 'pl-estudio-sub-alert--warning');
             feedback.innerHTML = '<i class="bi bi-check-circle"></i> <span>Solicitação enviada. Acompanhe o status nesta tela.</span>';
 
@@ -104,7 +104,7 @@
             console.error("Erro ao enviar documentos:", error);
             btn.disabled = false;
             btn.innerHTML = originalBtnHTML;
-            
+
             feedback.classList.remove('d-none');
             feedback.classList.add('pl-estudio-sub-alert--warning');
             feedback.innerHTML = `<i class="bi bi-exclamation-triangle"></i> <span>Erro ao enviar arquivos: ${error.message}</span>`;

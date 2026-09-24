@@ -218,7 +218,7 @@ window.addEventListener('hashchange', function () {
 window.loadUniversitarios = async function() {
     const list = document.getElementById('universitariosList');
     if (!list) return;
-    
+
     try {
         const data = await apiRequest('/admin/usuarios?perfil=ESTUDANTE');
         // Usamos profissionais_pendentes_validacao ou usuarios? Na nossa rota do AdminController

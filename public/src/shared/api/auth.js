@@ -2,18 +2,18 @@
 // Gerenciamento de Sessão
 // Consagra funções para login, cadastro, recuperação de senha e autenticação social. Gerencia a persistência da sessão via cookies nativos.
 
-// A URL Base (API_BASE_URL) já está declarada em _http.js, carregado antes deste
-// arquivo em index.html - não redeclarar aqui (ver comentário em _http.js).
+const AUTH_API_BASE_URL = 'http://localhost:8080';
 
-// Token CSRF
-// Obtencao sob demanda
-// O backend exige o campo "_csrf" em todo POST (CsrfMiddleware). Como esta SPA nao
-// renderiza os formularios via View do PHP, buscamos o token vigente da sessao
-// atraves do endpoint GET /csrf-token antes de cada envio.
-async function fetchCsrfToken() {
-    const response = await fetch(`${API_BASE_URL}/csrf-token`, {
-        credentials: 'include',
+// Constantes
+// URL Base da API
+// Declarado localmente para que o script de autenticação seja independente de _http.js.
+
+
+async function getCsrfToken() {
+    const response = await fetch(`${AUTH_API_BASE_URL}/csrf-token`, {
+        credentials: 'include'
     });
+    if (!response.ok) throw new Error('Não foi possível iniciar a sessão segura.');
     const data = await response.json();
     return data.csrf_token;
 }
@@ -41,20 +41,23 @@ function isUserAuthenticated() {
 // Envia e-mail e senha para o servidor com credentials incluídas.
 async function loginUser(credentials) {
     try {
-        const _csrf = await fetchCsrfToken();
-        const response = await fetch(`${API_BASE_URL}/auth/login`, {
+        const csrfToken = await getCsrfToken();
+        const response = await fetch(`${AUTH_API_BASE_URL}/auth/login`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken },
             credentials: 'include', // Necessário para salvar o cookie de sessão do PHP
-            body: JSON.stringify({ ...credentials, _csrf })
+            body: JSON.stringify(credentials)
         });
+
         const data = await response.json().catch(() => ({}));
 
-        // O backend faz redirect no sucesso (Response::redirect('/feed')) ou retorna 200
-        if (response.redirected || response.ok) {
-            // Em caso de sucesso de login, definimos um usuário básico localmente para a flag de logado
-            sessionStorage.setItem('prolink_user', JSON.stringify(data.user || { email: credentials.email }));
-            return { success: true };
+        if (response.ok) {
+            // O cookie HttpOnly continua sendo a fonte real de autenticação.
+            // O sessionStorage guarda apenas dados de apresentação retornados pelo servidor.
+            if (data.user) {
+                sessionStorage.setItem('prolink_user', JSON.stringify(data.user));
+            }
+            return { success: true, user: data.user ?? null };
         }
 
         throw new Error(data.message || 'Erro ao realizar login.');
@@ -68,11 +71,11 @@ async function loginUser(credentials) {
 // Criação de nova conta
 async function registerUser(formData) {
     try {
-        const _csrf = await fetchCsrfToken();
-        formData.append('_csrf', _csrf);
-        const response = await fetch(`${API_BASE_URL}/auth/register`, {
+        const csrfToken = await getCsrfToken();
+        const response = await fetch(`${AUTH_API_BASE_URL}/auth/register`, {
             method: 'POST',
-            credentials: 'include', // Importante para sessão local ou CSRF futuros
+            headers: { 'X-CSRF-Token': csrfToken },
+            credentials: 'include', // Importante para manter a sessão e validar CSRF
             body: formData // Não definir Content-Type: browser define boundary automaticamente
         });
 
@@ -86,19 +89,18 @@ async function registerUser(formData) {
         console.error('[Auth] Erro no cadastro:', error.message);
         return { success: false, message: error.message };
     }
-
 }
 
 // Recuperar Senha
 // Fluxo de redefinição
 async function recoverPassword(email) {
     try {
-        const _csrf = await fetchCsrfToken();
-        const response = await fetch(`${API_BASE_URL}/recover-password`, {
+        const csrfToken = await getCsrfToken();
+        const response = await fetch(`${AUTH_API_BASE_URL}/recover-password`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken },
             credentials: 'include',
-            body: JSON.stringify({ email, _csrf })
+            body: JSON.stringify({ email })
         });
 
         if (response.redirected || response.ok) {
@@ -113,17 +115,20 @@ async function recoverPassword(email) {
     }
 }
 
-// Redefinir Senha
-// Consome o token recebido por e-mail (link gerado em AuthController::recoverPassword)
-// e grava a nova senha.
+
+// Redefinir senha usando o token recebido por e-mail.
 async function resetPassword(token, password) {
     try {
-        const _csrf = await fetchCsrfToken();
-        const response = await fetch(`${API_BASE_URL}/reset-password`, {
+        const csrfToken = await getCsrfToken();
+
+        const response = await fetch(`${AUTH_API_BASE_URL}/reset-password`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-Token': csrfToken
+            },
             credentials: 'include',
-            body: JSON.stringify({ token, password, _csrf })
+            body: JSON.stringify({ token, password })
         });
 
         const data = await response.json().catch(() => ({}));
@@ -138,17 +143,16 @@ async function resetPassword(token, password) {
         return { success: false, message: error.message };
     }
 }
-
 // Login via Google
 // OAuth 2.0
 function loginWithGoogle() {
-    window.location.href = `${API_BASE_URL}/auth/google`; // Rotas sociais podem permanecer com /auth/ se criadas depois
+    window.location.href = `${AUTH_API_BASE_URL}/auth/google`; // Rotas sociais podem permanecer com /auth/ se criadas depois
 }
 
 // Login via LinkedIn
 // OAuth 2.0
 function loginWithLinkedIn() {
-    window.location.href = `${API_BASE_URL}/auth/linkedin`;
+    window.location.href = `${AUTH_API_BASE_URL}/auth/linkedin`;
 }
 
 // Logout
@@ -156,8 +160,10 @@ function loginWithLinkedIn() {
 async function logoutUser() {
     try {
         // Avise o backend para invalidar a sessão
-        await fetch(`${API_BASE_URL}/auth/logout`, {
+        const csrfToken = await getCsrfToken();
+        await fetch(`${AUTH_API_BASE_URL}/auth/logout`, {
             method: 'POST',
+            headers: { 'X-CSRF-Token': csrfToken },
             credentials: 'include'
         });
     } catch (e) {

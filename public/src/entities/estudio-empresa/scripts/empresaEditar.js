@@ -21,7 +21,7 @@
             form.nome.value      = data?.nome || '';
             form.email.value     = data?.email || '';
             form.telefone.value  = data?.telefone || '';
-            
+
         } catch (error) {
             console.error("Falha ao carregar dados da empresa:", error);
         }
@@ -59,10 +59,10 @@
             btn.innerHTML = '<i class="bi bi-check-circle"></i> Salvo!';
             btn.style.color = '#00d278';
             btn.style.borderColor = '#00d278';
-            
+
             feedback.classList.remove('d-none', 'pl-estudio-sub-alert--warning');
             feedback.innerHTML = '<i class="bi bi-check-circle"></i> <span>Dados atualizados com sucesso.</span>';
-            
+
             setTimeout(() => {
                 btn.disabled = false;
                 btn.innerHTML = originalBtnHTML;
@@ -72,10 +72,10 @@
 
         } catch (error) {
             console.error("Erro ao salvar perfil da empresa:", error);
-            
+
             btn.disabled = false;
             btn.innerHTML = originalBtnHTML;
-            
+
             feedback.classList.remove('d-none');
             feedback.classList.add('pl-estudio-sub-alert--warning');
             feedback.innerHTML = `<i class="bi bi-exclamation-triangle"></i> <span>Erro ao atualizar os dados: ${error.message}</span>`;
