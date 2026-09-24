@@ -7,7 +7,7 @@
 
     async function carregarProjetos() {
         if (!loadingEl || !emptyEl || !listEl) return;
-        
+
         loadingEl.classList.remove('d-none');
         emptyEl.classList.add('d-none');
         listEl.classList.add('d-none');
@@ -22,9 +22,9 @@
 
             // O backend retorna os projetos vinculados ao portfolio
             const response = await apiRequest(`/portfolio/${user.id}`, { method: 'GET' });
-            
+
             loadingEl.classList.add('d-none');
-            
+
             const projetos = response.projetos || [];
 
             if (projetos.length === 0) {
@@ -79,11 +79,11 @@
             btn.addEventListener('click', async function() {
                 const targetId = this.getAttribute('data-target');
                 const card = document.getElementById(targetId);
-                
+
                 const itemId = targetId.replace('port-item-', '');
 
                 if (card && confirm('Tem certeza que deseja remover este projeto do portfólio?')) {
-                    
+
                     const originalContent = this.innerHTML;
                     this.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
                     this.disabled = true;
@@ -106,14 +106,14 @@
                     } catch (error) {
                         console.error("Falha ao remover o projeto do portfólio:", error);
                         alert(`Não foi possível excluir o projeto: ${error.message}`);
-                        
+
                         this.innerHTML = originalContent;
                         this.disabled = false;
                     }
                 }
             });
         });
-        
+
         document.querySelectorAll('.btn-editar-port').forEach(btn => {
             btn.addEventListener('click', function() {
                 alert("A tela de edição específica será implementada.");

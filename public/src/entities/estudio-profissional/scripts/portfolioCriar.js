@@ -92,7 +92,7 @@
                 // Passar headers: {} permite que o multipart/form-data do FormData sobrescreva o application/json padrão
                 const data = await apiRequest('/projetos', {
                     method: 'POST',
-                    headers: {}, 
+                    headers: {},
                     body: formData
                 });
 
@@ -109,7 +109,7 @@
             } catch (error) {
                 console.error("Falha ao salvar projeto de portfólio:", error);
                 alert(`Não foi possível salvar o projeto: ${error.message}`);
-                
+
                 btnSalvar.innerHTML = originalText;
                 btnSalvar.disabled = false;
             }

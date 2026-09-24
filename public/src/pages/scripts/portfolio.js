@@ -11,18 +11,31 @@
     // (idênticas às originais — só a origem dos dados muda)
     // ==========================================
 
+
+    function escapeHtml(value) {
+        return String(value ?? '').replace(/[&<>'"]/g, ch => ({
+            '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
+        })[ch]);
+    }
+
+    function safeExternalUrl(value) {
+        if (!value) return null;
+        try {
+            const url = new URL(value, window.location.origin);
+            return ['http:', 'https:'].includes(url.protocol) ? url.href : null;
+        } catch (_) {
+            return null;
+        }
+    }
+
     function renderSidebar(data) {
         $('#portfolioName').text(data.usuario.nome);
         $('#portfolioTitle').text(data.profissional.categoria_profissional);
         $('#portfolioEmail').text(data.usuario.email);
-        const cidade = (data.usuario?.cidade || '').trim();
-        const estado = (data.usuario?.estado || '').trim();
-        const localizacao = [cidade, estado].filter(Boolean).join(' - ');
-        $('#portfolioLocation').text(localizacao || 'Não informada');
 
         if (data.profissional.registro_validado) {
             $('#portfolioBadges').html(`
-                <span class="pl-badge-crea" title="Registro: ${data.profissional.numero_registro_confea_crea}">
+                <span class="pl-badge-crea" title="Registro: ${escapeHtml(data.profissional.numero_registro_confea_crea)}">
                     <i class="bi bi-patch-check-fill"></i> CREA VALIDADO
                 </span>
             `);
@@ -31,39 +44,32 @@
         }
 
         let socialHtml = '';
-        if (data.portfolio.links_contato.linkedin) socialHtml += `<a href="${data.portfolio.links_contato.linkedin}" target="_blank"><i class="bi bi-linkedin"></i></a>`;
-        if (data.portfolio.links_contato.github) socialHtml += `<a href="${data.portfolio.links_contato.github}" target="_blank"><i class="bi bi-github"></i></a>`;
-        // ID real do container em portfolio.html é #portfolioLinks (não #portfolioSocialLinks
-        // - esse ID não existe na página, então os links nunca apareciam).
-        $('#portfolioLinks').html(socialHtml);
+        const linkedin = safeExternalUrl(data.portfolio.links_contato.linkedin);
+        const github = safeExternalUrl(data.portfolio.links_contato.github);
+        if (linkedin) socialHtml += `<a href="${escapeHtml(linkedin)}" target="_blank" rel="noopener noreferrer"><i class="bi bi-linkedin"></i></a>`;
+        if (github)   socialHtml += `<a href="${escapeHtml(github)}" target="_blank" rel="noopener noreferrer"><i class="bi bi-github"></i></a>`;
+        $('#portfolioSocialLinks').html(socialHtml);
     }
 
     function renderContent(data) {
-        // ID real do parágrafo em portfolio.html é #portfolioAbout (não #portfolioSummary
-        // - esse ID não existe na página, então o resumo nunca aparecia).
-        $('#portfolioAbout').text(data.portfolio.resumo_profissional || 'Nenhuma informação adicionada ainda.');
+        $('#portfolioSummary').text(data.portfolio.resumo_profissional);
 
         let skillsHtml = '';
         data.competencias.forEach(skill => {
-            skillsHtml += `<span class="pl-skill-badge" title="Nível: ${skill.nivel}">${skill.nome}</span>`;
+            skillsHtml += `<span class="pl-skill-badge" title="Nível: ${escapeHtml(skill.nivel)}">${escapeHtml(skill.nome)}</span>`;
         });
         $('#portfolioSkills').html(skillsHtml);
 
         $('#portfolioAcervo').html(`
             <div class="pl-acervo-card">
-                <h4>${data.acervo_tecnico.arts_aprovadas}</h4>
+                <h4>${escapeHtml(data.acervo_tecnico.arts_aprovadas)}</h4>
                 <span>ARTs Aprovadas</span>
             </div>
             <div class="pl-acervo-card">
-                <h4>${data.acervo_tecnico.cats_validas}</h4>
+                <h4>${escapeHtml(data.acervo_tecnico.cats_validas)}</h4>
                 <span>CATs Válidas</span>
             </div>
         `);
-
-        // Projetos do portfólio (nível principal, não exige vínculo com uma experiência
-        // - ver PortfolioController::show(), campo "projetos"). Os vinculados a uma
-        // experiência específica continuam aparecendo também dentro dela, mais abaixo.
-        renderProjetos(data.projetos || []);
 
         let expHtml = '';
         data.experiencias.forEach(exp => {
@@ -73,8 +79,8 @@
                 exp.projetos.forEach(proj => {
                     projHtml += `
                         <div class="pl-project-item">
-                            <h5 class="pl-project-title"><i class="bi bi-rocket-takeoff"></i> ${proj.titulo}</h5>
-                            <p class="pl-project-desc">${proj.descricao}</p>
+                            <h5 class="pl-project-title"><i class="bi bi-rocket-takeoff"></i> ${escapeHtml(proj.titulo)}</h5>
+                            <p class="pl-project-desc">${escapeHtml(proj.descricao)}</p>
                         </div>
                     `;
                 });
@@ -84,44 +90,16 @@
             expHtml += `
                 <div class="pl-experience-card">
                     <div class="pl-exp-header">
-                        <h4 class="pl-exp-title">${exp.titulo_posicao_servico}</h4>
-                        <span class="pl-exp-company">${exp.organizacao_cliente}</span>
-                        <div class="pl-exp-date">${exp.data_inicio} — ${exp.data_fim}</div>
+                        <h4 class="pl-exp-title">${escapeHtml(exp.titulo_posicao_servico)}</h4>
+                        <span class="pl-exp-company">${escapeHtml(exp.organizacao_cliente)}</span>
+                        <div class="pl-exp-date">${escapeHtml(exp.data_inicio)} — ${escapeHtml(exp.data_fim)}</div>
                     </div>
-                    <p class="pl-section-text">${exp.descricao_atividades}</p>
+                    <p class="pl-section-text">${escapeHtml(exp.descricao_atividades)}</p>
                     ${projHtml}
                 </div>
             `;
         });
         $('#portfolioExperience').html(expHtml);
-    }
-
-    // Renderiza a lista de projetos do portfólio, com a galeria de imagens (se houver
-    // - ver ProjetoController::store()/update() e projeto_imagens).
-    function renderProjetos(projetos) {
-        const $container = $('#portfolioProjects');
-        if (!$container.length) return;
-
-        if (!projetos || projetos.length === 0) {
-            $container.html('<p class="pl-section-text" style="opacity: 0.6;">Nenhum projeto cadastrado ainda.</p>');
-            return;
-        }
-
-        let html = '';
-        projetos.forEach(proj => {
-            const galeriaHtml = (proj.imagens && proj.imagens.length > 0)
-                ? `<div class="pl-project-gallery">${proj.imagens.map(url => `<img src="${url}" alt="Imagem do projeto ${proj.titulo}">`).join('')}</div>`
-                : '';
-
-            html += `
-                <div class="pl-project-item">
-                    <h5 class="pl-project-title"><i class="bi bi-rocket-takeoff"></i> ${proj.titulo}</h5>
-                    <p class="pl-project-desc">${proj.descricao || ''}</p>
-                    ${galeriaHtml}
-                </div>
-            `;
-        });
-        $container.html(html);
     }
 
     // ==========================================
@@ -131,8 +109,7 @@
     function renderError(message) {
         $('#portfolioName').text('Erro ao carregar');
         $('#portfolioTitle').text('');
-        // ID real e #portfolioAbout - ver mesma correcao em renderContent().
-        $('#portfolioAbout').text(message);
+        $('#portfolioSummary').text(message);
     }
 
     // ==========================================

@@ -1,4 +1,4 @@
-﻿window.initConfig = function () {
+window.initConfig = function () {
     if (window._configInitialized) return;
     window._configInitialized = true;
 

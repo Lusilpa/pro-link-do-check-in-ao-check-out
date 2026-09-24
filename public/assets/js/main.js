@@ -56,7 +56,7 @@ $(document).ready(function () {
         $topbarContainer.load('src/app/layouts/topBar.html')
     ).done(function () {
         console.log("Pro-Link: Navbar e TopBar carregadas com sucesso.");
-        
+
         // Roteamento dinâmico do botão de Studio (5º botão)
         const user = typeof getAuthUser === 'function' ? getAuthUser() : null;
         if (user && user.perfil) {
@@ -137,7 +137,7 @@ $(document).ready(function () {
             if (status === "error") {
                 $appContent.html(`<div class="alert alert-danger">Erro 404: Arquivo não encontrado (${pageUrl}).</div>`);
             } else {
-                
+
                 // Dispara renderização dos cartões internos do Estúdio Profissional
                 if (hash === '#criacao') {
                     setTimeout(() => {
@@ -146,7 +146,7 @@ $(document).ready(function () {
                         }
                     }, 50);
                 }
-                
+
                 // Dispara renderização dos cartões internos do Painel Empresa
                 if (hash === '#painel-empresa') {
                     setTimeout(() => {
@@ -155,7 +155,7 @@ $(document).ready(function () {
                         }
                     }, 50);
                 }
-                
+
                 // Dispara a inicialização da tela de Configurações
                 if (hash === '#config') {
                     setTimeout(() => {
@@ -164,7 +164,7 @@ $(document).ready(function () {
                         }
                     }, 50);
                 }
-                
+
                 // Dispara renderização da tela de Administração
                 if (hash === '#admin') {
                     setTimeout(() => {
@@ -173,7 +173,7 @@ $(document).ready(function () {
                         }
                     }, 50);
                 }
-                
+
                 // Dispara renderização do Perfil (Portfólio)
                 if (hash === '#perfil') {
                     setTimeout(() => {
